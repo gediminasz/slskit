@@ -14,7 +14,12 @@ def matches(minion_id, selector):
     return (selector == "*") or (minion_id in selector)
 
 def load_pillar(pillar_id):
-    path = root_path.joinpath(*pillar_id.split(".")).with_suffix(".sls")
+    path = root_path.joinpath(*pillar_id.split("."))
+    if path.with_suffix(".sls").exists():
+        return load_yaml(path.with_suffix(".sls"))
+    return load_yaml(path / "init.sls")
+
+def load_yaml(path):
     with path.open() as f:
         return yaml.safe_load(f)
 
