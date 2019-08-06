@@ -37,4 +37,4 @@ for selector, pillars in render_yaml(top_file)["base"].items():
             if matches(minion_id, selector):
                 minion_data.update(data)
 
-print(yaml.dump(minions))
+print(yaml.dump(minions, sort_keys=False))
