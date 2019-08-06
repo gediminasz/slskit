@@ -3,22 +3,25 @@ from pathlib import Path
 import os
 
 import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+root_path = Path("pillar")
+jinja_env = Environment(loader=FileSystemLoader(str(root_path)))
 
 def matches(minion_id, selector):
     return (selector == "*") or (minion_id in selector)
 
-def load_pillar(root_path, pillar_id):
-    path = root_path.joinpath(*pillar_id.split("."))
-    if path.with_suffix(".sls").exists():
-        return load_yaml(path.with_suffix(".sls"))
-    return load_yaml(path / "init.sls")
+def load_pillar(pillar_id):
+    path = Path(*pillar_id.split("."))
+    if root_path.joinpath(path).with_suffix(".sls").exists():
+        return render_yaml(path.with_suffix(".sls"))
+    return render_yaml(path / "init.sls")
 
-def load_yaml(path):
-    with path.open() as f:
-        return yaml.safe_load(f)
+def render_yaml(path):
+    content = jinja_env.get_template(str(path.as_posix())).render()
+    return yaml.safe_load(content)
 
-root_path = Path("pillar")
-top_file = root_path / "top.sls"
+top_file = Path("top.sls")
 
 minions = {
     "stuart": {},
@@ -26,12 +29,12 @@ minions = {
     "bob": {},
 }
 
-for selector, pillars in load_yaml(top_file)["base"].items():
+for selector, pillars in render_yaml(top_file)["base"].items():
     for pillar_id in pillars:
-        data = load_pillar(root_path, pillar_id)
+        data = load_pillar(pillar_id)
 
         for minion_id, minion_data in minions.items():
             if matches(minion_id, selector):
                 minion_data.update(data)
 
-pprint(minions)
+print(yaml.dump(minions))
