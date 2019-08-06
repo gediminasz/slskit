@@ -1,6 +1,7 @@
-from pprint import pprint
-from pathlib import Path
 import os
+from pathlib import Path
+from pprint import pprint
+from unittest.mock import MagicMock
 
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -18,7 +19,8 @@ def load_pillar(pillar_id):
     return render_yaml(path / "init.sls")
 
 def render_yaml(path):
-    content = jinja_env.get_template(str(path.as_posix())).render()
+    template = jinja_env.get_template(str(path.as_posix()))
+    content = template.render(salt=MagicMock(name="salt"))
     return yaml.safe_load(content)
 
 top_file = Path("top.sls")
