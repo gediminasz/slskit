@@ -8,6 +8,9 @@ authors = ["Gediminas Zlatkus <gediminas.zlatkus@gmail.com>"]
 python = "^3.7"
 pyyaml = "^5.1"
 jinja2 = "^2.10"
+salt = "^2019.2"
+tornado = "^6.0"
+msgpack = "^0.6.1"
 
 [tool.poetry.dev-dependencies]
 

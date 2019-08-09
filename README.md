@@ -1,2 +1,3 @@
-# salinity
- 
+# Salinity
+
+Salt testing toolkit.
