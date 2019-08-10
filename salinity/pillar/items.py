@@ -2,9 +2,18 @@ import sys
 
 import yaml
 
-from salinity.pillar.pillar_top import PillarTop
+from salinity.top import Top
+
+
+def pretty_print(structure: dict):
+    print(yaml.dump(structure, sort_keys=False))  # type: ignore
+
 
 if __name__ == "__main__":
-    pillar_top = PillarTop()
-    result = {minion_id: pillar_top.for_minion(minion_id) for minion_id in sys.argv[1:]}
-    print(yaml.dump(result, sort_keys=False))  # type: ignore
+    top = Top.load("pillar")
+
+    if len(sys.argv) == 1:
+        pretty_print(top.body)
+    else:
+        result = {minion_id: top.for_minion(minion_id) for minion_id in sys.argv[1:]}
+        pretty_print(result)

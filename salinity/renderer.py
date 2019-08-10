@@ -10,9 +10,8 @@ from salt.utils.jinja import SerializerExtension
 
 class Renderer:
     def __init__(self, root: str):
-        self.root = Path(root)
         self.jinja_env = Environment(
-            loader=FileSystemLoader(str(root)), extensions=[SerializerExtension]
+            loader=FileSystemLoader(root), extensions=[SerializerExtension]
         )
         self.jinja_env.filters.update(JinjaFilter.salt_jinja_filters)
 
