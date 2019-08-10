@@ -50,8 +50,8 @@ python-versions = ">= 3.5"
 version = "6.0.3"
 
 [metadata]
-content-hash = "ca6abedbf9c7e336712d51990f4977912a90fcd56ba458053a8e41dbbaf36db2"
-python-versions = "^3.7"
+content-hash = "f8c7db08249eba2dae63010d643ac238ebfde850e6204195ecadc0921e4cb535"
+python-versions = "^3.6"
 
 [metadata.hashes]
 jinja2 = ["065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013", "14dd6caf1527abb21f08f86c784eac40853ba93edb79552aa1e4b8aef1b61c7b"]
