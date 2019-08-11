@@ -9,6 +9,14 @@ def command(callable):
 
 
 parser = ArgumentParser(prog="salinity", description="Salinity - Salt testing toolkit.")
+parser.add_argument(
+    "--pillar-root",
+    default="pillar",
+    help="path to pillar root directory (default: pillar)",
+)
+parser.add_argument(
+    "--pillar-top", default="top.sls", help="pillar top file name (default: top.sls)"
+)
 subparsers = parser.add_subparsers(title="command")
 
 parser_pillar_top = subparsers.add_parser(

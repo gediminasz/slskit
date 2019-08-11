@@ -9,7 +9,7 @@ from salinity.renderer import Renderer
 
 class Top:
     @staticmethod
-    def load(root: str, top: str = "top.sls", environment: str = "base") -> "Top":
+    def load(root: str, top: str, environment: str = "base") -> "Top":
         definition = yaml.safe_load((Path(root) / top).read_text())
         renderer = Renderer(root)
 
