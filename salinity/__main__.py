@@ -17,7 +17,7 @@ parser.add_argument(
 parser.add_argument(
     "--pillar-top", default="top.sls", help="pillar top file name (default: top.sls)"
 )
-subparsers = parser.add_subparsers(title="command")
+subparsers = parser.add_subparsers(title="commands")
 
 parser_pillar_top = subparsers.add_parser(
     "pillar.top", help="renders the pillar top file"
