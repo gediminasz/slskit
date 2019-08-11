@@ -31,4 +31,8 @@ parser_pillar_items.add_argument("minion_id", nargs="+")
 parser_pillar_items.set_defaults(func=command(salinity.pillar.items))
 
 args = parser.parse_args()
-args.func(args)
+
+if "func" in args:
+    args.func(args)
+else:
+    parser.print_usage()
