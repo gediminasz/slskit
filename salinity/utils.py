@@ -11,4 +11,4 @@ def merge(*items: dict) -> dict:
 
 
 def pretty_print(structure: dict):
-    print(yaml.dump(structure, sort_keys=False))  # type: ignore
+    print(yaml.dump(structure))

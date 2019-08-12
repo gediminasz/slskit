@@ -5,3 +5,4 @@ __pycache__
 .vscode
 /pip-wheel-metadata
 /salinity.egg-info
+dist
