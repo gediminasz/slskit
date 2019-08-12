@@ -18,10 +18,18 @@ class Renderer:
     def render(self, name: str) -> dict:
         path = self.resolve_path(name)
         template = self.jinja_env.get_template(str(path))
-        content = template.render(
-            salt=MagicMock(name="salt"), grains=MagicMock(name="grains")
-        )
+
+        # TODO GZL refactor
+        mock_salt = MagicMock(name="salt")
+        mock_salt["vault"].read_secret = self._read_secret
+
+        content = template.render(salt=mock_salt, grains=MagicMock(name="grains"))
         return yaml.safe_load(content)
+
+    def _read_secret(self, path, key=None):
+        if not key:
+            return {"SECRET": {"path": path}}
+        return f"SECRET {path} {key}"
 
     def resolve_path(self, name: str) -> Path:
         path = Path(*name.split("."))

@@ -1,5 +1,4 @@
 from functools import reduce
-from typing import Iterable
 
 import yaml
 
