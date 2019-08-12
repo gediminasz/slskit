@@ -1,7 +1,5 @@
 # Salinity
 
-Salt testing toolkit.
-
 ## TODO
 
 - TODO PILLAR NAMESPACE FLATTENING
