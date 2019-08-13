@@ -14,3 +14,4 @@
 - https://github.com/mitodl/salt-ops
 - https://github.com/simpIeweblogic/saltstack
 - https://github.com/Marmelatze/saltstack-mesos-test
+- https://github.com/zulily/alkali
