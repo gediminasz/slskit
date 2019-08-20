@@ -9,15 +9,14 @@ from salinity.renderer import Renderer
 
 class Top:
     @staticmethod
-    def load(root: str, top: str, environment: str = "base") -> "Top":
+    def load(
+        root: str, top: str, renderer: Renderer, environment: str = "base"
+    ) -> "Top":
         definition = yaml.safe_load((Path(root) / top).read_text())
-        renderer = Renderer(root)
-
         body = {
             selector: merge(*map(renderer.render, names))
             for selector, names in definition[environment].items()
         }
-
         return Top(body)
 
     def __init__(self, body: dict):

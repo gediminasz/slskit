@@ -3,11 +3,7 @@ from typing import Union
 from unittest.mock import MagicMock
 
 
-class MockSalt(defaultdict):
-    @staticmethod
-    def new():
-        return MockSalt(vault=MockVault())
-
+class MockDict(defaultdict):
     def __missing__(self, key):
         return MagicMock(name=key)
 

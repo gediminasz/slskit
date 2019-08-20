@@ -9,25 +9,21 @@ from pathlib import Path
 from salt.utils.decorators.jinja import JinjaFilter
 from salt.utils.jinja import SerializerExtension
 
-from salinity.mocks import MockSalt, MockGrains
-
 
 class Renderer:
-    def __init__(self, root: str):
+    def __init__(self, root: str, context: dict):
         self.jinja_env = Environment(
             loader=FileSystemLoader(root), extensions=[SerializerExtension]
         )
         self.jinja_env.filters.update(JinjaFilter.salt_jinja_filters)
+        self.context = context
 
     def render(self, name: str) -> dict:
         path = self.resolve_path(name)
         template = self.jinja_env.get_template(str(path))
 
-        content = template.render(self.build_template_context())
+        content = template.render(self.context)
         return yaml.safe_load(content)
-
-    def build_template_context(self):
-        return {"salt": MockSalt.new(), "grains": MockGrains()}
 
     def resolve_path(self, name: str) -> Path:
         path = Path(*name.split("."))
