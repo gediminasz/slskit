@@ -2,12 +2,12 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from salinity.mocks import MockGrains, MockSalt
+from salinity.mocks import MockDict, MockGrains, MockVault
 
 
 @pytest.fixture
 def salt():
-    return MockSalt.new()
+    return MockDict(vault=MockVault())
 
 
 def test_salt_vault_read_secret(salt):
