@@ -7,7 +7,9 @@ import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pathlib import Path
 from salt.utils.decorators.jinja import JinjaFilter
-from salt.utils.jinja import SerializerExtension
+from salt.utils.jinja import SerializerExtension, tojson
+
+from unittest.mock import MagicMock
 
 
 class Renderer:
@@ -16,6 +18,7 @@ class Renderer:
             loader=FileSystemLoader(root), extensions=[SerializerExtension]
         )
         self.jinja_env.filters.update(JinjaFilter.salt_jinja_filters)
+        self.jinja_env.filters.update(tojson=custom_tojson)
         self.context = context
 
     def render(self, name: str) -> dict:
@@ -32,3 +35,9 @@ class Renderer:
 
     def template_exists(self, path: Path) -> bool:
         return str(path) in self.jinja_env.list_templates()
+
+
+def custom_tojson(val, *args, **kwargs):
+    if isinstance(val, MagicMock):
+        return f"{val}|tojson"
+    return tojson(val, *args, **kwargs)
