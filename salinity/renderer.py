@@ -1,15 +1,14 @@
+import warnings
 from collections import defaultdict
-from typing import Union
 from pathlib import Path
+from typing import Optional, Union
 from unittest.mock import MagicMock
 
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from pathlib import Path
+from jinja2.exceptions import TemplateNotFound
 from salt.utils.decorators.jinja import JinjaFilter
 from salt.utils.jinja import SerializerExtension, tojson
-
-from unittest.mock import MagicMock
 
 
 class Renderer:
@@ -21,12 +20,15 @@ class Renderer:
         self.jinja_env.filters.update(tojson=custom_tojson)
         self.context = context
 
-    def render(self, name: str) -> dict:
-        path = self.resolve_path(name)
-        template = self.jinja_env.get_template(str(path))
+    def render(self, name: str) -> Optional[dict]:
+        try:
+            path = self.resolve_path(name)
+            template = self.jinja_env.get_template(str(path))
 
-        content = template.render(self.context)
-        return yaml.safe_load(content)
+            content = template.render(self.context)
+            return yaml.safe_load(content)
+        except TemplateNotFound:
+            warnings.warn(f"Template for '{name}' not found")
 
     def resolve_path(self, name: str) -> Path:
         path = Path(*name.split("."))
