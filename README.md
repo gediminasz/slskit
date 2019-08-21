@@ -1,15 +1,31 @@
 # Salinity
 
-## TODO
+```
+usage: salinity [-h] [--state-root STATE_ROOT] [--state-top STATE_TOP]
+                [--pillar-root PILLAR_ROOT] [--pillar-top PILLAR_TOP]
+                {state.top,pillar.top,pillar.items} ...
 
-- TODO PILLAR NAMESPACE FLATTENING
-- TODO PILLAR DICTIONARY MERGING
-- TODO INCLUDING OTHER PILLARS
-- https://docs.saltstack.com/en/latest/topics/pillar/#declaring-the-master-pillar
-- pip install from wheel warning: tornado and pyyaml versions incompatible with salt
-- `match: grain` or similar
+Salinity - Salt testing toolkit.
 
-## Sample projects
+optional arguments:
+  -h, --help            show this help message and exit
+  --state-root STATE_ROOT
+                        path to state root directory (default: salt)
+  --state-top STATE_TOP
+                        state top file name (default: top.sls)
+  --pillar-root PILLAR_ROOT
+                        path to pillar root directory (default: pillar)
+  --pillar-top PILLAR_TOP
+                        pillar top file name (default: top.sls)
+
+commands:
+  {state.top,pillar.top,pillar.items}
+    state.top           renders the state top file
+    pillar.top          renders the pillar top file
+    pillar.items        renders pillar items for the specified minions
+```
+
+## Projects for testing
 
 - https://github.com/mitodl/salt-ops
 - https://github.com/simpIeweblogic/saltstack
