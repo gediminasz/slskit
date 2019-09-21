@@ -29,6 +29,12 @@ subparsers = parser.add_subparsers(title="commands")
 parser_state_top = subparsers.add_parser("state.top", help="renders the state top file")
 parser_state_top.set_defaults(func=command(salinity.state.top))
 
+parser_state_show = subparsers.add_parser(
+    "state.show", help="renders the states for the specified minions"
+)
+parser_state_show.add_argument("minion_id", nargs="+")
+parser_state_show.set_defaults(func=command(salinity.state.show))
+
 parser_pillar_top = subparsers.add_parser(
     "pillar.top", help="renders the pillar top file"
 )

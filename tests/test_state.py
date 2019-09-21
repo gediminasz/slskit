@@ -7,7 +7,12 @@ import salinity.state
 
 @pytest.fixture
 def args():
-    return Mock(state_root="tests/project/salt", state_top="top.sls")
+    return Mock(
+        state_root="tests/project/salt",
+        state_top="top.sls",
+        pillar_root="tests/project/pillar",
+        pillar_top="top.sls",
+    )
 
 
 def test_state_top(args):
@@ -24,4 +29,14 @@ def test_state_top_given_clashing_name(args):
 
     assert salinity.state.top(args) == {
         "*": {"clashing_name": {"test.bar": [{"name": "bar"}]}}
+    }
+
+
+def test_state_show(args):
+    args.minion_id = ("stuart",)
+    assert salinity.state.show(args) == {
+        "stuart": {
+            "hello": {"cmd.run": [{"name": 'echo "Hello, I\'m Stuart!"'}]},
+            "system_timezone": {"timezone.system": [{"name": "UTC"}]},
+        }
     }
