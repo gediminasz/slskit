@@ -11,6 +11,12 @@ class PrettyMock(Mock):
             else self._mock_name
         )
 
+    def __add__(self, other):
+        return f"{self} + {other}"
+
+    def __radd__(self, other):
+        return f"{other} + {self}"
+
 
 class MockDict(defaultdict):
     def __missing__(self, key):

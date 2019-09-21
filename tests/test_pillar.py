@@ -17,6 +17,8 @@ def test_pillar_top(args):
             "grain_via_dict_access": "GRAIN.id",
             "module": True,
             "secret": "SECRET foo/bar/baz qux",
+            "prefixed_value": "prefix + GRAIN.host",
+            "suffixed_value": "GRAIN.host + suffix",
         },
         "stuart": {"name": "Stuart"},
         "kevin": {"name": "Kevin"},
