@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from salinity.mocks import MockDict, MockGrains, MockVault
+from salinity.mocks import MockDict, MockVault
 
 
 @pytest.fixture
@@ -25,7 +25,3 @@ def test_salt_vault_read_secret_without_key(salt):
 
 def test_salt_cmd_run(salt):
     assert isinstance(salt["cmd.run"]("whoami"), MagicMock)
-
-
-def test_grains_get():
-    assert MockGrains()["id"] == "GRAIN id"

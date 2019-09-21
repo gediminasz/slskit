@@ -1,9 +1,9 @@
 from collections import defaultdict
 from typing import Union
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, Mock
 
 
-class PrettyMock(MagicMock):
+class PrettyMock(Mock):
     def __repr__(self):
         return (
             f"{self._mock_parent}.{self._mock_name}"
@@ -22,8 +22,3 @@ class MockVault:
         if not key:
             return {f"SECRET {path} one": "one", f"SECRET {path} two": "two"}
         return f"SECRET {path} {key}"
-
-
-class MockGrains:
-    def __getitem__(self, key):
-        return f"GRAIN {key}"

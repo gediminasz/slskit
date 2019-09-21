@@ -13,8 +13,8 @@ def args():
 def test_pillar_top(args):
     assert salinity.pillar.top(args) == {
         "*": {
-            "minion_id": "GRAIN id",
-            "grain_via_dict_access": "GRAIN id",
+            "minion_id": "GRAIN.id",
+            "grain_via_dict_access": "GRAIN.id",
             "module": True,
         },
         "stuart": {"name": "Stuart"},
@@ -27,8 +27,8 @@ def test_pillar_items(args):
     args.minion_id = ("stuart",)
     assert salinity.pillar.items(args) == {
         "stuart": {
-            "minion_id": "GRAIN id",
-            "grain_via_dict_access": "GRAIN id",
+            "minion_id": "GRAIN.id",
+            "grain_via_dict_access": "GRAIN.id",
             "module": True,
             "name": "Stuart",
         }
