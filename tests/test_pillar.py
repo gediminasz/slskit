@@ -16,6 +16,7 @@ def test_pillar_top(args):
             "minion_id": "GRAIN.id",
             "grain_via_dict_access": "GRAIN.id",
             "module": True,
+            "secret": "SECRET foo/bar/baz qux",
         },
         "stuart": {"name": "Stuart"},
         "kevin": {"name": "Kevin"},
@@ -30,6 +31,7 @@ def test_pillar_items(args):
             "minion_id": "GRAIN.id",
             "grain_via_dict_access": "GRAIN.id",
             "module": True,
+            "secret": "SECRET foo/bar/baz qux",
             "name": "Stuart",
         }
     }
