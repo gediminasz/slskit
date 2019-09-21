@@ -3,6 +3,15 @@ from typing import Union
 from unittest.mock import MagicMock
 
 
+class PrettyMock(MagicMock):
+    def __repr__(self):
+        return (
+            f"{self._mock_parent}.{self._mock_name}"
+            if self._mock_parent
+            else self._mock_name
+        )
+
+
 class MockDict(defaultdict):
     def __missing__(self, key):
         return MagicMock(name=key)
