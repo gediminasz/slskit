@@ -12,5 +12,8 @@ def args():
 
 def test_state_top(args):
     assert salinity.state.top(args) == {
-        "*": {"hello_world": {"cmd.run": [{"name": "echo Hello, world!"}]}}
+        "*": {
+            "hello_world": {"cmd.run": [{"name": "echo Hello, world!"}]},
+            "system_timezone": {"timezone.system": [{"name": "UTC"}]},
+        }
     }
