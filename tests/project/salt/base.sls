@@ -1,3 +1,3 @@
-base_state:
+hello_world:
   cmd.run:
     - name: echo Hello, world!
