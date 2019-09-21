@@ -17,3 +17,11 @@ def test_state_top(args):
             "system_timezone": {"timezone.system": [{"name": "UTC"}]},
         }
     }
+
+
+def test_state_top_given_clashing_name(args):
+    args.state_root = "tests/project/salt_clashing"
+
+    assert salinity.state.top(args) == {
+        "*": {"clashing_name": {"test.bar": [{"name": "bar"}]}}
+    }
