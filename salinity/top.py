@@ -1,10 +1,9 @@
-from functools import reduce
 from pathlib import Path
 
 import yaml
 
-from salinity.utils import merge
 from salinity.renderer import Renderer
+from salinity.utils import merge
 
 
 class Top:

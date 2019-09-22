@@ -34,6 +34,8 @@ def test_pillar_items(args):
             "grain_via_dict_access": "GRAIN.id",
             "module": True,
             "secret": "SECRET foo/bar/baz qux",
+            "prefixed_value": "prefix + GRAIN.host",
+            "suffixed_value": "GRAIN.host + suffix",
             "name": "Stuart",
         }
     }
