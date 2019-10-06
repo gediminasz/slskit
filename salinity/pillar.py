@@ -4,7 +4,7 @@ from salinity.top import Minion, Top
 
 
 def top(args) -> dict:
-    return _load_top(args).body
+    return _load_top(args).top()
 
 
 def items(args) -> dict:

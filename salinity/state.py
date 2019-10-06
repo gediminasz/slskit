@@ -7,8 +7,7 @@ from salinity.top import Minion, Top
 def top(args):
     context = {"pillar": PrettyMock(name="PILLAR")}
     renderer = Renderer(args.state_root, context)
-    top = Top.load(args.state_root, args.state_top, renderer)
-    return top.body
+    return Top.load(args.state_root, args.state_top, renderer).top()
 
 
 def show(args):

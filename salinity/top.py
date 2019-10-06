@@ -23,8 +23,13 @@ class Top:
     def __init__(self, blocks: list):
         self.blocks = blocks
 
+    def top(self) -> dict:
+        result: dict = {}
+        for block in self.blocks:
+            result[block.selector] = block.render()
+        return result
+
     def for_minion(self, minion) -> dict:
-        print(minion)
         result: dict = {}
         for block in self.blocks:
             if block.matches(minion):
@@ -36,7 +41,7 @@ class Block:
     def __init__(self, selector: str, names: list, renderer: Renderer):
         self.selector = selector
 
-        if isinstance(names[0], dict):
+        if names and isinstance(names[0], dict):
             self.match_by = names[0]["match"]
             self.names = names[1:]
         else:

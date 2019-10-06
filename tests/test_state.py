@@ -20,6 +20,9 @@ def test_state_top(args):
         "*": {
             "hello": {"cmd.run": [{"name": 'echo "Hello, I\'m PILLAR.name!"'}]},
             "system_timezone": {"timezone.system": [{"name": "UTC"}]},
+        },
+        "roles:via_pillar": {
+            "role_via_pillar": {"cmd.run": [{"name": 'echo "This is applied via pillar"'}]}
         }
     }
 
