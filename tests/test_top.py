@@ -1,9 +1,9 @@
 import pytest
 
-from salinity.top import Top
+from salinity.top import Block, Minion
 
 
-def test_wildcard():
-    top = Top({"*": {"foo": "bar"}})
-
-    assert top.for_minion("stuart") == {"foo": "bar"}
+def test_wildcard_matching():
+    block = Block("*", [], None)
+    minion = Minion("stuart")
+    assert block.matches(minion)

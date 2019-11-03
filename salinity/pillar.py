@@ -1,15 +1,17 @@
 from salinity.mocks import MockDict, MockVault, PrettyMock
 from salinity.renderer import Renderer
-from salinity.top import Top
+from salinity.top import Minion, Top
 
 
 def top(args) -> dict:
-    return _load_top(args).body
+    return _load_top(args).top()
 
 
 def items(args) -> dict:
     top = _load_top(args)
-    return {minion_id: top.for_minion(minion_id) for minion_id in args.minion_id}
+    return {
+        minion_id: top.for_minion(Minion(minion_id)) for minion_id in args.minion_id
+    }
 
 
 def _load_top(args) -> Top:
