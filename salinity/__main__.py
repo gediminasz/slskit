@@ -5,8 +5,8 @@ import salinity.pillar
 import salinity.state
 
 
-def command(callable):
-    return lambda args: pretty_print(callable(args))
+def command(function):
+    return lambda args: pretty_print(function(args))
 
 
 parser = ArgumentParser(prog="salinity", description="Salinity - Salt testing toolkit.")
@@ -25,9 +25,6 @@ parser.add_argument(
     "--pillar-top", default="top.sls", help="pillar top file name (default: top.sls)"
 )
 subparsers = parser.add_subparsers(title="commands")
-
-parser_state_top = subparsers.add_parser("state.top", help="renders the state top file")
-parser_state_top.set_defaults(func=command(salinity.state.top))
 
 parser_state_show = subparsers.add_parser(
     "state.show", help="renders the states for the specified minions"

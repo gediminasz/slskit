@@ -1,13 +1,6 @@
 import salinity.pillar
-from salinity.mocks import PrettyMock
 from salinity.renderer import Renderer
 from salinity.top import Minion, Top
-
-
-def top(args):
-    context = {"pillar": PrettyMock(name="PILLAR")}
-    renderer = Renderer(args.state_root, context)
-    return Top.load(args.state_root, args.state_top, renderer).top()
 
 
 def show(args):
