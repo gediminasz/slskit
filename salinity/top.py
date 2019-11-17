@@ -1,3 +1,4 @@
+from fnmatch import fnmatch
 from pathlib import Path
 
 import yaml
@@ -52,8 +53,8 @@ class Block:
 
     def matches(self, minion) -> bool:
         if self.match_by == "glob":
-            # TODO proper glob matching
-            return (self.selector == "*") or (minion.mid in self.selector)
+            # https://github.com/saltstack/salt/blob/master/salt/matchers/glob_match.py
+            return fnmatch(minion.mid, self.selector)
         elif self.match_by == "pillar":
             # TODO proper pillar matching
             return False
