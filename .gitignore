@@ -1,4 +1,5 @@
 __pycache__
+.ignore
 .mypy_cache
 .salinity
 .tags

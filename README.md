@@ -5,7 +5,7 @@
 ```
 usage: salinity [-h] [--state-root STATE_ROOT] [--state-top STATE_TOP]
                 [--pillar-root PILLAR_ROOT] [--pillar-top PILLAR_TOP]
-                {state.show,state.show_highstate,pillar.top,pillar.items} ...
+                {state.show_highstate,pillar.items} ...
 
 Salinity - Salt testing toolkit.
 
@@ -21,11 +21,9 @@ optional arguments:
                         pillar top file name (default: top.sls)
 
 commands:
-  {state.show,state.show_highstate,pillar.top,pillar.items}
-    state.show          renders the states for the specified minions
+  {state.show_highstate,pillar.items}
     state.show_highstate
                         renders the states for the specified minions
-    pillar.top          renders the pillar top file
     pillar.items        renders pillar items for the specified minions
 ```
 
