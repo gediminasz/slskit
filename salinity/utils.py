@@ -1,8 +1,8 @@
-from functools import reduce
+from functools import reduce, wraps
 
-import yaml
-
+import salt.output
 import salt.utils.dictupdate
+import yaml
 
 
 def merge(*items: dict) -> dict:

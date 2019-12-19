@@ -1,6 +1,6 @@
 hello:
   cmd.run:
-    - name: echo "Hello, I'm {{ pillar.name }}!"
+    - name: echo "Hello, I am {{ pillar.name }}!"
 
 system_timezone:
   timezone.system:
