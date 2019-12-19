@@ -2,7 +2,6 @@ from argparse import ArgumentParser
 
 import salinity.pillar
 import salinity.state
-from salinity.utils import pretty_print
 
 
 def command(function):
@@ -26,26 +25,11 @@ parser.add_argument(
 )
 subparsers = parser.add_subparsers(title="commands")
 
-
-parser_state_show = subparsers.add_parser(
-    "state.show", help="renders the states for the specified minions"
-)
-parser_state_show.add_argument("minion_id", nargs="+")
-parser_state_show.set_defaults(func=command(salinity.state.show))
-
-
 parser_state_show_highstate = subparsers.add_parser(
     "state.show_highstate", help="renders the states for the specified minions"
 )
 parser_state_show_highstate.add_argument("minion_id", nargs="+")
 parser_state_show_highstate.set_defaults(func=salinity.state.show_highstate)
-
-
-parser_pillar_top = subparsers.add_parser(
-    "pillar.top", help="renders the pillar top file"
-)
-parser_pillar_top.set_defaults(func=command(salinity.pillar.top))
-
 
 parser_pillar_items = subparsers.add_parser(
     "pillar.items", help="renders pillar items for the specified minions"
