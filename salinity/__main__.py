@@ -13,15 +13,9 @@ parser.add_argument(
     "--state-root", default="salt", help="path to state root directory (default: salt)"
 )
 parser.add_argument(
-    "--state-top", default="top.sls", help="state top file name (default: top.sls)"
-)
-parser.add_argument(
     "--pillar-root",
     default="pillar",
     help="path to pillar root directory (default: pillar)",
-)
-parser.add_argument(
-    "--pillar-top", default="top.sls", help="pillar top file name (default: top.sls)"
 )
 subparsers = parser.add_subparsers(title="commands")
 
