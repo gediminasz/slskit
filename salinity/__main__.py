@@ -51,7 +51,7 @@ parser_pillar_items = subparsers.add_parser(
     "pillar.items", help="renders pillar items for the specified minions"
 )
 parser_pillar_items.add_argument("minion_id", nargs="+")
-parser_pillar_items.set_defaults(func=command(salinity.pillar.items))
+parser_pillar_items.set_defaults(func=salinity.pillar.items)
 
 
 args = parser.parse_args()

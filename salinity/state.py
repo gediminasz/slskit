@@ -1,8 +1,8 @@
-import salt.config
-import salt.state
 import salt.output
+import salt.state
 
 import salinity.pillar
+from salinity.opts import build_opts
 from salinity.renderer import Renderer
 from salinity.top import Minion, Top
 
@@ -16,25 +16,6 @@ def show_highstate(args):
     }
 
     salt.output.display_output(result, out="yaml", opts=opts)
-
-
-def build_opts(args):
-    opts = salt.config.apply_minion_config()
-    opts.update(
-        {
-            "root_dir": ".salinity",
-            "cachedir": ".salinity/cachedir",
-            "pki_dir": ".salinity/pki_dir",
-            "sock_dir": ".salinity/sock_dir",
-            "log_file": ".salinity/log_file",
-            "conf_file": ".salinity/conf_file",
-            "state_events": False,
-            "file_client": "local",
-            "file_roots": {"base": [args.state_root]},
-            "pillar_roots": {"base": [args.pillar_root]},
-        }
-    )
-    return opts
 
 
 def compile_highstate(opts):
