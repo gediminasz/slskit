@@ -1,4 +1,10 @@
+import os
+
+import yaml
+
 import salt.config
+
+DEFAULT_CONFIG_PATHS = ("salinity.yaml", "salinity.yml")
 
 
 def build_opts(args):
@@ -13,8 +19,24 @@ def build_opts(args):
             "conf_file": ".salinity/conf_file",
             "state_events": False,
             "file_client": "local",
-            "file_roots": {"base": [args.state_root]},
-            "pillar_roots": {"base": [args.pillar_root]},
         }
     )
+
+    config = load_settings(args.config)
+    opts.update(config["salt"])
+
     return opts
+
+
+def load_settings(path):
+    if path is not None:
+        return load_yaml(path)
+
+    for path in DEFAULT_CONFIG_PATHS:
+        if os.path.exists(path):
+            return load_yaml(path)
+
+
+def load_yaml(path):
+    with open(path) as f:
+        return yaml.safe_load(f)

@@ -2,20 +2,14 @@ from argparse import ArgumentParser
 
 import salinity.pillar
 import salinity.state
-
-
-def command(function):
-    return lambda args: pretty_print(function(args))
+from salinity.opts import DEFAULT_CONFIG_PATHS
 
 
 parser = ArgumentParser(prog="salinity", description="Salinity - Salt testing toolkit.")
 parser.add_argument(
-    "--state-root", default="salt", help="path to state root directory (default: salt)"
-)
-parser.add_argument(
-    "--pillar-root",
-    default="pillar",
-    help="path to pillar root directory (default: pillar)",
+    "-c",
+    "--config",
+    help=f"path to Salinity configuration file (default: {' or '.join(DEFAULT_CONFIG_PATHS)})",
 )
 subparsers = parser.add_subparsers(title="commands")
 
