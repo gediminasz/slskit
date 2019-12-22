@@ -3,17 +3,15 @@
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: salinity [-h] [--state-root STATE_ROOT] [--pillar-root PILLAR_ROOT]
-                {state.show_highstate,pillar.items} ...
+usage: salinity [-h] [-c CONFIG] {state.show_highstate,pillar.items} ...
 
 Salinity - Salt testing toolkit.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --state-root STATE_ROOT
-                        path to state root directory (default: salt)
-  --pillar-root PILLAR_ROOT
-                        path to pillar root directory (default: pillar)
+  -c CONFIG, --config CONFIG
+                        path to Salinity configuration file (default:
+                        salinity.yaml or salinity.yml)
 
 commands:
   {state.show_highstate,pillar.items}
@@ -25,8 +23,8 @@ commands:
 For example:
 
 ```
-poetry run python -m salinity --state-root tests/project/salt --pillar-root tests/project/pillar state.show_highstate bob stuart
-poetry run python -m salinity --state-root tests/project/salt --pillar-root tests/project/pillar pillar.items bob stuart
+poetry run python -m salinity state.show_highstate bob kevin stuart
+poetry run python -m salinity pillar.items bob kevin stuart
 ```
 
 ## Projects for testing
