@@ -1,1 +1,1 @@
-name: Tester
+name: {{ grains["id"] }}
