@@ -1,46 +1,59 @@
+import argparse
 import os
+from dataclasses import dataclass
 
 import salt.config
 import yaml
-from funcy import get_in
+from funcy import get_in, cached_property
 
 DEFAULT_CONFIG_PATHS = ("salinity.yaml", "salinity.yml")
 
 
-def build_opts(args):
-    opts = salt.config.apply_minion_config()
-    opts.update(
-        {
-            "root_dir": ".salinity",
-            "cachedir": ".salinity/cachedir",
-            "pki_dir": ".salinity/pki_dir",
-            "sock_dir": ".salinity/sock_dir",
-            "log_file": ".salinity/log_file",
-            "conf_file": ".salinity/conf_file",
-            "state_events": False,
-            "file_client": "local",
-        }
-    )
+@dataclass
+class Config:
+    args: argparse.Namespace
 
-    config = load_settings(args.config)
-    opts.update(config["salt"])
+    @cached_property
+    def opts(self):
+        opts = salt.config.apply_minion_config()
+        opts.update(
+            {
+                "root_dir": ".salinity",
+                "cachedir": ".salinity/cachedir",
+                "pki_dir": ".salinity/pki_dir",
+                "sock_dir": ".salinity/sock_dir",
+                "log_file": ".salinity/log_file",
+                "conf_file": ".salinity/conf_file",
+                "state_events": False,
+                "file_client": "local",
+            }
+        )
+        opts.update(self.settings.get("salt", {}))
+        return opts
 
-    return opts
+    @cached_property
+    def minion_ids(self):
+        return self.args.minion_id or self.roster.keys()
 
+    @cached_property
+    def roster(self):
+        return self._get_setting("salinity.roster", {})
 
-def build_grains(args, minion_id):
-    config = load_settings(args.config)
-    grains = get_in(config, ("salinity", "roster", minion_id, "grains"), default={})
-    return {"id": minion_id, **grains}
+    @cached_property
+    def settings(self):
+        if self.args.config is not None:
+            return load_yaml(self.args.config)
+        for path in DEFAULT_CONFIG_PATHS:
+            if os.path.exists(path):
+                return load_yaml(path)
+        return {}
 
+    def grains_for(self, minion_id):
+        grains = self._get_setting(f"salinity.roster.{minion_id}.grains", {})
+        return {"id": minion_id, **grains}
 
-def load_settings(path):
-    if path is not None:
-        return load_yaml(path)
-
-    for path in DEFAULT_CONFIG_PATHS:
-        if os.path.exists(path):
-            return load_yaml(path)
+    def _get_setting(self, path, default, separator="."):
+        return get_in(self.settings, path.split(separator), default)
 
 
 def load_yaml(path):

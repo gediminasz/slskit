@@ -20,13 +20,6 @@ commands:
     pillar.items        renders pillar items for the specified minions
 ```
 
-For example:
-
-```
-poetry run python -m salinity state.show_highstate bob kevin stuart
-poetry run python -m salinity pillar.items bob kevin stuart
-```
-
 ## Projects for testing
 
 - https://github.com/mitodl/salt-ops

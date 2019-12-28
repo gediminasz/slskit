@@ -1,20 +1,18 @@
 import salt.output
 import salt.pillar
 
-from salinity.opts import build_opts, build_grains
+from salinity.opts import Config
 
 
-def items(args):
-    opts = build_opts(args)
-
+def items(config: Config):
     result = {
         minion_id: compile_pillar(
-            opts=opts, grains=build_grains(args, minion_id), minion_id=minion_id
+            opts=config.opts, grains=config.grains_for(minion_id), minion_id=minion_id
         )
-        for minion_id in args.minion_id
+        for minion_id in config.minion_ids
     }
 
-    salt.output.display_output(result, out="yaml", opts=opts)
+    salt.output.display_output(result, out="yaml", opts=config.opts)
 
 
 def compile_pillar(opts, grains, minion_id):
