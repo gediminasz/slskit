@@ -28,6 +28,11 @@ def build_opts(args):
     return opts
 
 
+def build_grains(args, minion_id):
+    grains = {"id": minion_id}
+    return grains
+
+
 def load_settings(path):
     if path is not None:
         return load_yaml(path)

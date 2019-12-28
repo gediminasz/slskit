@@ -1,7 +1,7 @@
 import salt.output
 import salt.state
 
-from salinity.opts import build_opts
+from salinity.opts import build_opts, build_grains
 
 
 def show_highstate(args):
@@ -9,7 +9,7 @@ def show_highstate(args):
 
     result = {
         minion_id: compile_highstate(
-            {**opts, "id": minion_id, "grains": {"id": minion_id}}
+            {**opts, "id": minion_id, "grains": build_grains(args, minion_id)}
         )
         for minion_id in args.minion_id
     }
