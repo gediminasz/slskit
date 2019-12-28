@@ -11,6 +11,7 @@ jinja2 = "^2.10"
 salt = "^2019.2"
 tornado = "^6.0"
 msgpack = "^0.6.1"
+funcy = "^1.14"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"

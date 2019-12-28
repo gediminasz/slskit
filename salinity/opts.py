@@ -1,8 +1,8 @@
 import os
 
-import yaml
-
 import salt.config
+import yaml
+from funcy import get_in
 
 DEFAULT_CONFIG_PATHS = ("salinity.yaml", "salinity.yml")
 
@@ -29,8 +29,9 @@ def build_opts(args):
 
 
 def build_grains(args, minion_id):
-    grains = {"id": minion_id}
-    return grains
+    config = load_settings(args.config)
+    grains = get_in(config, ("salinity", "roster", minion_id, "grains"), default={})
+    return {"id": minion_id, **grains}
 
 
 def load_settings(path):

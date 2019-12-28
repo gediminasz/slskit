@@ -2,7 +2,12 @@ salt:
   file_roots:
     base:
       - tests/project/salt
-
   pillar_roots:
     base:
       - tests/project/pillar
+
+salinity:
+  roster:
+    bob:
+      grains:
+        os: Ubuntu
