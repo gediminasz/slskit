@@ -2,11 +2,37 @@ import argparse
 import os
 from dataclasses import dataclass
 
+import jsonschema
 import salt.config
 import yaml
-from funcy import get_in, cached_property
+
+from funcy import cached_property, get_in, post_processing
 
 DEFAULT_CONFIG_PATHS = ("salinity.yaml", "salinity.yml")
+
+SCHEMA = {
+    "type": "object",
+    "properties": {
+        "salt": {"type": "object"},
+        "salinity": {
+            "type": "object",
+            "properties": {
+                "roster": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object",
+                        "properties": {"grains": {"type": "object"}},
+                    },
+                }
+            },
+        },
+    },
+}
+
+
+def validate(instance, schema=SCHEMA):
+    jsonschema.validate(instance, schema)
+    return instance
 
 
 @dataclass
@@ -40,6 +66,7 @@ class Config:
         return self._get_setting("salinity.roster", {})
 
     @cached_property
+    @post_processing(validate)
     def settings(self):
         if self.args.config is not None:
             return load_yaml(self.args.config)

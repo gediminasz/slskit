@@ -11,3 +11,5 @@ salinity:
     bob:
       grains:
         os: Ubuntu
+    kevin: {}
+    stuart: {}
