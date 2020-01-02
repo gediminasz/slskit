@@ -14,13 +14,13 @@ parser.add_argument(
 subparsers = parser.add_subparsers(title="commands")
 
 parser_state_show_highstate = subparsers.add_parser(
-    "state.show_highstate", help="renders the states for the specified minions"
+    "highstate", help="renders the states for the specified minions"
 )
 parser_state_show_highstate.add_argument("minion_id", nargs="*")
 parser_state_show_highstate.set_defaults(func=salinity.state.show_highstate)
 
 parser_pillar_items = subparsers.add_parser(
-    "pillar.items", help="renders pillar items for the specified minions"
+    "pillars", help="renders pillar items for the specified minions"
 )
 parser_pillar_items.add_argument("minion_id", nargs="*")
 parser_pillar_items.set_defaults(func=salinity.pillar.items)

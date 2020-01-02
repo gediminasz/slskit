@@ -3,7 +3,7 @@
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: salinity [-h] [-c CONFIG] {state.show_highstate,pillar.items} ...
+usage: salinity [-h] [-c CONFIG] {highstate,pillars} ...
 
 Salinity - Salt testing toolkit.
 
@@ -14,10 +14,9 @@ optional arguments:
                         salinity.yaml or salinity.yml)
 
 commands:
-  {state.show_highstate,pillar.items}
-    state.show_highstate
-                        renders the states for the specified minions
-    pillar.items        renders pillar items for the specified minions
+  {highstate,pillars}
+    highstate           renders the states for the specified minions
+    pillars             renders pillar items for the specified minions
 ```
 
 ## Projects for testing
