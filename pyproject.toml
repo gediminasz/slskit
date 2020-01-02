@@ -7,12 +7,9 @@ authors = ["Gediminas Zlatkus <gediminas.zlatkus@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.6"
 pyyaml = "^5.1"
-jinja2 = "^2.10"
-salt = "^2019.2"
-tornado = "^6.0"
-msgpack = "^0.6.1"
-funcy = "^1.14"
 jsonschema = "^3.2.0"
+funcy = "^1.14"
+salt = "^2019.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"
