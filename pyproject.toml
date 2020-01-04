@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "slskit"
 version = "2020.1.0"
-description = ""
 authors = ["Gediminas Zlatkus <gediminas.zlatkus@gmail.com>"]
+description = "Tools for checking Salt state validity"
+readme = "README.md"
+homepage = "https://github.com/gediminasz/slskit"
+repository = "https://github.com/gediminasz/slskit"
+keywords = ["salt", "saltstack", "sls"]
+classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
