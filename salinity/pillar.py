@@ -1,7 +1,7 @@
 import salt.output
 import salt.pillar
 
-from salinity.opts import Config
+from .opts import Config
 
 
 def items(config: Config):

@@ -1,7 +1,7 @@
 import salt.output
 import salt.state
 
-from salinity.opts import Config
+from .opts import Config
 
 
 def show_highstate(config: Config):

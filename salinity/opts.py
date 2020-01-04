@@ -5,16 +5,17 @@ from dataclasses import dataclass
 import jsonschema
 import salt.config
 import yaml
-
 from funcy import cached_property, get_in, post_processing
 
-DEFAULT_CONFIG_PATHS = ("salinity.yaml", "salinity.yml")
+from . import PACKAGE_NAME
+
+DEFAULT_CONFIG_PATHS = (f"{PACKAGE_NAME}.yaml", f"{PACKAGE_NAME}.yml")
 
 SCHEMA = {
     "type": "object",
     "properties": {
         "salt": {"type": "object"},
-        "salinity": {
+        PACKAGE_NAME: {
             "type": "object",
             "properties": {
                 "roster": {
@@ -42,14 +43,15 @@ class Config:
     @cached_property
     def opts(self):
         opts = salt.config.apply_minion_config()
+        root_dir = f".{PACKAGE_NAME}"
         opts.update(
             {
-                "root_dir": ".salinity",
-                "cachedir": ".salinity/cachedir",
-                "pki_dir": ".salinity/pki_dir",
-                "sock_dir": ".salinity/sock_dir",
-                "log_file": ".salinity/log_file",
-                "conf_file": ".salinity/conf_file",
+                "root_dir": root_dir,
+                "cachedir": f"{root_dir}/cachedir",
+                "pki_dir": f"{root_dir}/pki_dir",
+                "sock_dir": f"{root_dir}/sock_dir",
+                "log_file": f"{root_dir}/log_file",
+                "conf_file": f"{root_dir}/conf_file",
                 "state_events": False,
                 "file_client": "local",
             }
@@ -63,7 +65,7 @@ class Config:
 
     @cached_property
     def roster(self):
-        return self._get_setting("salinity.roster", {})
+        return self._get_setting(f"{PACKAGE_NAME}.roster", {})
 
     @cached_property
     @post_processing(validate)
@@ -76,7 +78,7 @@ class Config:
         return {}
 
     def grains_for(self, minion_id):
-        grains = self._get_setting(f"salinity.roster.{minion_id}.grains", {})
+        grains = self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
         return {"id": minion_id, **grains}
 
     def _get_setting(self, path, default, separator="."):
