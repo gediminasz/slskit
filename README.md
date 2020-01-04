@@ -18,10 +18,3 @@ commands:
     highstate           renders the states for the specified minions
     pillars             renders pillar items for the specified minions
 ```
-
-## Projects for testing
-
-- https://github.com/mitodl/salt-ops
-- https://github.com/simpIeweblogic/saltstack
-- https://github.com/Marmelatze/saltstack-mesos-test
-- https://github.com/zulily/alkali
