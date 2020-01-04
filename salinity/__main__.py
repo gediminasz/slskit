@@ -1,9 +1,18 @@
+import logging  # isort:skip
+import colorlog  # isort:skip
+
+handler = colorlog.StreamHandler()
+handler.setFormatter(
+    colorlog.ColoredFormatter("%(log_color)s%(levelname)s:%(name)s:%(message)s")
+)
+logging.basicConfig(level=logging.WARNING, handlers=(handler,))
+
+
 from argparse import ArgumentParser
 
 import salinity.pillar
 import salinity.state
 from salinity.opts import DEFAULT_CONFIG_PATHS, Config
-
 
 parser = ArgumentParser(prog="salinity", description="Salinity - Salt testing toolkit.")
 parser.add_argument(
