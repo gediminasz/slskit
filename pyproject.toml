@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Salinity"
+name = "slskit"
 version = "2020.1.0"
 description = ""
 authors = ["Gediminas Zlatkus <gediminas.zlatkus@gmail.com>"]
@@ -16,7 +16,7 @@ colorlog = "^4.1.0"
 pytest = "^5.0"
 
 [tool.poetry.scripts]
-salinity = 'salinity:run_module'
+slskit = 'slskit:run_module'
 
 [build-system]
 requires = ["poetry>=0.12"]

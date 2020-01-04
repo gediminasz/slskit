@@ -6,7 +6,7 @@ salt:
     base:
       - tests/project/pillar
 
-salinity:
+slskit:
   roster:
     bob:
       grains:

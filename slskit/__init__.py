@@ -1,6 +1,6 @@
 import runpy
 
-PACKAGE_NAME = "salinity"
+PACKAGE_NAME = "slskit"
 
 
 def run_module():

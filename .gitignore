@@ -2,10 +2,10 @@ __pycache__
 .DS_Store
 .ignore
 .mypy_cache
-.salinity
+.slskit
 .tags
 .venv
 .vscode
 /pip-wheel-metadata
-/salinity.egg-info
+/slskit.egg-info
 dist

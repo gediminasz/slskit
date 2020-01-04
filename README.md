@@ -1,17 +1,17 @@
-# Salinity
+# slskit
 
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: salinity [-h] [-c CONFIG] {highstate,pillars} ...
+usage: slskit [-h] [-c CONFIG] {highstate,pillars} ...
 
-Salinity - Salt testing toolkit.
+slskit - tools for checking Salt state validity
 
 optional arguments:
   -h, --help            show this help message and exit
   -c CONFIG, --config CONFIG
-                        path to Salinity configuration file (default:
-                        salinity.yaml or salinity.yml)
+                        path to slskit configuration file (default:
+                        slskit.yaml or slskit.yml)
 
 commands:
   {highstate,pillars}
