@@ -1,7 +1,12 @@
 salt:
+  fileserver_backend:
+    - roots
+    - gitfs
   file_roots:
     base:
       - tests/project/salt
+  gitfs_remotes:
+    - git@github.com:saltstack-formulas/ufw-formula.git
   pillar_roots:
     base:
       - tests/project/pillar

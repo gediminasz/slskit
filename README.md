@@ -3,7 +3,7 @@
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: slskit [-h] [-c CONFIG] {highstate,pillars} ...
+usage: slskit [-h] [-c CONFIG] {highstate,pillars,refresh} ...
 
 slskit - tools for checking Salt state validity
 
@@ -14,7 +14,8 @@ optional arguments:
                         slskit.yaml or slskit.yml)
 
 commands:
-  {highstate,pillars}
+  {highstate,pillars,refresh}
     highstate           renders the states for the specified minions
     pillars             renders pillar items for the specified minions
+    refresh             invoke Salt fileserver update
 ```
