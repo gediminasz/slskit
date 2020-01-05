@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.WARNING, handlers=(handler,))
 
 from argparse import ArgumentParser
 
-from . import PACKAGE_NAME, pillar, state
+from . import PACKAGE_NAME, pillar, state, system
 from .opts import DEFAULT_CONFIG_PATHS, Config
 
 parser = ArgumentParser(
@@ -24,18 +24,20 @@ parser.add_argument(
 )
 subparsers = parser.add_subparsers(title="commands")
 
-parser_state_show_highstate = subparsers.add_parser(
+highstateparser = subparsers.add_parser(
     "highstate", help="renders the states for the specified minions"
 )
-parser_state_show_highstate.add_argument("minion_id", nargs="*")
-parser_state_show_highstate.set_defaults(func=state.show_highstate)
+highstateparser.add_argument("minion_id", nargs="*")
+highstateparser.set_defaults(func=state.show_highstate)
 
-parser_pillar_items = subparsers.add_parser(
+pillars_parser = subparsers.add_parser(
     "pillars", help="renders pillar items for the specified minions"
 )
-parser_pillar_items.add_argument("minion_id", nargs="*")
-parser_pillar_items.set_defaults(func=pillar.items)
+pillars_parser.add_argument("minion_id", nargs="*")
+pillars_parser.set_defaults(func=pillar.items)
 
+refresh_parser = subparsers.add_parser("refresh", help="invoke Salt fileserver update")
+refresh_parser.set_defaults(func=system.refresh)
 
 args = parser.parse_args()
 config = Config(args)

@@ -19,6 +19,7 @@ colorlog = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"
+GitPython = "^3.0.5"
 
 [tool.poetry.scripts]
 slskit = 'slskit:run_module'
