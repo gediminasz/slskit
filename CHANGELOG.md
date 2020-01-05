@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2020.1.2
 
 - Added `refresh` command which invokes Salt fileserver update.
   - Useful e.g. when using `gitfs`.
