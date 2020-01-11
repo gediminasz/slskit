@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.WARNING, handlers=(handler,))
 
 from argparse import ArgumentParser
 
-from . import PACKAGE_NAME, commands, pillar, system
+from . import PACKAGE_NAME, commands, system
 from .opts import DEFAULT_CONFIG_PATHS, Config
 
 parser = ArgumentParser(
@@ -33,7 +33,7 @@ pillars_parser = subparsers.add_parser(
     "pillars", help="renders pillar items for the specified minions"
 )
 pillars_parser.add_argument("minion_id", nargs="*")
-pillars_parser.set_defaults(func=pillar.items)
+pillars_parser.set_defaults(func=commands.pillars)
 
 refresh_parser = subparsers.add_parser("refresh", help="invoke Salt fileserver update")
 refresh_parser.set_defaults(func=system.refresh)
