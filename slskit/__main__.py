@@ -7,10 +7,9 @@ handler.setFormatter(
 )
 logging.basicConfig(level=logging.WARNING, handlers=(handler,))
 
-
 from argparse import ArgumentParser
 
-from . import PACKAGE_NAME, pillar, state, system
+from . import PACKAGE_NAME, commands, pillar, system
 from .opts import DEFAULT_CONFIG_PATHS, Config
 
 parser = ArgumentParser(
@@ -24,11 +23,11 @@ parser.add_argument(
 )
 subparsers = parser.add_subparsers(title="commands")
 
-highstateparser = subparsers.add_parser(
+highstate_parser = subparsers.add_parser(
     "highstate", help="renders the states for the specified minions"
 )
-highstateparser.add_argument("minion_id", nargs="*")
-highstateparser.set_defaults(func=state.show_highstate)
+highstate_parser.add_argument("minion_id", nargs="*")
+highstate_parser.set_defaults(func=commands.highstate)
 
 pillars_parser = subparsers.add_parser(
     "pillars", help="renders pillar items for the specified minions"
