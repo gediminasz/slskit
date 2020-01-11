@@ -1,0 +1,84 @@
+bob:
+  hello:
+    cmd:
+    - name: Hello, my name is bob and I run Ubuntu
+    - run
+    - order: 10000
+    __sls__: base
+    __env__: base
+  ufw-package-install-pkg-installed:
+    pkg:
+    - name: ufw
+    - installed
+    - order: 10001
+    __sls__: ufw.package.install
+    __env__: base
+  ufw-default-file-file-managed:
+    file:
+    - name: /etc/default/ufw
+    - user: root
+    - group: root
+    - template: jinja
+    - source:
+      - salt://ufw/files/bob/ufw.default.tmpl
+      - salt://ufw/files/bob/ufw.default.tmpl.jinja
+      - salt://ufw/files/os_family/ufw.default.tmpl
+      - salt://ufw/files/os_family/ufw.default.tmpl.jinja
+      - salt://ufw/files/default/ufw.default.tmpl
+      - salt://ufw/files/default/ufw.default.tmpl.jinja
+    - require:
+      - sls: ufw.package.install
+    - context:
+        ufw_settings: {}
+    - managed
+    - order: 10002
+    __sls__: ufw.config.file
+    __env__: base
+  ufw-sysctl-file-file-managed:
+    file:
+    - name: /etc/ufw/sysctl.conf
+    - user: root
+    - group: root
+    - template: jinja
+    - source:
+      - salt://ufw/files/bob/ufw.sysctl.tmpl
+      - salt://ufw/files/bob/ufw.sysctl.tmpl.jinja
+      - salt://ufw/files/os_family/ufw.sysctl.tmpl
+      - salt://ufw/files/os_family/ufw.sysctl.tmpl.jinja
+      - salt://ufw/files/default/ufw.sysctl.tmpl
+      - salt://ufw/files/default/ufw.sysctl.tmpl.jinja
+    - require:
+      - sls: ufw.package.install
+    - context:
+        ufw_sysctl: {}
+    - managed
+    - order: 10003
+    __sls__: ufw.config.file
+    __env__: base
+  /etc/ufw/applications.d:
+    file:
+    - user: root
+    - group: root
+    - file_mode: 644
+    - clean: false
+    - source: salt://ufw/files/applications.d
+    - recurse
+    - order: 10004
+    __sls__: ufw.config.file
+    __env__: base
+  ufw-service-dead-service-dead:
+    service:
+    - name: ufw
+    - enable: false
+    - require:
+      - sls: ufw.config.file
+    - dead
+    - order: 10005
+    __sls__: ufw.service.running
+    __env__: base
+kevin:
+- 'Rendering SLS ''base:base'' failed: Jinja variable ''dict object'' has no attribute
+  ''os'''
+stuart:
+- 'Rendering SLS ''base:base'' failed: Jinja variable ''dict object'' has no attribute
+  ''os'''
