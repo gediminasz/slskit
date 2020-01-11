@@ -16,5 +16,5 @@ slskit:
     bob:
       grains:
         os: Ubuntu
-    kevin: {}
-    stuart: {}
+    kevin:
+    stuart:

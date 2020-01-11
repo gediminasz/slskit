@@ -21,8 +21,13 @@ SCHEMA = {
                 "roster": {
                     "type": "object",
                     "additionalProperties": {
-                        "type": "object",
-                        "properties": {"grains": {"type": "object"}},
+                        "oneOf": [
+                            {"type": "null"},
+                            {
+                                "type": "object",
+                                "properties": {"grains": {"type": "object"}},
+                            },
+                        ]
                     },
                 }
             },
@@ -82,7 +87,10 @@ class Config:
         return {"id": minion_id, **grains}
 
     def _get_setting(self, path, default, separator="."):
-        return get_in(self.settings, path.split(separator), default)
+        try:
+            return get_in(self.settings, path.split(separator), default)
+        except TypeError:
+            return default
 
 
 def load_yaml(path):
