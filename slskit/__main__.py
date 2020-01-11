@@ -21,6 +21,7 @@ parser.add_argument(
     "--config",
     help=f"path to {PACKAGE_NAME} configuration file (default: {' or '.join(DEFAULT_CONFIG_PATHS)})",
 )
+parser.set_defaults(func=lambda _: parser.print_usage())
 subparsers = parser.add_subparsers(title="commands")
 
 highstate_parser = subparsers.add_parser(
@@ -40,7 +41,4 @@ refresh_parser.set_defaults(func=commands.refresh)
 
 args = parser.parse_args()
 config = Config(args)
-if "func" in args:
-    args.func(config)
-else:
-    parser.print_usage()
+args.func(config)
