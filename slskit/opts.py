@@ -47,22 +47,13 @@ class Config:
 
     @cached_property
     def opts(self):
-        opts = salt.config.apply_minion_config()
-        root_dir = f".{PACKAGE_NAME}"
-        opts.update(
-            {
-                "root_dir": root_dir,
-                "cachedir": f"{root_dir}/cachedir",
-                "pki_dir": f"{root_dir}/pki_dir",
-                "sock_dir": f"{root_dir}/sock_dir",
-                "log_file": f"{root_dir}/log_file",
-                "conf_file": f"{root_dir}/conf_file",
-                "state_events": False,
-                "file_client": "local",
-            }
-        )
-        opts.update(self.settings.get("salt", {}))
-        return opts
+        overrides = {
+            "root_dir": f".{PACKAGE_NAME}",
+            "state_events": False,
+            "file_client": "local",
+        }
+        overrides.update(self.settings.get("salt", {}))
+        return salt.config.apply_minion_config(overrides)
 
     @cached_property
     def minion_ids(self):

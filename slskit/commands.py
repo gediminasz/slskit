@@ -1,6 +1,8 @@
 import sys
+from unittest.mock import patch
 
 import salt.output
+import salt.runners.saltutil
 from salt.fileserver import Fileserver
 
 from . import pillar, state
@@ -26,7 +28,8 @@ def pillars(config: Config):
 
 
 def refresh(config: Config):
-    Fileserver(config.opts).update()
+    with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
+        salt.runners.saltutil.sync_all()
 
 
 def _display_output(output: dict, config: Config):
