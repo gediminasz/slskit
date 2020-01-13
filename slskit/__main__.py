@@ -36,7 +36,9 @@ pillars_parser = subparsers.add_parser(
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=commands.pillars)
 
-refresh_parser = subparsers.add_parser("refresh", help="invoke Salt fileserver update")
+refresh_parser = subparsers.add_parser(
+    "refresh", help="invoke saltutil.sync_all runner"
+)
 refresh_parser.set_defaults(func=commands.refresh)
 
 args = parser.parse_args()

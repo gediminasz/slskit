@@ -17,5 +17,5 @@ commands:
   {highstate,pillars,refresh}
     highstate           renders the states for the specified minions
     pillars             renders pillar items for the specified minions
-    refresh             invoke Salt fileserver update
+    refresh             invokes saltutil.sync_all runner
 ```
