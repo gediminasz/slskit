@@ -1,16 +1,31 @@
-bob:
-  hello:
-    cmd:
-    - name: Hello, my name is bob and I run Ubuntu
-    - run
+tester:
+  test.common.pillar_access:
+    test:
+    - text: My name is tester
+    - show_notification
     - order: 10000
-    __sls__: base
+    __sls__: tests
     __env__: base
+  test.common.grain_access:
+    test:
+    - text: My id is tester
+    - show_notification
+    - order: 10001
+    __sls__: tests
+    __env__: base
+  test.vault.secret:
+    test:
+    - text: 'This is top secret: SECRET'
+    - show_notification
+    - order: 10002
+    __sls__: tests
+    __env__: base
+tester-gitfs:
   ufw-package-install-pkg-installed:
     pkg:
     - name: ufw
     - installed
-    - order: 10001
+    - order: 10000
     __sls__: ufw.package.install
     __env__: base
   ufw-default-file-file-managed:
@@ -20,8 +35,8 @@ bob:
     - group: root
     - template: jinja
     - source:
-      - salt://ufw/files/bob/ufw.default.tmpl
-      - salt://ufw/files/bob/ufw.default.tmpl.jinja
+      - salt://ufw/files/tester-gitfs/ufw.default.tmpl
+      - salt://ufw/files/tester-gitfs/ufw.default.tmpl.jinja
       - salt://ufw/files/os_family/ufw.default.tmpl
       - salt://ufw/files/os_family/ufw.default.tmpl.jinja
       - salt://ufw/files/default/ufw.default.tmpl
@@ -31,7 +46,7 @@ bob:
     - context:
         ufw_settings: {}
     - managed
-    - order: 10002
+    - order: 10001
     __sls__: ufw.config.file
     __env__: base
   ufw-sysctl-file-file-managed:
@@ -41,8 +56,8 @@ bob:
     - group: root
     - template: jinja
     - source:
-      - salt://ufw/files/bob/ufw.sysctl.tmpl
-      - salt://ufw/files/bob/ufw.sysctl.tmpl.jinja
+      - salt://ufw/files/tester-gitfs/ufw.sysctl.tmpl
+      - salt://ufw/files/tester-gitfs/ufw.sysctl.tmpl.jinja
       - salt://ufw/files/os_family/ufw.sysctl.tmpl
       - salt://ufw/files/os_family/ufw.sysctl.tmpl.jinja
       - salt://ufw/files/default/ufw.sysctl.tmpl
@@ -52,7 +67,7 @@ bob:
     - context:
         ufw_sysctl: {}
     - managed
-    - order: 10003
+    - order: 10002
     __sls__: ufw.config.file
     __env__: base
   /etc/ufw/applications.d:
@@ -63,7 +78,7 @@ bob:
     - clean: false
     - source: salt://ufw/files/applications.d
     - recurse
-    - order: 10004
+    - order: 10003
     __sls__: ufw.config.file
     __env__: base
   ufw-service-dead-service-dead:
@@ -73,12 +88,6 @@ bob:
     - require:
       - sls: ufw.config.file
     - dead
-    - order: 10005
+    - order: 10004
     __sls__: ufw.service.running
     __env__: base
-kevin:
-- 'Rendering SLS ''base:base'' failed: Jinja variable ''dict object'' has no attribute
-  ''os'''
-stuart:
-- 'Rendering SLS ''base:base'' failed: Jinja variable ''dict object'' has no attribute
-  ''os'''

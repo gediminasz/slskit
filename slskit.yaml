@@ -14,8 +14,7 @@ salt:
 
 slskit:
   roster:
-    bob:
+    tester:
       grains:
         os: Ubuntu
-    kevin:
-    stuart:
+    tester-gitfs:
