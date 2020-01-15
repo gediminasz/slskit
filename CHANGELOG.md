@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2020.1.3
 
 - Changed `slskit.roster` namespace to allow null values in `slskit.yaml` config.
 - Changed `highstate` and `pillars` commands to return exit code 1 in case of rendering errors.
