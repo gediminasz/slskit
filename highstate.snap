@@ -6,18 +6,25 @@ tester:
     - order: 10000
     __sls__: tests
     __env__: base
-  test.common.grain_access:
+  test.common.grain_access.id:
     test:
     - text: My id is tester
     - show_notification
     - order: 10001
     __sls__: tests
     __env__: base
+  test.common.grain_access.custom:
+    test:
+    - text: My os is Ubuntu
+    - show_notification
+    - order: 10002
+    __sls__: tests
+    __env__: base
   test.vault.secret:
     test:
     - text: 'This is top secret: SECRET'
     - show_notification
-    - order: 10002
+    - order: 10003
     __sls__: tests
     __env__: base
 tester-gitfs:
