@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added `snapshot create` command.
+
 ## 2020.1.3
 
 - Changed `slskit.roster` namespace to allow null values in `slskit.yaml` config.
