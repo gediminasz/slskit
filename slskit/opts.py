@@ -1,6 +1,7 @@
 import argparse
 import os
 from dataclasses import dataclass
+from pathlib import Path
 
 import jsonschema
 import salt.config
@@ -10,6 +11,7 @@ from funcy import cached_property, get_in, post_processing
 from . import PACKAGE_NAME
 
 DEFAULT_CONFIG_PATHS = (f"{PACKAGE_NAME}.yaml", f"{PACKAGE_NAME}.yml")
+DEFAULT_SNAPSHOT_PATH = "highstate.snap"
 
 SCHEMA = {
     "type": "object",
@@ -72,6 +74,10 @@ class Config:
             if os.path.exists(path):
                 return load_yaml(path)
         return {}
+
+    @cached_property
+    def snapshot_path(self) -> Path:
+        return self.args.snapshot_path
 
     def grains_for(self, minion_id):
         grains = self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})

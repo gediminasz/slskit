@@ -8,9 +8,10 @@ handler.setFormatter(
 logging.basicConfig(level=logging.WARNING, handlers=(handler,))
 
 from argparse import ArgumentParser
+from pathlib import Path
 
 from . import PACKAGE_NAME, commands
-from .opts import DEFAULT_CONFIG_PATHS, Config
+from .opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
 
 parser = ArgumentParser(
     prog=PACKAGE_NAME,
@@ -25,13 +26,13 @@ parser.set_defaults(func=lambda _: parser.print_usage())
 subparsers = parser.add_subparsers(title="commands")
 
 highstate_parser = subparsers.add_parser(
-    "highstate", help="renders the states for the specified minions"
+    "highstate", help="render highstate for the specified minions"
 )
 highstate_parser.add_argument("minion_id", nargs="*")
 highstate_parser.set_defaults(func=commands.highstate)
 
 pillars_parser = subparsers.add_parser(
-    "pillars", help="renders pillar items for the specified minions"
+    "pillars", help="render pillar items for the specified minions"
 )
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=commands.pillars)
@@ -40,6 +41,27 @@ refresh_parser = subparsers.add_parser(
     "refresh", help="invoke saltutil.sync_all runner"
 )
 refresh_parser.set_defaults(func=commands.refresh)
+
+snapshot_parser = subparsers.add_parser(
+    "snapshot", help="create and check highstate snapshots"
+)
+snapshot_parser.add_argument(
+    "-p",
+    "--path",
+    default=DEFAULT_SNAPSHOT_PATH,
+    type=Path,
+    help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
+    dest="snapshot_path",
+)
+snapshot_subparsers = snapshot_parser.add_subparsers(title="subcommands")
+snapshot_create_parser = snapshot_subparsers.add_parser(
+    "create", help="create highstate snapshot"
+)
+snapshot_create_parser.set_defaults(func=commands.create_snapshot, minion_id=None)
+snapshot_check_parser = snapshot_subparsers.add_parser(
+    "check", help="check highstate snapshot"
+)
+snapshot_check_parser.set_defaults(func=commands.check_snapshot, minion_id=None)
 
 args = parser.parse_args()
 config = Config(args)
