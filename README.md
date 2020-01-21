@@ -19,7 +19,7 @@ optional arguments:
 commands:
   {highstate,pillars,refresh,snapshot}
     highstate           render highstate for the specified minions
-    pillars             renders pillar items for the specified minions
+    pillars             render pillar items for the specified minions
     refresh             invoke saltutil.sync_all runner
     snapshot            create and check highstate snapshots
 ```

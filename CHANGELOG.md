@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added `snapshot create` command.
+- Added `snapshot create` and `snapshot check` commands.
 
 ## 2020.1.3
 

@@ -32,7 +32,7 @@ highstate_parser.add_argument("minion_id", nargs="*")
 highstate_parser.set_defaults(func=commands.highstate)
 
 pillars_parser = subparsers.add_parser(
-    "pillars", help="renders pillar items for the specified minions"
+    "pillars", help="render pillar items for the specified minions"
 )
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=commands.pillars)
@@ -58,7 +58,9 @@ snapshot_create_parser = snapshot_subparsers.add_parser(
     "create", help="create highstate snapshot"
 )
 snapshot_create_parser.set_defaults(func=commands.create_snapshot, minion_id=None)
-snapshot_check_parser = snapshot_subparsers.add_parser("check")  # TODO GZL help
+snapshot_check_parser = snapshot_subparsers.add_parser(
+    "check", help="check highstate snapshot"
+)
 snapshot_check_parser.set_defaults(func=commands.check_snapshot, minion_id=None)
 
 args = parser.parse_args()
