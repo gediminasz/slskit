@@ -1,6 +1,6 @@
 test.common.pillar_access:
   test.show_notification:
-    - text: "My name is {{ pillar.name }}!"
+    - text: "My name is {{ pillar.name }}"
 
 test.common.grain_access.id:
   test.show_notification:
