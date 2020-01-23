@@ -18,3 +18,5 @@ jobs:
           poetry install
       - name: black
         run: poetry run black --check .
+      - name: mypy
+        run: poetry run mypy
