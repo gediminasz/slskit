@@ -2,7 +2,7 @@
 
 ![release](https://img.shields.io/github/release/gediminasz/slskit.svg)
 ![last commit](https://img.shields.io/github/last-commit/gediminasz/slskit.svg)
-![build](https://img.shields.io/travis/gediminasz/slskit.svg)
+![build](https://github.com/gediminasz/slskit/workflows/CI/badge.svg?branch=master)
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
