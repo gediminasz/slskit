@@ -10,7 +10,7 @@ keywords = ["salt", "saltstack", "sls"]
 classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
-python = ">=3.6, <3.8"
+python = "3.7.*"
 pyyaml = "^5.1"
 jsonschema = "^3.2.0"
 funcy = "^1.14"
