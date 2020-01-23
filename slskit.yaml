@@ -7,7 +7,7 @@ salt:
       - tests/project/salt
       - tests/project/mock
   gitfs_remotes:
-    - git@github.com:saltstack-formulas/ufw-formula.git
+    - https://github.com/saltstack-formulas/ufw-formula.git
   pillar_roots:
     base:
       - tests/project/pillar

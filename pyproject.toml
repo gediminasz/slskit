@@ -10,7 +10,7 @@ keywords = ["salt", "saltstack", "sls"]
 classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
-python = ">=3.6, <3.8"
+python = "3.7.*"
 pyyaml = "^5.1"
 jsonschema = "^3.2.0"
 funcy = "^1.14"
@@ -21,6 +21,7 @@ colorlog = "^4.1.0"
 pytest = "^5.0"
 GitPython = "^3.0.5"
 mypy = "^0.761"
+black = "^19.10b0"
 
 [tool.poetry.scripts]
 slskit = 'slskit:run_module'
