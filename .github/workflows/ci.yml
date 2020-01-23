@@ -21,4 +21,6 @@ jobs:
       - name: mypy
         run: poetry run mypy
       - name: slskit snapshot
-        run: poetry run slskit snapshot check
+        run: |
+          poetry run slskit refresh
+          poetry run slskit snapshot check
