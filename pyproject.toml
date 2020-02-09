@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slskit"
-version = "2020.1.3"
+version = "2020.2.0"
 authors = ["Gediminas Zlatkus <gediminas.zlatkus@gmail.com>"]
 description = "Tools for checking Salt state validity"
 readme = "README.md"

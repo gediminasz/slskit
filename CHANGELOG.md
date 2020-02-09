@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2020.2.0
 
 - Added `snapshot create` and `snapshot check` commands.
 
