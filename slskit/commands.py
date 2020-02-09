@@ -64,9 +64,11 @@ def check_snapshot(config: Config):
 
 def _dump_highstate(config: Config) -> Optional[str]:
     highstate = state.show_highstate(config)
-    if all(r.valid for r in highstate.values()):
-        snapshot = {minion_id: result.value for minion_id, result in highstate.items()}
-        return salt.utils.yaml.safe_dump(snapshot, default_flow_style=False)
+    if not all(r.valid for r in highstate.values()):
+        return None
+
+    snapshot = {minion_id: result.value for minion_id, result in highstate.items()}
+    return salt.utils.yaml.safe_dump(snapshot, default_flow_style=False)
 
 
 def _display_diff(a: str, b: str):
