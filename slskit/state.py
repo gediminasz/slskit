@@ -5,6 +5,7 @@ import salt.output
 import salt.state
 
 from .opts import Config
+from .types import AnyDict
 
 
 @dataclass(frozen=True)
@@ -22,7 +23,7 @@ def show_highstate(config: Config) -> Dict[str, Highstate]:
     }
 
 
-def compile_highstate(opts: dict) -> Highstate:
+def compile_highstate(opts: AnyDict) -> Highstate:
     highstate = salt.state.HighState(opts)
 
     top = highstate.get_top()
