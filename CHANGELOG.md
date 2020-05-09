@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Added `skip_fileserver_update` setting (enabled by default) to speed up highstate rendering for a large number of minions. The setting can be disabled in `slskit.yaml` config:
+
+```yaml
+slskit:
+  skip_fileserver_update: false
+```
+
 ## 2020.2.0
 
 - Added `snapshot create` and `snapshot check` commands.

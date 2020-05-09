@@ -20,6 +20,7 @@ SCHEMA = {
         PACKAGE_NAME: {
             "type": "object",
             "properties": {
+                "skip_fileserver_update": {"type": "boolean"},
                 "roster": {
                     "type": "object",
                     "additionalProperties": {
@@ -31,7 +32,7 @@ SCHEMA = {
                             },
                         ]
                     },
-                }
+                },
             },
         },
     },
@@ -54,6 +55,12 @@ class Config:
             "state_events": False,
             "file_client": "local",
         }
+
+        if self._get_setting("slskit.skip_fileserver_update", True):
+            # skip fileserver update for faster rendering
+            # see salt.fileserver.FSChan implementation
+            overrides["__fs_update"] = True
+
         overrides.update(self.settings.get("salt", {}))
         return salt.config.apply_minion_config(overrides)
 
