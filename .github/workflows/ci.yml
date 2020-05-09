@@ -20,7 +20,7 @@ jobs:
       - name: black
         run: poetry run black --check .
       - name: mypy
-        run: poetry run mypy
+        run: poetry run mypy --strict
       - name: slskit snapshot
         run: |
           poetry run slskit refresh
