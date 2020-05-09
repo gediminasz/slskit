@@ -2,6 +2,7 @@ import argparse
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Generic, List, TypeVar, cast
 
 import jsonschema
 import salt.config
@@ -9,11 +10,12 @@ import yaml
 from funcy import cached_property, get_in, post_processing
 
 from . import PACKAGE_NAME
+from .types import AnyDict
 
 DEFAULT_CONFIG_PATHS = (f"{PACKAGE_NAME}.yaml", f"{PACKAGE_NAME}.yml")
 DEFAULT_SNAPSHOT_PATH = "highstate.snap"
 
-SCHEMA = {
+SCHEMA: AnyDict = {
     "type": "object",
     "properties": {
         "salt": {"type": "object"},
@@ -39,7 +41,7 @@ SCHEMA = {
 }
 
 
-def validate(instance, schema=SCHEMA):
+def validate(instance: AnyDict, schema: AnyDict = SCHEMA) -> AnyDict:
     jsonschema.validate(instance, schema)
     return instance
 
@@ -49,7 +51,7 @@ class Config:
     args: argparse.Namespace
 
     @cached_property
-    def opts(self):
+    def opts(self) -> AnyDict:
         overrides = {
             "root_dir": f".{PACKAGE_NAME}",
             "state_events": False,
@@ -62,19 +64,22 @@ class Config:
             overrides["__fs_update"] = True
 
         overrides.update(self.settings.get("salt", {}))
-        return salt.config.apply_minion_config(overrides)
+        opts = salt.config.apply_minion_config(overrides)
+        return cast(AnyDict, opts)
 
     @cached_property
-    def minion_ids(self):
-        return self.args.minion_id or self.roster.keys()
+    def minion_ids(self) -> List[str]:
+        ids = self.args.minion_id or self.roster.keys()
+        return cast(List[str], ids)
 
     @cached_property
-    def roster(self):
-        return self._get_setting(f"{PACKAGE_NAME}.roster", {})
+    def roster(self) -> AnyDict:
+        result = self._get_setting(f"{PACKAGE_NAME}.roster", {})
+        return cast(AnyDict, result)
 
     @cached_property
     @post_processing(validate)
-    def settings(self):
+    def settings(self) -> AnyDict:
         if self.args.config is not None:
             return load_yaml(self.args.config)
         for path in DEFAULT_CONFIG_PATHS:
@@ -84,19 +89,20 @@ class Config:
 
     @cached_property
     def snapshot_path(self) -> Path:
-        return self.args.snapshot_path
+        return cast(Path, self.args.snapshot_path)
 
-    def grains_for(self, minion_id):
+    def grains_for(self, minion_id: str) -> AnyDict:
         grains = self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
         return {"id": minion_id, **grains}
 
-    def _get_setting(self, path, default, separator="."):
+    def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:
             return get_in(self.settings, path.split(separator), default)
         except TypeError:
             return default
 
 
-def load_yaml(path):
+def load_yaml(path: str) -> AnyDict:
     with open(path) as f:
-        return yaml.safe_load(f)
+        result = yaml.safe_load(f)
+        return cast(AnyDict, result)

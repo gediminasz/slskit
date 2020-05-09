@@ -1,7 +1,7 @@
 import difflib
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Optional, cast
 from unittest.mock import patch
 
 import salt.output
@@ -11,9 +11,10 @@ from salt.fileserver import Fileserver
 
 from . import pillar, state
 from .opts import Config
+from .types import AnyDict
 
 
-def highstate(config: Config):
+def highstate(config: Config) -> None:
     highstate = state.show_highstate(config)
 
     output = {minion_id: result.value for minion_id, result in highstate.items()}
@@ -23,7 +24,7 @@ def highstate(config: Config):
         sys.exit(1)
 
 
-def pillars(config: Config):
+def pillars(config: Config) -> None:
     result = pillar.items(config)
     _display_output(result, config)
 
@@ -31,12 +32,12 @@ def pillars(config: Config):
         sys.exit(1)
 
 
-def refresh(config: Config):
+def refresh(config: Config) -> None:
     with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
         salt.runners.saltutil.sync_all()
 
 
-def create_snapshot(config: Config):
+def create_snapshot(config: Config) -> None:
     dump = _dump_highstate(config)
     if not dump:
         sys.exit("Failed to render snapshot")
@@ -45,7 +46,7 @@ def create_snapshot(config: Config):
     print(f"Snapshot saved as `{config.snapshot_path}`")
 
 
-def check_snapshot(config: Config):
+def check_snapshot(config: Config) -> None:
     if not config.snapshot_path.exists():
         sys.exit(f"Snapshot file `{config.snapshot_path}` not found")
     snapshot = config.snapshot_path.read_text()
@@ -68,15 +69,16 @@ def _dump_highstate(config: Config) -> Optional[str]:
         return None
 
     snapshot = {minion_id: result.value for minion_id, result in highstate.items()}
-    return salt.utils.yaml.safe_dump(snapshot, default_flow_style=False)
+    dump = salt.utils.yaml.safe_dump(snapshot, default_flow_style=False)
+    return cast(str, dump)
 
 
-def _display_diff(a: str, b: str):
+def _display_diff(a: str, b: str) -> None:
     diff = difflib.unified_diff(
         a.splitlines(keepends=True), b.splitlines(keepends=True)
     )
     sys.stdout.writelines(diff)
 
 
-def _display_output(output: dict, config: Config):
+def _display_output(output: AnyDict, config: Config) -> None:
     salt.output.display_output(output, out="yaml", opts=config.opts)
