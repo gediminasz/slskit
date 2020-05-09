@@ -23,3 +23,19 @@ commands:
     refresh             invoke saltutil.sync_all runner
     snapshot            create and check highstate snapshots
 ```
+
+---
+
+## Workaround for libcrypto.dylib failing to load on macOS
+
+If `slskit` fails with `zsh: abort` or `Abort trap: 6`, inspect the error by running the command with `PYTHONDEVMODE=1`. If the issue is with `_load_libcrypto` call in `rsax931.py`, edit `salt/utils/rsax931.py` line 38:
+
+```diff
+-lib = find_library('crypto')
++lib = "/usr/local/opt/openssl@1.1/lib/libcrypto.dylib"
+```
+
+More info:
+
+- https://github.com/saltstack/salt/issues/55084
+- https://github.com/Homebrew/homebrew-core/pull/45895/files#diff-5bdebf3b9146d50b15f9a0dc7e7def27R131-R133
