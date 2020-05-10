@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import salt.output
 import salt.state
@@ -37,17 +37,21 @@ def compile_highstate(opts: AnyDict) -> Highstate:
 
 
 def show_sls(config: Config) -> AnyDict:
+    names = salt.utils.args.split_input(config.args.sls)
     return {
         minion_id: compile_sls(
-            config.args.sls,
-            {**config.opts, "id": minion_id, "grains": config.grains_for(minion_id)},
+            names,
+            opts={
+                **config.opts,
+                "id": minion_id,
+                "grains": config.grains_for(minion_id),
+            },
         )
         for minion_id in config.minion_ids
     }
 
 
-# TODO GZL names
-def compile_sls(name, opts: AnyDict) -> AnyDict:
+def compile_sls(names: List[str], opts: AnyDict) -> Highstate:
     highstate = salt.state.HighState(opts)
-    result, errors = highstate.render_highstate({"base": [name]})
+    result, errors = highstate.render_highstate({"base": names})
     return Highstate(False, errors) if errors else Highstate(True, result)
