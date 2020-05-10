@@ -1,20 +1,21 @@
 from dataclasses import dataclass
-from typing import Dict
+from typing import Any, Dict, List
 
 import salt.output
 import salt.state
+import salt.utils
 
 from .opts import Config
 from .types import AnyDict
 
 
 @dataclass(frozen=True)
-class Highstate:
+class Result:
     valid: bool
-    value: object
+    value: Any
 
 
-def show_highstate(config: Config) -> Dict[str, Highstate]:
+def show_highstate(config: Config) -> Dict[str, Result]:
     return {
         minion_id: compile_highstate(
             {**config.opts, "id": minion_id, "grains": config.grains_for(minion_id)}
@@ -23,7 +24,7 @@ def show_highstate(config: Config) -> Dict[str, Highstate]:
     }
 
 
-def compile_highstate(opts: AnyDict) -> Highstate:
+def compile_highstate(opts: AnyDict) -> Result:
     highstate = salt.state.HighState(opts)
 
     top = highstate.get_top()
@@ -33,4 +34,25 @@ def compile_highstate(opts: AnyDict) -> Highstate:
     result, render_errors = highstate.render_highstate(matches)
 
     errors = top_errors + render_errors
-    return Highstate(False, errors) if errors else Highstate(True, result)
+    return Result(False, errors) if errors else Result(True, result)
+
+
+def show_sls(config: Config) -> AnyDict:
+    names = salt.utils.args.split_input(config.args.sls)
+    return {
+        minion_id: compile_sls(
+            names,
+            opts={
+                **config.opts,
+                "id": minion_id,
+                "grains": config.grains_for(minion_id),
+            },
+        )
+        for minion_id in config.minion_ids
+    }
+
+
+def compile_sls(names: List[str], opts: AnyDict) -> Result:
+    highstate = salt.state.HighState(opts)
+    result, errors = highstate.render_highstate({"base": names})
+    return Result(False, errors) if errors else Result(True, result)
