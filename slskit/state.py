@@ -9,12 +9,12 @@ from .types import AnyDict
 
 
 @dataclass(frozen=True)
-class Highstate:  # TODO GZL Result
+class Result:
     valid: bool
     value: Any
 
 
-def show_highstate(config: Config) -> Dict[str, Highstate]:
+def show_highstate(config: Config) -> Dict[str, Result]:
     return {
         minion_id: compile_highstate(
             {**config.opts, "id": minion_id, "grains": config.grains_for(minion_id)}
@@ -23,7 +23,7 @@ def show_highstate(config: Config) -> Dict[str, Highstate]:
     }
 
 
-def compile_highstate(opts: AnyDict) -> Highstate:
+def compile_highstate(opts: AnyDict) -> Result:
     highstate = salt.state.HighState(opts)
 
     top = highstate.get_top()
@@ -33,7 +33,7 @@ def compile_highstate(opts: AnyDict) -> Highstate:
     result, render_errors = highstate.render_highstate(matches)
 
     errors = top_errors + render_errors
-    return Highstate(False, errors) if errors else Highstate(True, result)
+    return Result(False, errors) if errors else Result(True, result)
 
 
 def show_sls(config: Config) -> AnyDict:
@@ -51,7 +51,7 @@ def show_sls(config: Config) -> AnyDict:
     }
 
 
-def compile_sls(names: List[str], opts: AnyDict) -> Highstate:
+def compile_sls(names: List[str], opts: AnyDict) -> Result:
     highstate = salt.state.HighState(opts)
     result, errors = highstate.render_highstate({"base": names})
-    return Highstate(False, errors) if errors else Highstate(True, result)
+    return Result(False, errors) if errors else Result(True, result)
