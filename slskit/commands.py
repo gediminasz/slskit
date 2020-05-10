@@ -15,12 +15,22 @@ from .types import AnyDict
 
 
 def highstate(config: Config) -> None:
-    highstate = state.show_highstate(config)
+    results = state.show_highstate(config)
 
-    output = {minion_id: result.value for minion_id, result in highstate.items()}
+    output = {minion_id: result.value for minion_id, result in results.items()}
     _display_output(output, config)
 
-    if not all(r.valid for r in highstate.values()):
+    if not all(r.valid for r in results.values()):
+        sys.exit(1)
+
+
+def sls(config: Config) -> None:
+    results = state.show_sls(config)
+
+    output = {minion_id: result.value for minion_id, result in results.items()}
+    _display_output(output, config)
+
+    if not all(r.valid for r in results.values()):
         sys.exit(1)
 
 

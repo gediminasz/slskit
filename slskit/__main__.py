@@ -26,13 +26,20 @@ parser.set_defaults(func=lambda _: parser.print_usage())
 subparsers = parser.add_subparsers(title="commands")
 
 highstate_parser = subparsers.add_parser(
-    "highstate", help="render highstate for the specified minions"
+    "highstate", help="render highstate for specified minions"
 )
 highstate_parser.add_argument("minion_id", nargs="*")
 highstate_parser.set_defaults(func=commands.highstate)
 
+sls_parser = subparsers.add_parser(
+    "sls", help="render a given sls for specified minions"
+)
+sls_parser.add_argument("sls")
+sls_parser.add_argument("minion_id", nargs="*")
+sls_parser.set_defaults(func=commands.sls)
+
 pillars_parser = subparsers.add_parser(
-    "pillars", help="render pillar items for the specified minions"
+    "pillars", help="render pillar items for specified minions"
 )
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=commands.pillars)
