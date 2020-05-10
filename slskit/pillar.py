@@ -1,6 +1,7 @@
+from typing import Any, Dict, cast
+
 import salt.output
 import salt.pillar
-from typing import Any, Dict, cast
 
 from .opts import Config
 from .types import AnyDict
