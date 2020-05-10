@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 
 import salt.output
 import salt.state
+import salt.utils
 
 from .opts import Config
 from .types import AnyDict
