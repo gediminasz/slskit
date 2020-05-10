@@ -5,10 +5,8 @@
 ![build](https://github.com/gediminasz/slskit/workflows/CI/badge.svg?branch=master)
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
-<!-- TODO -->
-
 ```
-usage: slskit [-h] [-c CONFIG] {highstate,pillars,refresh,snapshot} ...
+usage: slskit [-h] [-c CONFIG] {highstate,sls,pillars,refresh,snapshot} ...
 
 slskit - tools for checking Salt state validity
 
@@ -19,9 +17,10 @@ optional arguments:
                         slskit.yaml or slskit.yml)
 
 commands:
-  {highstate,pillars,refresh,snapshot}
-    highstate           render highstate for the specified minions
-    pillars             render pillar items for the specified minions
+  {highstate,sls,pillars,refresh,snapshot}
+    highstate           render highstate for specified minions
+    sls                 render a given sls for specified minions
+    pillars             render pillar items for specified minions
     refresh             invoke saltutil.sync_all runner
     snapshot            create and check highstate snapshots
 ```
