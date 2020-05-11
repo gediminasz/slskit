@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2020.5.0
 
 - Added `sls` command which can render a specific state (analogous to `state.show_sls`).
 - Added `skip_fileserver_update` setting (enabled by default) to speed up highstate rendering for a large number of minions. The setting can be disabled in `slskit.yaml` config:
