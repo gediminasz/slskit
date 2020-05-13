@@ -10,13 +10,14 @@ logging.basicConfig(level=logging.WARNING, handlers=(handler,))
 from argparse import ArgumentParser
 from pathlib import Path
 
-from . import PACKAGE_NAME, commands
+from . import PACKAGE_NAME, VERSION, commands
 from .opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
 
 parser = ArgumentParser(
     prog=PACKAGE_NAME,
     description=f"{PACKAGE_NAME} - tools for checking Salt state validity",
 )
+parser.add_argument("-V", "--version", action="version", version=VERSION)
 parser.add_argument(
     "-c",
     "--config",
