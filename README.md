@@ -40,3 +40,24 @@ More info:
 
 - https://github.com/saltstack/salt/issues/55084
 - https://github.com/Homebrew/homebrew-core/pull/45895/files#diff-5bdebf3b9146d50b15f9a0dc7e7def27R131-R133
+
+## Workaround for exception raised when processing __virtual__ function
+
+When seeing errors like these:
+
+```
+ERROR:salt.loader:Exception raised when processing __virtual__ function for salt.loaded.int.module.freebsdkmod. Module will not be loaded: 'kernel'
+WARNING:salt.loader:salt.loaded.int.module.freebsdkmod.__virtual__() is wrongly returning `None`. It should either return `True`, `False` or a new name. If you're the developer of the module 'freebsdkmod', please fix this.
+```
+
+You may need to add a corresponding grain to `slskit.yaml` file, e.g.:
+
+```yaml
+slskit:
+  roster:
+    aminion:
+      grains:
+        kernel: Linux
+```
+
+You can find values for grains by inspecting `grains.items` on your real minions.

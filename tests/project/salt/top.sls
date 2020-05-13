@@ -1,6 +1,8 @@
 base:
   tester:
     - tests
-  tester-gitfs:
+  test-gitfs:
     # ufw formula is pulled from git
     - ufw
+  test-users:
+    - users

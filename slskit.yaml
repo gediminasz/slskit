@@ -8,6 +8,7 @@ salt:
       - tests/project/mock
   gitfs_remotes:
     - https://github.com/saltstack-formulas/ufw-formula.git
+    - https://github.com/saltstack-formulas/users-formula.git
   pillar_roots:
     base:
       - tests/project/pillar
@@ -17,4 +18,10 @@ slskit:
     tester:
       grains:
         os: Ubuntu
-    tester-gitfs:
+    test-gitfs:
+    test-users:
+      grains:
+        os: Ubuntu
+        os_family: Debian
+        kernel: Linux
+        saltversioninfo: [3000, 2, 0, 0]
