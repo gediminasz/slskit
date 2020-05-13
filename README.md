@@ -55,9 +55,33 @@ You may need to add a corresponding grain to `slskit.yaml` file, e.g.:
 ```yaml
 slskit:
   roster:
-    aminion:
+    foo:
       grains:
         kernel: Linux
 ```
 
 You can find values for grains by inspecting `grains.items` on your real minions.
+
+## How to keep your grains DRY
+
+Using some YAML magic you can reduce grain duplication in your `slskit.yaml` file, e.g.:
+
+```yaml
+_grains:
+  ubuntu: &ubuntu
+    os: Ubuntu
+    os_family: Debian
+    kernel: Linux
+
+slskit:
+  roster:
+    foo:
+      grains:
+        <<: *ubuntu
+    bar:
+      grains:
+        <<: *ubuntu
+    baz:
+      grains:
+        <<: *ubuntu
+```
