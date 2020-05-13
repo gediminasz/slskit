@@ -21,7 +21,10 @@ jobs:
         run: poetry run black --check .
       - name: mypy
         run: poetry run ./tools/mypy.sh
-      - name: slskit snapshot
+      - name: slskit
         run: |
           poetry run slskit refresh
           poetry run slskit snapshot check
+      - name: pytest
+        run: |
+          poetry run pytest
