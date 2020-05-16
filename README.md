@@ -55,6 +55,8 @@ WARNING:salt.loader:salt.loaded.int.module.freebsdkmod.__virtual__() is wrongly 
 You may need to add a corresponding grain to `slskit.yaml` file, e.g.:
 
 ```yaml
+# slskit.yaml
+
 slskit:
   roster:
     foo:
@@ -66,24 +68,43 @@ You can find values for grains by inspecting `grains.items` on your real minions
 
 ## How to keep your grains DRY
 
-Using some YAML magic you can reduce grain duplication in your `slskit.yaml` file, e.g.:
+Use `default_grains` option to avoid duplicating the same grains over all minions:
 
 ```yaml
-_grains:
-  ubuntu: &ubuntu
-    os: Ubuntu
-    os_family: Debian
-    kernel: Linux
+# slskit.yaml
 
 slskit:
   roster:
     foo:
-      grains:
-        <<: *ubuntu
     bar:
-      grains:
-        <<: *ubuntu
     baz:
+  default_grains:
+    os: Ubuntu
+```
+
+For more advanced cases use YAML anchors:
+
+```yaml
+# slskit.yaml
+
+_grains:
+  ubuntu: &ubuntu
+    os: Ubuntu
+  fedora: &fedora
+    os: Fedora
+
+slskit:
+  roster:
+    u1:
       grains:
         <<: *ubuntu
+    u2:
+      grains:
+        <<: *ubuntu
+    f1:
+      grains:
+        <<: *fedora
+    f2:
+      grains:
+        <<: *fedora
 ```

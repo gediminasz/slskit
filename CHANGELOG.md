@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added `slskit.default_grains` setting for specifying grains to be applied to all minions in roster.
+
 ## 2020.5.0
 
 - Added `sls` command which can render a specific state (analogous to `state.show_sls`).

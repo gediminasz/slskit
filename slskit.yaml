@@ -13,19 +13,13 @@ salt:
     base:
       - tests/project/pillar
 
-_grains:
-  core: &grains_core
+slskit:
+  roster:
+    tester:
+    test-gitfs:
+    test-users:
+  default_grains:
     os: Ubuntu
     os_family: Debian
     kernel: Linux
     saltversioninfo: [3000, 2, 0, 0]
-
-slskit:
-  roster:
-    tester:
-      grains:
-        <<: *grains_core
-    test-gitfs:
-    test-users:
-      grains:
-        <<: *grains_core

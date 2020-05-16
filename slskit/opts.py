@@ -6,6 +6,7 @@ from typing import Any, Generic, List, TypeVar, cast
 
 import jsonschema
 import salt.config
+import salt.utils
 import yaml
 from funcy import cached_property, get_in, post_processing
 
@@ -35,6 +36,7 @@ SCHEMA: AnyDict = {
                         ]
                     },
                 },
+                "default_grains": {"type": "object"},
             },
         },
     },
@@ -92,8 +94,14 @@ class Config:
         return cast(Path, self.args.snapshot_path)
 
     def grains_for(self, minion_id: str) -> AnyDict:
-        grains = self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
-        return {"id": minion_id, **grains}
+        grains = {"id": minion_id}
+        salt.utils.dictupdate.update(
+            grains, self._get_setting(f"{PACKAGE_NAME}.default_grains", {})
+        )
+        salt.utils.dictupdate.update(
+            grains, self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
+        )
+        return grains
 
     def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:
