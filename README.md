@@ -6,12 +6,14 @@
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: slskit [-h] [-c CONFIG] {highstate,sls,pillars,refresh,snapshot} ...
+usage: slskit [-h] [-V] [-c CONFIG]
+              {highstate,sls,pillars,refresh,snapshot} ...
 
 slskit - tools for checking Salt state validity
 
 optional arguments:
   -h, --help            show this help message and exit
+  -V, --version         show program's version number and exit
   -c CONFIG, --config CONFIG
                         path to slskit configuration file (default:
                         slskit.yaml or slskit.yml)
