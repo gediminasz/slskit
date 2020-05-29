@@ -19,6 +19,8 @@ jobs:
           poetry install
       - name: black
         run: poetry run black --check .
+      - name: prospector
+        run: poetry run prospector
       - name: mypy
         run: poetry run ./tools/mypy.sh
       - name: slskit
@@ -26,5 +28,4 @@ jobs:
           poetry run slskit refresh
           poetry run slskit snapshot check
       - name: pytest
-        run: |
-          poetry run pytest
+        run: poetry run pytest

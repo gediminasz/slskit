@@ -1,5 +1,3 @@
-from typing import Any, Dict, cast
-
 import salt.output
 import salt.pillar
 

@@ -1,4 +1,3 @@
-import logging
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -15,10 +14,13 @@ parser.add_argument("-V", "--version", action="version", version=VERSION)
 parser.add_argument(
     "-c",
     "--config",
-    help=f"path to {PACKAGE_NAME} configuration file (default: {' or '.join(DEFAULT_CONFIG_PATHS)})",
+    help=(
+        f"path to {PACKAGE_NAME} configuration file "
+        f"(default: {' or '.join(DEFAULT_CONFIG_PATHS)})"
+    ),
 )
 parser.add_argument(
-    "-l", "--log-level", default="WARNING", choices=logging._nameToLevel.keys()
+    "-l", "--log-level", default="WARNING", choices=slskit.lib.logging.LEVEL_CHOICES
 )
 parser.set_defaults(func=lambda _: parser.print_usage())
 subparsers = parser.add_subparsers(title="commands")

@@ -1,17 +1,15 @@
 import difflib
 import sys
-from pathlib import Path
 from typing import Optional, cast
 from unittest.mock import patch
 
 import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
-from salt.fileserver import Fileserver
 
 from . import pillar, state
 from .opts import Config
-from .types import AnyDict, MinionDict
+from .types import MinionDict
 
 
 def highstate(config: Config) -> None:
