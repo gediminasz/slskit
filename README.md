@@ -7,6 +7,7 @@
 
 ```
 usage: slskit [-h] [-V] [-c CONFIG]
+              [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}]
               {highstate,sls,pillars,refresh,snapshot} ...
 
 slskit - tools for checking Salt state validity
@@ -17,6 +18,7 @@ optional arguments:
   -c CONFIG, --config CONFIG
                         path to slskit configuration file (default:
                         slskit.yaml or slskit.yml)
+  -l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}, --log-level {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}
 
 commands:
   {highstate,sls,pillars,refresh,snapshot}

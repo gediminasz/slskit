@@ -1,4 +1,5 @@
 import argparse
+import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -102,6 +103,11 @@ class Config:
             grains, self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
         )
         return grains
+
+    @cached_property
+    def log_level(self) -> int:
+        level = getattr(logging, self.args.log_level)
+        return cast(int, level)
 
     def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:

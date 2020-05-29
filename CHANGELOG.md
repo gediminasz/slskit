@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added `--log-level` parameter.
+
 ## 2020.5.1
 
 - Added `slskit.default_grains` setting for specifying grains to be applied to all minions in roster.
