@@ -3,7 +3,7 @@ import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, List, cast
+from typing import Any, List, Optional, cast
 
 import jsonschema
 import salt.config
@@ -44,7 +44,7 @@ SCHEMA: AnyDict = {
 }
 
 
-def validate(instance: AnyDict, schema: AnyDict = None) -> AnyDict:
+def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
     jsonschema.validate(instance, schema or SCHEMA)
     return instance
 
