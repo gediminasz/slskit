@@ -1,0 +1,9 @@
+{% include "base.txt" %}
+
+CHILD
+
+{{ grains["id"] }}
+
+{{ pillar["name"] }}
+
+{{ lol }}

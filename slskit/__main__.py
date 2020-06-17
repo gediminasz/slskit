@@ -3,6 +3,7 @@ from pathlib import Path
 
 import slskit.commands
 import slskit.lib.logging
+import slskit.render
 from slskit import PACKAGE_NAME, VERSION
 from slskit.opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
 
@@ -71,6 +72,10 @@ snapshot_check_parser = snapshot_subparsers.add_parser(
     "check", help="check highstate snapshot"
 )
 snapshot_check_parser.set_defaults(func=slskit.commands.check_snapshot, minion_id=None)
+
+
+render_parser = subparsers.add_parser("render")
+render_parser.set_defaults(func=slskit.render.render)
 
 args = parser.parse_args()
 config = Config(args)
