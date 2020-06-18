@@ -7,7 +7,9 @@ import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
 
-from . import pillar, state
+import slskit.render
+
+from . import pillar, render, state
 from .opts import Config
 from .types import MinionDict
 
@@ -25,6 +27,11 @@ def sls(config: Config) -> None:
 def pillars(config: Config) -> None:
     minion_dict = pillar.items(config)
     _output(minion_dict, config)
+
+
+def render(config: Config) -> None:
+    output = slskit.render.render(config)
+    print(output)
 
 
 def refresh(config: Config) -> None:

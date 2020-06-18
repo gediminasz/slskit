@@ -1,9 +1,9 @@
+import json
 from argparse import ArgumentParser
 from pathlib import Path
 
 import slskit.commands
 import slskit.lib.logging
-import slskit.render
 from slskit import PACKAGE_NAME, VERSION
 from slskit.opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
 
@@ -45,6 +45,20 @@ pillars_parser = subparsers.add_parser(
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=slskit.commands.pillars)
 
+render_parser = subparsers.add_parser("render", help="render specified file")
+render_parser.add_argument("path")
+render_parser.add_argument("minion_id")
+render_parser.add_argument(
+    "--renderer", default="jinja", help="renderer to be used",
+)
+render_parser.add_argument(
+    "--context",
+    default={},
+    type=json.loads,
+    help="JSON object containing extra variables to be passed into the renderer",
+)
+render_parser.set_defaults(func=slskit.commands.render)
+
 refresh_parser = subparsers.add_parser(
     "refresh", help="invoke saltutil.sync_all runner"
 )
@@ -72,10 +86,6 @@ snapshot_check_parser = snapshot_subparsers.add_parser(
     "check", help="check highstate snapshot"
 )
 snapshot_check_parser.set_defaults(func=slskit.commands.check_snapshot, minion_id=None)
-
-
-render_parser = subparsers.add_parser("render")
-render_parser.set_defaults(func=slskit.render.render)
 
 args = parser.parse_args()
 config = Config(args)
