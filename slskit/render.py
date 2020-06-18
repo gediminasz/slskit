@@ -3,6 +3,7 @@ import salt.template
 
 import slskit.pillar
 from slskit.opts import Config
+from slskit.types import Result
 
 
 def render(config: Config):
@@ -23,4 +24,4 @@ def render(config: Config):
         **config.args.context
     )
 
-    return output.read() if hasattr(output, "read") else output
+    return Result(valid=output != {}, value=output)

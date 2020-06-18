@@ -31,8 +31,13 @@ def pillars(config: Config) -> None:
 
 
 def render(config: Config) -> None:
-    output = slskit.render.render(config)
+    result = slskit.render.render(config)
+
+    output = result.value.read() if hasattr(result.value, "read") else result.value
     print(output)
+
+    if not result.valid:
+        sys.exit(1)
 
 
 def refresh(config: Config) -> None:
