@@ -7,25 +7,26 @@ import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
 
+import slskit.pillar
 import slskit.render
+import slskit.state
 
-from . import pillar, render, state
 from .opts import Config
 from .types import MinionDict
 
 
 def highstate(config: Config) -> None:
-    minion_dict = state.show_highstate(config)
+    minion_dict = slskit.state.show_highstate(config)
     _output(minion_dict, config)
 
 
 def sls(config: Config) -> None:
-    minion_dict = state.show_sls(config)
+    minion_dict = slskit.state.show_sls(config)
     _output(minion_dict, config)
 
 
 def pillars(config: Config) -> None:
-    minion_dict = pillar.items(config)
+    minion_dict = slskit.pillar.items(config)
     _output(minion_dict, config)
 
 
@@ -74,7 +75,7 @@ def _output(minion_dict: MinionDict, config: Config) -> None:
 
 
 def _dump_highstate(config: Config) -> Optional[str]:
-    minion_dict = state.show_highstate(config)
+    minion_dict = slskit.state.show_highstate(config)
     if not minion_dict.all_valid:
         return None
 
