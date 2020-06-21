@@ -7,23 +7,31 @@ import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
 
-from . import pillar, state
+import slskit.pillar
+import slskit.state
+import slskit.template
+
 from .opts import Config
 from .types import MinionDict
 
 
 def highstate(config: Config) -> None:
-    minion_dict = state.show_highstate(config)
+    minion_dict = slskit.state.show_highstate(config)
     _output(minion_dict, config)
 
 
 def sls(config: Config) -> None:
-    minion_dict = state.show_sls(config)
+    minion_dict = slskit.state.show_sls(config)
     _output(minion_dict, config)
 
 
 def pillars(config: Config) -> None:
-    minion_dict = pillar.items(config)
+    minion_dict = slskit.pillar.items(config)
+    _output(minion_dict, config)
+
+
+def template(config: Config) -> None:
+    minion_dict = slskit.template.render(config)
     _output(minion_dict, config)
 
 
@@ -59,15 +67,13 @@ def check_snapshot(config: Config) -> None:
 
 
 def _output(minion_dict: MinionDict, config: Config) -> None:
-    salt.output.display_output(
-        minion_dict.output, out="yaml", opts=config.opts,
-    )
+    salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:
         sys.exit(1)
 
 
 def _dump_highstate(config: Config) -> Optional[str]:
-    minion_dict = state.show_highstate(config)
+    minion_dict = slskit.state.show_highstate(config)
     if not minion_dict.all_valid:
         return None
 

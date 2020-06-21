@@ -1,3 +1,4 @@
+import json
 from argparse import ArgumentParser
 from pathlib import Path
 
@@ -43,6 +44,22 @@ pillars_parser = subparsers.add_parser(
 )
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=slskit.commands.pillars)
+
+template_parser = subparsers.add_parser(
+    "template", help="render a file template for specified minions"
+)
+template_parser.add_argument("path")
+template_parser.add_argument("minion_id", nargs="*")
+template_parser.add_argument(
+    "--renderer", default="jinja", help="renderer to be used (default: jinja)",
+)
+template_parser.add_argument(
+    "--context",
+    default={},
+    type=json.loads,
+    help="JSON object containing extra variables to be passed into the renderer",
+)
+template_parser.set_defaults(func=slskit.commands.template)
 
 refresh_parser = subparsers.add_parser(
     "refresh", help="invoke saltutil.sync_all runner"

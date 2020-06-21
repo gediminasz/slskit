@@ -20,4 +20,4 @@ def items(config: Config) -> MinionDict:
 
 def compile_pillar(opts: AnyDict, grains: AnyDict, minion_id: str) -> Result:
     pillar = salt.pillar.get_pillar(opts, grains, minion_id).compile_pillar()
-    return Result(valid="_errors" in pillar, value=pillar)
+    return Result(valid="_errors" not in pillar, value=pillar)
