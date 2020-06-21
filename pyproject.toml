@@ -23,6 +23,7 @@ GitPython = "^3.0.5"
 mypy = "^0.761"
 black = "^19.10b0"
 prospector = "^1.2.0"
+pytest-snapshot = "^0.4.1"
 
 [tool.poetry.scripts]
 slskit = 'slskit:run_module'

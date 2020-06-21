@@ -1,0 +1,5 @@
+{% include "template/base.txt" %}
+
+CHILD
+
+My name is {{ pillar["name"] }}

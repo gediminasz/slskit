@@ -534,6 +534,18 @@ checkqa-mypy = ["mypy (v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
+category = "dev"
+description = "A plugin to enable snapshot testing with pytest."
+name = "pytest-snapshot"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "0.4.1"
+
+[package.dependencies]
+packaging = "*"
+pytest = ">=3.0.0"
+
+[[package]]
 category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
@@ -721,7 +733,7 @@ more-itertools = "*"
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 
 [metadata]
-content-hash = "ba4a1a2e49fb88c3ef34f64352b15f20c7f99e46d6653df132aee567059963a7"
+content-hash = "e2bf28e64364237b12530aba17622c63dd8abefa58c3a1b41c1f94f14f9f66a5"
 python-versions = "3.7.*"
 
 [metadata.files]
@@ -980,6 +992,10 @@ pyrsistent = [
 pytest = [
     {file = "pytest-5.3.4-py3-none-any.whl", hash = "sha256:c13d1943c63e599b98cf118fcb9703e4d7bde7caa9a432567bcdcae4bf512d20"},
     {file = "pytest-5.3.4.tar.gz", hash = "sha256:1d122e8be54d1a709e56f82e2d85dcba3018313d64647f38a91aec88c239b600"},
+]
+pytest-snapshot = [
+    {file = "pytest-snapshot-0.4.1.tar.gz", hash = "sha256:27303acbb354044888286d7a27a9d111a5e50822d989557d40ccc8f0f36209f8"},
+    {file = "pytest_snapshot-0.4.1-py3-none-any.whl", hash = "sha256:0bc57c6a3234eaf1005258e31379795b4b49727c4de7b671585e20d652b7bc60"},
 ]
 pyyaml = [
     {file = "PyYAML-5.3-cp27-cp27m-win32.whl", hash = "sha256:940532b111b1952befd7db542c370887a8611660d2b9becff75d39355303d82d"},
