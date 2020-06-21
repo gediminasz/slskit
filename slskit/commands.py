@@ -8,8 +8,8 @@ import salt.runners.saltutil
 import salt.utils.yaml
 
 import slskit.pillar
-import slskit.render
 import slskit.state
+import slskit.template
 
 from .opts import Config
 from .types import MinionDict
@@ -30,8 +30,8 @@ def pillars(config: Config) -> None:
     _output(minion_dict, config)
 
 
-def render(config: Config) -> None:
-    minion_dict = slskit.render.render(config)
+def template(config: Config) -> None:
+    minion_dict = slskit.template.render(config)
     _output(minion_dict, config)
 
 

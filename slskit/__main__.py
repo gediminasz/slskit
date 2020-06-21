@@ -45,19 +45,21 @@ pillars_parser = subparsers.add_parser(
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=slskit.commands.pillars)
 
-render_parser = subparsers.add_parser("render", help="render specified template")
-render_parser.add_argument("path")
-render_parser.add_argument("minion_id", nargs="*")
-render_parser.add_argument(
-    "--renderer", default="jinja", help="renderer to be used",
+template_parser = subparsers.add_parser(
+    "template", help="render a file template for specified minions"
 )
-render_parser.add_argument(
+template_parser.add_argument("path")
+template_parser.add_argument("minion_id", nargs="*")
+template_parser.add_argument(
+    "--renderer", default="jinja", help="renderer to be used (default: jinja)",
+)
+template_parser.add_argument(
     "--context",
     default={},
     type=json.loads,
     help="JSON object containing extra variables to be passed into the renderer",
 )
-render_parser.set_defaults(func=slskit.commands.render)
+template_parser.set_defaults(func=slskit.commands.template)
 
 refresh_parser = subparsers.add_parser(
     "refresh", help="invoke saltutil.sync_all runner"
