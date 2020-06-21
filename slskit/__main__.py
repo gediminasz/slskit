@@ -45,7 +45,7 @@ pillars_parser = subparsers.add_parser(
 pillars_parser.add_argument("minion_id", nargs="*")
 pillars_parser.set_defaults(func=slskit.commands.pillars)
 
-render_parser = subparsers.add_parser("render", help="render specified file")
+render_parser = subparsers.add_parser("render", help="render specified template")
 render_parser.add_argument("path")
 render_parser.add_argument("minion_id", nargs="*")
 render_parser.add_argument(

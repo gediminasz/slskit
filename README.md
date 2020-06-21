@@ -8,7 +8,7 @@
 ```
 usage: slskit [-h] [-V] [-c CONFIG]
               [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}]
-              {highstate,sls,pillars,refresh,snapshot} ...
+              {highstate,sls,pillars,render,refresh,snapshot} ...
 
 slskit - tools for checking Salt state validity
 
@@ -21,10 +21,11 @@ optional arguments:
   -l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}, --log-level {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}
 
 commands:
-  {highstate,sls,pillars,refresh,snapshot}
+  {highstate,sls,pillars,render,refresh,snapshot}
     highstate           render highstate for specified minions
     sls                 render a given sls for specified minions
     pillars             render pillar items for specified minions
+    render              render specified template
     refresh             invoke saltutil.sync_all runner
     snapshot            create and check highstate snapshots
 ```

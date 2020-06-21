@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added `render` command which can be used to preview file templates.
 - Added `--log-level` parameter.
 
 ## 2020.5.1
