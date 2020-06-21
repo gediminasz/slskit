@@ -3,7 +3,7 @@ import salt.template
 
 import slskit.pillar
 from slskit.opts import Config
-from slskit.types import AnyDict, MinionDict, Result
+from slskit.types import MinionDict, Result
 
 
 def render(config: Config) -> MinionDict:
