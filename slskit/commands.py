@@ -31,13 +31,8 @@ def pillars(config: Config) -> None:
 
 
 def render(config: Config) -> None:
-    result = slskit.render.render(config)
-
-    output = result.value.read() if hasattr(result.value, "read") else result.value
-    print(output)
-
-    if not result.valid:
-        sys.exit(1)
+    minion_dict = slskit.render.render(config)
+    _output(minion_dict, config)
 
 
 def refresh(config: Config) -> None:
@@ -72,9 +67,7 @@ def check_snapshot(config: Config) -> None:
 
 
 def _output(minion_dict: MinionDict, config: Config) -> None:
-    salt.output.display_output(
-        minion_dict.output, out="yaml", opts=config.opts,
-    )
+    salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:
         sys.exit(1)
 
