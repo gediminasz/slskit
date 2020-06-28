@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2020.6.0
 
 - Added `template` command which can be used to render file templates.
 - Added `--log-level` parameter.
