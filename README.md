@@ -111,3 +111,20 @@ slskit:
       grains:
         <<: *fedora
 ```
+
+
+## How to reduce output verbosity
+
+Use Salt's `output` configuration option, e.g.:
+
+```yaml
+# slskit.yaml
+
+salt:
+  output: yaml
+
+slskit:
+  ...
+```
+
+https://docs.saltstack.com/en/latest/ref/configuration/master.html#output

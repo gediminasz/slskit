@@ -12,6 +12,7 @@ salt:
   pillar_roots:
     base:
       - tests/project/pillar
+  output: yaml
 
 slskit:
   roster:
