@@ -1,4 +1,3 @@
-import logging
 from typing import List
 
 import salt.output
@@ -29,7 +28,7 @@ def compile_highstate(opts: AnyDict) -> Result:
     top_errors = highstate.verify_tops(top)
 
     matches = highstate.top_matches(top)
-    if not highstate._check_pillar():
+    if not highstate._check_pillar():  # pylint:disable=protected-access
         log_errors(
             f"Failed to render pillar for {opts['id']}:",
             highstate.opts["pillar"]["_errors"],

@@ -1,5 +1,5 @@
 import logging
-from typing import Any
+from typing import Any, Iterable
 
 import colorlog
 
@@ -17,5 +17,5 @@ def basic_config(**kwargs: Any) -> None:
     colorlog.basicConfig(**kwargs)
 
 
-def log_errors(title, errors):
+def log_errors(title: str, errors: Iterable[str]) -> None:
     logging.error("\n    ".join((title, *errors)))

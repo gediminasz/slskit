@@ -13,19 +13,7 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
+      - run: |
           pip install poetry
           poetry install
-      - name: black
-        run: poetry run black --check .
-      - name: prospector
-        run: poetry run prospector
-      - name: mypy
-        run: poetry run ./tools/mypy.sh
-      - name: slskit
-        run: |
-          poetry run slskit refresh
-          poetry run slskit snapshot check
-      - name: pytest
-        run: poetry run pytest
+          poetry run ./check.sh
