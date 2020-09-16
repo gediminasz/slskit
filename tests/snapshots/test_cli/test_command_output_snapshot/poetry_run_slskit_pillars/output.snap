@@ -1,0 +1,15 @@
+test-gitfs:
+  name: test-gitfs
+  vault:
+    secret: SECRET
+test-users:
+  name: test-users
+  users:
+    auser:
+      fullname: A User
+  vault:
+    secret: SECRET
+tester:
+  name: tester
+  vault:
+    secret: SECRET
