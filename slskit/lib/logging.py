@@ -15,3 +15,7 @@ def basic_config(**kwargs: Any) -> None:
         h.close()
 
     colorlog.basicConfig(**kwargs)
+
+
+def log_errors(title, errors):
+    logging.error("\n    ".join((title, *errors)))

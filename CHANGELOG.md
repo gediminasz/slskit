@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fixed `highstate` command not showing any errors when pillar rendering fails.
+
 ## 2020.6.0
 
 - Added `template` command which can be used to render file templates.

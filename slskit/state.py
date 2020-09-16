@@ -5,6 +5,8 @@ import salt.output
 import salt.state
 import salt.utils
 
+from slskit.lib.logging import log_errors
+
 from .opts import Config
 from .types import AnyDict, MinionDict, Result
 
@@ -27,15 +29,18 @@ def compile_highstate(opts: AnyDict) -> Result:
     top_errors = highstate.verify_tops(top)
 
     matches = highstate.top_matches(top)
+    if not highstate._check_pillar():
+        log_errors(
+            f"Failed to render pillar for {opts['id']}:",
+            highstate.opts["pillar"]["_errors"],
+        )
+        return Result(False, highstate.opts["pillar"]["_errors"])
+
     result, render_errors = highstate.render_highstate(matches)
 
     errors = top_errors + render_errors
-
     if errors:
-        message = f"Failed to render highstate for minion {opts['id']}:"
-        for e in errors:
-            message += "\n    " + e
-        logging.error(message)
+        log_errors(f"Failed to render highstate for {opts['id']}:", errors)
 
     return Result(False, errors) if errors else Result(True, result)
 
