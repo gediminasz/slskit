@@ -1,6 +1,9 @@
-tester:
-    BASE
-    
-    CHILD
-    
-    My name is tester
+tester: 'BASE
+
+
+  CHILD
+
+
+  My name is tester
+
+  '
