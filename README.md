@@ -115,7 +115,7 @@ slskit:
 
 ## How to reduce output verbosity
 
-Use Salt's `output` configuration option, e.g.:
+Use Salt's [`output` configuration option](https://docs.saltstack.com/en/latest/ref/configuration/master.html#output), e.g.:
 
 ```yaml
 # slskit.yaml
@@ -126,5 +126,3 @@ salt:
 slskit:
   ...
 ```
-
-https://docs.saltstack.com/en/latest/ref/configuration/master.html#output
