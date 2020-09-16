@@ -63,7 +63,7 @@ test-gitfs:
     service:
     - name: ufw
     - enable: false
-    - require:
+    - watch:
       - sls: ufw.config.file
     - dead
     - order: 10004
