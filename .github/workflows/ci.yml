@@ -17,4 +17,4 @@ jobs:
         run: |
           pip install poetry
           poetry install
-          poetry run ./check.sh
+          poetry run ./tools/check.sh

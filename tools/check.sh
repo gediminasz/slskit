@@ -4,7 +4,7 @@ set -ex
 
 black --check .
 prospector
-./tools/mypy.sh
+mypy --strict --allow-untyped-decorators
 
 slskit refresh
 slskit snapshot check
