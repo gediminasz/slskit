@@ -1,3 +1,4 @@
+import logging
 from typing import List
 
 import salt.output
@@ -29,6 +30,13 @@ def compile_highstate(opts: AnyDict) -> Result:
     result, render_errors = highstate.render_highstate(matches)
 
     errors = top_errors + render_errors
+
+    if errors:
+        message = f"Failed to render highstate for minion {opts['id']}:"
+        for e in errors:
+            message += "\n    " + e
+        logging.error(message)
+
     return Result(False, errors) if errors else Result(True, result)
 
 
