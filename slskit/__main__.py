@@ -22,6 +22,7 @@ from slskit.types import MinionDict
 
 
 @click.group()
+@click.version_option(version=VERSION)
 @click.option(
     "-c",
     "--config",

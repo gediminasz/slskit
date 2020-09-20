@@ -10,6 +10,7 @@ def execute(command):
 @pytest.mark.parametrize(
     "command",
     (
+        "poetry run slskit --version",
         "poetry run slskit highstate",
         "poetry run slskit sls detached",
         "poetry run slskit pillars",
