@@ -106,7 +106,7 @@ def refresh(ctx: click.Context) -> None:
         salt.runners.saltutil.sync_all()
 
 
-@cli.group()
+@cli.group(help="create and check highstate snapshots")
 @click.option(
     "-p",
     "--path",
