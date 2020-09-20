@@ -53,6 +53,7 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 class Config:
     config_path: Optional[str]
     minion_id: Optional[List[str]] = None
+    snapshot_path: Optional[Path] = None
     # args: argparse.Namespace
 
     @cached_property
@@ -91,10 +92,6 @@ class Config:
             if os.path.exists(path):
                 return load_yaml(path)
         return {}
-
-    @cached_property
-    def snapshot_path(self) -> Path:
-        return cast(Path, self.args.snapshot_path)
 
     def grains_for(self, minion_id: str) -> AnyDict:
         grains = {"id": minion_id}

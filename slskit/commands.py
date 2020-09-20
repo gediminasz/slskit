@@ -41,49 +41,49 @@ from .types import MinionDict
 #         salt.runners.saltutil.sync_all()
 
 
-def create_snapshot(config: Config) -> None:
-    dump = _dump_highstate(config)
-    if not dump:
-        sys.exit("Failed to render snapshot")
+# def create_snapshot(config: Config) -> None:
+#     dump = _dump_highstate(config)
+#     if not dump:
+#         sys.exit("Failed to render snapshot")
 
-    config.snapshot_path.write_text(dump)
-    print(f"Snapshot saved as `{config.snapshot_path}`")
-
-
-def check_snapshot(config: Config) -> None:
-    if not config.snapshot_path.exists():
-        sys.exit(f"Snapshot file `{config.snapshot_path}` not found")
-    snapshot = config.snapshot_path.read_text()
-
-    dump = _dump_highstate(config)
-    if not dump:
-        sys.exit("Failed to render snapshot")
-
-    if snapshot != dump:
-        _display_diff(snapshot, dump)
-        sys.exit(
-            "There are some changes not present in the snapshot. "
-            "Run `slskit snapshot create` to update the snapshot."
-        )
+#     config.snapshot_path.write_text(dump)
+#     print(f"Snapshot saved as `{config.snapshot_path}`")
 
 
-def _output(minion_dict: MinionDict, config: Config) -> None:
-    salt.output.display_output(minion_dict.output, opts=config.opts)
-    if not minion_dict.all_valid:
-        sys.exit(1)
+# def check_snapshot(config: Config) -> None:
+#     if not config.snapshot_path.exists():
+#         sys.exit(f"Snapshot file `{config.snapshot_path}` not found")
+#     snapshot = config.snapshot_path.read_text()
+
+#     dump = _dump_highstate(config)
+#     if not dump:
+#         sys.exit("Failed to render snapshot")
+
+#     if snapshot != dump:
+#         _display_diff(snapshot, dump)
+#         sys.exit(
+#             "There are some changes not present in the snapshot. "
+#             "Run `slskit snapshot create` to update the snapshot."
+#         )
 
 
-def _dump_highstate(config: Config) -> Optional[str]:
-    minion_dict = slskit.state.show_highstate(config)
-    if not minion_dict.all_valid:
-        return None
-
-    dump = salt.utils.yaml.safe_dump(minion_dict.output, default_flow_style=False)
-    return cast(str, dump)
+# def _output(minion_dict: MinionDict, config: Config) -> None:
+#     salt.output.display_output(minion_dict.output, opts=config.opts)
+#     if not minion_dict.all_valid:
+#         sys.exit(1)
 
 
-def _display_diff(a: str, b: str) -> None:
-    diff = difflib.unified_diff(
-        a.splitlines(keepends=True), b.splitlines(keepends=True)
-    )
-    sys.stdout.writelines(diff)
+# def _dump_highstate(config: Config) -> Optional[str]:
+#     minion_dict = slskit.state.show_highstate(config)
+#     if not minion_dict.all_valid:
+#         return None
+
+#     dump = salt.utils.yaml.safe_dump(minion_dict.output, default_flow_style=False)
+#     return cast(str, dump)
+
+
+# def _display_diff(a: str, b: str) -> None:
+#     diff = difflib.unified_diff(
+#         a.splitlines(keepends=True), b.splitlines(keepends=True)
+#     )
+#     sys.stdout.writelines(diff)

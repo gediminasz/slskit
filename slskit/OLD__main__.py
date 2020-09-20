@@ -66,28 +66,28 @@ subparsers = parser.add_subparsers(title="commands")
 # )
 # refresh_parser.set_defaults(func=slskit.commands.refresh)
 
-snapshot_parser = subparsers.add_parser(
-    "snapshot", help="create and check highstate snapshots"
-)
-snapshot_parser.add_argument(
-    "-p",
-    "--path",
-    default=DEFAULT_SNAPSHOT_PATH,
-    type=Path,
-    help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
-    dest="snapshot_path",
-)
-snapshot_subparsers = snapshot_parser.add_subparsers(title="subcommands")
-snapshot_create_parser = snapshot_subparsers.add_parser(
-    "create", help="create highstate snapshot"
-)
-snapshot_create_parser.set_defaults(
-    func=slskit.commands.create_snapshot, minion_id=None
-)
-snapshot_check_parser = snapshot_subparsers.add_parser(
-    "check", help="check highstate snapshot"
-)
-snapshot_check_parser.set_defaults(func=slskit.commands.check_snapshot, minion_id=None)
+# snapshot_parser = subparsers.add_parser(
+#     "snapshot", help="create and check highstate snapshots"
+# )
+# snapshot_parser.add_argument(
+#     "-p",
+#     "--path",
+#     default=DEFAULT_SNAPSHOT_PATH,
+#     type=Path,
+#     help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
+#     dest="snapshot_path",
+# )
+# snapshot_subparsers = snapshot_parser.add_subparsers(title="subcommands")
+# snapshot_create_parser = snapshot_subparsers.add_parser(
+#     "create", help="create highstate snapshot"
+# )
+# snapshot_create_parser.set_defaults(
+#     func=slskit.commands.create_snapshot, minion_id=None
+# )
+# snapshot_check_parser = snapshot_subparsers.add_parser(
+#     "check", help="check highstate snapshot"
+# )
+# snapshot_check_parser.set_defaults(func=slskit.commands.check_snapshot, minion_id=None)
 
 args = parser.parse_args()
 config = Config(args)

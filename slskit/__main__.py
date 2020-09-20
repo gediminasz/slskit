@@ -93,10 +93,74 @@ def refresh(ctx):
         salt.runners.saltutil.sync_all()
 
 
+@cli.group()
+@click.option(
+    "-p",
+    "--path",
+    "snapshot_path",
+    default=DEFAULT_SNAPSHOT_PATH,
+    type=Path,
+    help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
+)
+@click.pass_context
+def snapshot(ctx, snapshot_path):
+    ctx.obj["snapshot_path"] = snapshot_path
+
+
+@snapshot.command(help="create highstate snapshot")
+@click.pass_context
+def create(ctx):
+    config = Config(**ctx.obj)
+
+    dump = _dump_highstate(config)
+    if not dump:
+        sys.exit("Failed to render snapshot")
+
+    config.snapshot_path.write_text(dump)
+    print(f"Snapshot saved as `{config.snapshot_path}`")
+
+
+@snapshot.command(help="check highstate snapshot")
+@click.pass_context
+def check(ctx):
+    config = Config(**ctx.obj)
+
+    if not config.snapshot_path.exists():
+        sys.exit(f"Snapshot file `{config.snapshot_path}` not found")
+    snapshot = config.snapshot_path.read_text()
+
+    dump = _dump_highstate(config)
+    if not dump:
+        sys.exit("Failed to render snapshot")
+
+    if snapshot != dump:
+        _display_diff(snapshot, dump)
+        sys.exit(
+            "There are some changes not present in the snapshot. "
+            "Run `slskit snapshot create` to update the snapshot."
+        )
+
+
 def _output(minion_dict: MinionDict, config: Config) -> None:
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:
         sys.exit(1)
+
+
+def _dump_highstate(config: Config) -> Optional[str]:
+    minion_dict = slskit.state.show_highstate(config)
+    if not minion_dict.all_valid:
+        return None
+
+    dump = salt.utils.yaml.safe_dump(minion_dict.output, default_flow_style=False)
+    return cast(str, dump)
+
+
+def _display_diff(a: str, b: str) -> None:
+    diff = difflib.unified_diff(
+        a.splitlines(keepends=True), b.splitlines(keepends=True)
+    )
+    sys.stdout.writelines(diff)
 
 
 cli()
