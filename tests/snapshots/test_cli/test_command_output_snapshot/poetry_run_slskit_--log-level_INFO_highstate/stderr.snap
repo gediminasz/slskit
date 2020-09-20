@@ -1,0 +1,73 @@
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/ext/tornado/httputil.py:107: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  class HTTPHeaders(collections.MutableMapping):
+[32mINFO[0m:salt.state:Loading fresh modules for state activity[0m
+[32mINFO[0m:salt.state:Loading fresh modules for state activity[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/init.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/package/init.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/package/install.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/modules/pillar.py:146: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  if isinstance(ret, collections.Mapping):
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/init.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/file.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/libtofs.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/services.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/service/enable.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/service/reload.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/applications.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/interfaces.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/config/open.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/service/init.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/service/running.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/defaults.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfamilymap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osmap.yaml'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'ufw/osfingermap.yaml'[0m
+[32mINFO[0m:salt.state:Loading fresh modules for state activity[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'users/init.sls'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'users/map.jinja'[0m
+[32mINFO[0m:salt.fileclient:Fetching file from saltenv 'base', ** done ** 'users/defaults.yaml'[0m
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/utils/decorators/signature.py:31: DeprecationWarning: `formatargspec` is deprecated since Python 3.5. Use `signature` and the `Signature` object directly
+  *salt.utils.args.get_function_argspec(original_function)
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/modules/file.py:32: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  from collections import Iterable, Mapping, namedtuple

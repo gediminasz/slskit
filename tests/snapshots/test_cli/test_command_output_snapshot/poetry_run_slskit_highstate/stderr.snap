@@ -1,0 +1,8 @@
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/ext/tornado/httputil.py:107: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  class HTTPHeaders(collections.MutableMapping):
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/modules/pillar.py:146: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  if isinstance(ret, collections.Mapping):
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/utils/decorators/signature.py:31: DeprecationWarning: `formatargspec` is deprecated since Python 3.5. Use `signature` and the `Signature` object directly
+  *salt.utils.args.get_function_argspec(original_function)
+/home/gz/dev/personal/slskit/.venv/lib/python3.7/site-packages/salt/modules/file.py:32: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  from collections import Iterable, Mapping, namedtuple
