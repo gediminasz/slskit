@@ -2,9 +2,8 @@ import difflib
 import json
 import logging
 import sys
-from argparse import ArgumentParser
 from pathlib import Path
-from typing import Optional, cast
+from typing import List, Optional, cast
 from unittest.mock import patch
 
 import click
@@ -12,14 +11,13 @@ import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
 
-import slskit.commands
 import slskit.lib.logging
 import slskit.pillar
 import slskit.state
 import slskit.template
 from slskit import PACKAGE_NAME, VERSION
 from slskit.opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
-from slskit.types import MinionDict
+from slskit.types import AnyDict, MinionDict
 
 
 @click.group()
@@ -40,9 +38,9 @@ from slskit.types import MinionDict
     type=click.Choice(slskit.lib.logging.LEVEL_CHOICES),
 )
 @click.pass_context
-def cli(ctx, config_path, log_level):
+def cli(ctx: click.Context, config_path: str, log_level: str) -> None:
     ctx.ensure_object(dict)
-    ctx.obj["config_path"] = config_path
+    ctx.obj["config"] = Config(config_path)
 
     log_level = getattr(logging, log_level)
     slskit.lib.logging.basic_config(level=log_level)
@@ -51,29 +49,29 @@ def cli(ctx, config_path, log_level):
 @cli.command(help="render highstate for specified minions")
 @click.argument("minion_id", nargs=-1)
 @click.pass_context
-def highstate(ctx, minion_id):
-    config = Config(minion_id=minion_id, **ctx.obj)
-    minion_dict = slskit.state.show_highstate(config)
-    _output(minion_dict, config)
+def highstate(ctx: click.Context, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.state.show_highstate(minion_ids, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
 
 
 @cli.command(help="render a given sls for specified minions")
 @click.argument("sls")
 @click.argument("minion_id", nargs=-1)
 @click.pass_context
-def sls(ctx, sls, minion_id):
-    config = Config(minion_id=minion_id, **ctx.obj)
-    minion_dict = slskit.state.show_sls(sls, config)
-    _output(minion_dict, config)
+def sls(ctx: click.Context, sls: str, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.state.show_sls(minion_ids, sls, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
 
 
 @cli.command(help="render pillar items for specified minions")
 @click.argument("minion_id", nargs=-1)
 @click.pass_context
-def pillars(ctx, minion_id):
-    config = Config(minion_id=minion_id, **ctx.obj)
-    minion_dict = slskit.pillar.items(config)
-    _output(minion_dict, config)
+def pillars(ctx: click.Context, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.pillar.items(minion_ids, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
 
 
 @cli.command(help="render a file template for specified minions")
@@ -89,19 +87,22 @@ def pillars(ctx, minion_id):
     help="JSON object containing extra variables to be passed into the renderer",
 )
 @click.pass_context
-def template(ctx, path, minion_id, renderer, context):
-    config = Config(minion_id=minion_id, **ctx.obj)
-    minion_dict = slskit.template.render(config, path, renderer, context)
-    _output(minion_dict, config)
+def template(
+    ctx: click.Context, path: str, minion_id: List[str], renderer: str, context: AnyDict
+) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.template.render(
+        minion_ids, ctx.obj["config"], path, renderer, context
+    )
+    _output(minion_dict, ctx.obj["config"])
 
 
 @cli.command(help="invoke saltutil.sync_all runner")
 @click.pass_context
-def refresh(ctx):
-    config = Config(**ctx.obj)
-    with patch("salt.runners.fileserver.__opts__", config.opts, create=True):
+def refresh(ctx: click.Context) -> None:
+    with patch("salt.runners.fileserver.__opts__", ctx.obj["config"].opts, create=True):
         salt.runners.fileserver.update()
-    with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
+    with patch("salt.runners.saltutil.__opts__", ctx.obj["config"].opts, create=True):
         salt.runners.saltutil.sync_all()
 
 
@@ -115,33 +116,29 @@ def refresh(ctx):
     help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
 )
 @click.pass_context
-def snapshot(ctx, snapshot_path):
+def snapshot(ctx: click.Context, snapshot_path: Path) -> None:
     ctx.obj["snapshot_path"] = snapshot_path
 
 
 @snapshot.command(help="create highstate snapshot")
 @click.pass_context
-def create(ctx):
-    config = Config(**ctx.obj)
-
-    dump = _dump_highstate(config)
+def create(ctx: click.Context) -> None:
+    dump = _dump_highstate(ctx.obj["config"])
     if not dump:
         sys.exit("Failed to render snapshot")
 
-    config.snapshot_path.write_text(dump)
-    print(f"Snapshot saved as `{config.snapshot_path}`")
+    ctx.obj["snapshot_path"].write_text(dump)
+    print(f"Snapshot saved as `{ctx.obj['snapshot_path']}`")
 
 
 @snapshot.command(help="check highstate snapshot")
 @click.pass_context
-def check(ctx):
-    config = Config(**ctx.obj)
+def check(ctx: click.Context) -> None:
+    if not ctx.obj["snapshot_path"].exists():
+        sys.exit(f"Snapshot file `{ctx.obj['snapshot_path']}` not found")
+    snapshot = ctx.obj["snapshot_path"].read_text()
 
-    if not config.snapshot_path.exists():
-        sys.exit(f"Snapshot file `{config.snapshot_path}` not found")
-    snapshot = config.snapshot_path.read_text()
-
-    dump = _dump_highstate(config)
+    dump = _dump_highstate(ctx.obj["config"])
     if not dump:
         sys.exit("Failed to render snapshot")
 
@@ -160,7 +157,8 @@ def _output(minion_dict: MinionDict, config: Config) -> None:
 
 
 def _dump_highstate(config: Config) -> Optional[str]:
-    minion_dict = slskit.state.show_highstate(config)
+    minion_ids = config.roster.keys()
+    minion_dict = slskit.state.show_highstate(minion_ids, config)
     if not minion_dict.all_valid:
         return None
 
@@ -175,4 +173,4 @@ def _display_diff(a: str, b: str) -> None:
     sys.stdout.writelines(diff)
 
 
-cli()
+cli()  # pylint:disable=no-value-for-parameter

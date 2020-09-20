@@ -1,9 +1,6 @@
-import argparse
-import logging
 import os
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any, List, Optional, cast
+from typing import Any, Optional, cast
 
 import jsonschema
 import salt.config
@@ -52,10 +49,6 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 @dataclass
 class Config:
     config_path: str
-    # log_level: str
-    minion_id: Optional[List[str]] = None
-    snapshot_path: Optional[Path] = None
-    # args: argparse.Namespace
 
     @cached_property
     def opts(self) -> AnyDict:
@@ -73,11 +66,6 @@ class Config:
         overrides.update(self.settings.get("salt", {}))
         opts = salt.config.apply_minion_config(overrides)
         return cast(AnyDict, opts)
-
-    @cached_property
-    def minion_ids(self) -> List[str]:
-        ids = self.minion_id or self.roster.keys()
-        return cast(List[str], ids)
 
     @cached_property
     def roster(self) -> AnyDict:
@@ -103,11 +91,6 @@ class Config:
             grains, self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
         )
         return grains
-
-    # @cached_property
-    # def log_level(self) -> int:
-    #     level = getattr(logging, self.args.log_level)
-    #     return cast(int, level)
 
     def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:
