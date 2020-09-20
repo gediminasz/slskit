@@ -1,5 +1,6 @@
 import difflib
 import json
+import logging
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
@@ -26,15 +27,25 @@ from slskit.types import MinionDict
 @click.option(
     "-c",
     "--config",
+    "config_path",
     help=(
         f"path to {PACKAGE_NAME} configuration file "
         f"(default: {' or '.join(DEFAULT_CONFIG_PATHS)})"
     ),
 )
+@click.option(
+    "-l",
+    "--log-level",
+    default="WARNING",
+    type=click.Choice(slskit.lib.logging.LEVEL_CHOICES),
+)
 @click.pass_context
-def cli(ctx, config):
+def cli(ctx, config_path, log_level):
     ctx.ensure_object(dict)
-    ctx.obj["config_path"] = config
+    ctx.obj["config_path"] = config_path
+
+    log_level = getattr(logging, log_level)
+    slskit.lib.logging.basic_config(level=log_level)
 
 
 @cli.command(help="render highstate for specified minions")

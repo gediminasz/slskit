@@ -51,7 +51,8 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 
 @dataclass
 class Config:
-    config_path: Optional[str]
+    config_path: str
+    # log_level: str
     minion_id: Optional[List[str]] = None
     snapshot_path: Optional[Path] = None
     # args: argparse.Namespace
@@ -103,10 +104,10 @@ class Config:
         )
         return grains
 
-    @cached_property
-    def log_level(self) -> int:
-        level = getattr(logging, self.args.log_level)
-        return cast(int, level)
+    # @cached_property
+    # def log_level(self) -> int:
+    #     level = getattr(logging, self.args.log_level)
+    #     return cast(int, level)
 
     def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:
