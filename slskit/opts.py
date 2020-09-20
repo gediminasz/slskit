@@ -51,7 +51,9 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 
 @dataclass
 class Config:
-    args: argparse.Namespace
+    config_path: Optional[str]
+    minion_id: List[str]
+    # args: argparse.Namespace
 
     @cached_property
     def opts(self) -> AnyDict:
@@ -72,7 +74,7 @@ class Config:
 
     @cached_property
     def minion_ids(self) -> List[str]:
-        ids = self.args.minion_id or self.roster.keys()
+        ids = self.minion_id or self.roster.keys()
         return cast(List[str], ids)
 
     @cached_property
@@ -83,8 +85,8 @@ class Config:
     @cached_property
     @post_processing(validate)
     def settings(self) -> AnyDict:
-        if self.args.config is not None:
-            return load_yaml(self.args.config)
+        if self.config_path is not None:
+            return load_yaml(self.config_path)
         for path in DEFAULT_CONFIG_PATHS:
             if os.path.exists(path):
                 return load_yaml(path)

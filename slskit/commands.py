@@ -14,10 +14,9 @@ import slskit.template
 from .opts import Config
 from .types import MinionDict
 
-
-def highstate(config: Config) -> None:
-    minion_dict = slskit.state.show_highstate(config)
-    _output(minion_dict, config)
+# def highstate(config: Config) -> None:
+#     minion_dict = slskit.state.show_highstate(config)
+#     _output(minion_dict, config)
 
 
 def sls(config: Config) -> None:
