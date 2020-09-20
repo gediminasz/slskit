@@ -17,5 +17,6 @@ def execute(command):
     ),
 )
 def test_command_output_snapshot(command, snapshot):
-    output = subprocess.run(command.split(), capture_output=True).stdout.decode()
+    process = subprocess.run(command, shell=True, check=True, capture_output=True)
+    output = process.stdout.decode()
     snapshot.assert_match(output, "output.snap")

@@ -64,6 +64,25 @@ def pillars(ctx, minion_id):
     _output(minion_dict, config)
 
 
+@cli.command(help="render a file template for specified minions")
+@click.argument("path")
+@click.argument("minion_id", nargs=-1)
+@click.option(
+    "--renderer", default="jinja", help="renderer to be used (default: jinja)",
+)
+@click.option(
+    "--context",
+    default="{}",
+    type=json.loads,
+    help="JSON object containing extra variables to be passed into the renderer",
+)
+@click.pass_context
+def template(ctx, path, minion_id, renderer, context):
+    config = Config(minion_id=minion_id, **ctx.obj)
+    minion_dict = slskit.template.render(config, path, renderer, context)
+    _output(minion_dict, config)
+
+
 def _output(minion_dict: MinionDict, config: Config) -> None:
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:

@@ -29,9 +29,9 @@ from .types import MinionDict
 #     _output(minion_dict, config)
 
 
-def template(config: Config) -> None:
-    minion_dict = slskit.template.render(config)
-    _output(minion_dict, config)
+# def template(config: Config) -> None:
+#     minion_dict = slskit.template.render(config)
+#     _output(minion_dict, config)
 
 
 def refresh(config: Config) -> None:
