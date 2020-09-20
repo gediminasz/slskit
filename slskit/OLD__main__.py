@@ -39,11 +39,11 @@ subparsers = parser.add_subparsers(title="commands")
 # sls_parser.add_argument("minion_id", nargs="*")
 # sls_parser.set_defaults(func=slskit.commands.sls)
 
-pillars_parser = subparsers.add_parser(
-    "pillars", help="render pillar items for specified minions"
-)
-pillars_parser.add_argument("minion_id", nargs="*")
-pillars_parser.set_defaults(func=slskit.commands.pillars)
+# pillars_parser = subparsers.add_parser(
+#     "pillars", help="render pillar items for specified minions"
+# )
+# pillars_parser.add_argument("minion_id", nargs="*")
+# pillars_parser.set_defaults(func=slskit.commands.pillars)
 
 template_parser = subparsers.add_parser(
     "template", help="render a file template for specified minions"

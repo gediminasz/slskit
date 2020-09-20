@@ -55,6 +55,15 @@ def sls(ctx, sls, minion_id):
     _output(minion_dict, config)
 
 
+@cli.command(help="render pillar items for specified minions")
+@click.argument("minion_id", nargs=-1)
+@click.pass_context
+def pillars(ctx, minion_id):
+    config = Config(minion_id=minion_id, **ctx.obj)
+    minion_dict = slskit.pillar.items(config)
+    _output(minion_dict, config)
+
+
 def _output(minion_dict: MinionDict, config: Config) -> None:
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:

@@ -24,9 +24,9 @@ from .types import MinionDict
 #     _output(minion_dict, config)
 
 
-def pillars(config: Config) -> None:
-    minion_dict = slskit.pillar.items(config)
-    _output(minion_dict, config)
+# def pillars(config: Config) -> None:
+#     minion_dict = slskit.pillar.items(config)
+#     _output(minion_dict, config)
 
 
 def template(config: Config) -> None:
