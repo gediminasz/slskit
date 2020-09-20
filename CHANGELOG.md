@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Changed `refresh` command to run `fileserver.update` before `saltutil.sync_all`.
 - Fixed `highstate` command not showing any errors when pillar rendering fails.
 
 ## 2020.6.0
