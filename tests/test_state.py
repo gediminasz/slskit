@@ -8,13 +8,8 @@ from slskit.state import compile_highstate
 
 
 @pytest.fixture
-def args():
-    return SimpleNamespace(config="slskit.yaml")
-
-
-@pytest.fixture
-def config(args):
-    return Config(args)
+def config():
+    return Config(config_path="slskit.yaml")
 
 
 def test_compile_highstate_is_equivalent_to_original_implementation(config):
