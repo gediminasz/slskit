@@ -44,8 +44,8 @@ def compile_highstate(opts: AnyDict) -> Result:
     return Result(False, errors) if errors else Result(True, result)
 
 
-def show_sls(config: Config) -> MinionDict:
-    names = salt.utils.args.split_input(config.args.sls)
+def show_sls(sls: str, config: Config) -> MinionDict:
+    names = salt.utils.args.split_input(sls)
     return MinionDict(
         {
             minion_id: compile_sls(

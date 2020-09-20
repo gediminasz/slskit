@@ -45,6 +45,16 @@ def highstate(ctx, minion_id):
     _output(minion_dict, config)
 
 
+@cli.command(help="render a given sls for specified minions")
+@click.argument("sls")
+@click.argument("minion_id", nargs=-1)
+@click.pass_context
+def sls(ctx, sls, minion_id):
+    config = Config(minion_id=minion_id, **ctx.obj)
+    minion_dict = slskit.state.show_sls(sls, config)
+    _output(minion_dict, config)
+
+
 def _output(minion_dict: MinionDict, config: Config) -> None:
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:

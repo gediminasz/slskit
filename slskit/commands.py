@@ -19,9 +19,9 @@ from .types import MinionDict
 #     _output(minion_dict, config)
 
 
-def sls(config: Config) -> None:
-    minion_dict = slskit.state.show_sls(config)
-    _output(minion_dict, config)
+# def sls(config: Config) -> None:
+#     minion_dict = slskit.state.show_sls(config)
+#     _output(minion_dict, config)
 
 
 def pillars(config: Config) -> None:

@@ -32,12 +32,12 @@ subparsers = parser.add_subparsers(title="commands")
 # highstate_parser.add_argument("minion_id", nargs="*")
 # highstate_parser.set_defaults(func=slskit.commands.highstate)
 
-sls_parser = subparsers.add_parser(
-    "sls", help="render a given sls for specified minions"
-)
-sls_parser.add_argument("sls")
-sls_parser.add_argument("minion_id", nargs="*")
-sls_parser.set_defaults(func=slskit.commands.sls)
+# sls_parser = subparsers.add_parser(
+#     "sls", help="render a given sls for specified minions"
+# )
+# sls_parser.add_argument("sls")
+# sls_parser.add_argument("minion_id", nargs="*")
+# sls_parser.set_defaults(func=slskit.commands.sls)
 
 pillars_parser = subparsers.add_parser(
     "pillars", help="render pillar items for specified minions"
