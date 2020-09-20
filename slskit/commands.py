@@ -34,11 +34,11 @@ from .types import MinionDict
 #     _output(minion_dict, config)
 
 
-def refresh(config: Config) -> None:
-    with patch("salt.runners.fileserver.__opts__", config.opts, create=True):
-        salt.runners.fileserver.update()
-    with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
-        salt.runners.saltutil.sync_all()
+# def refresh(config: Config) -> None:
+#     with patch("salt.runners.fileserver.__opts__", config.opts, create=True):
+#         salt.runners.fileserver.update()
+#     with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
+#         salt.runners.saltutil.sync_all()
 
 
 def create_snapshot(config: Config) -> None:

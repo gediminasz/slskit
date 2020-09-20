@@ -83,6 +83,16 @@ def template(ctx, path, minion_id, renderer, context):
     _output(minion_dict, config)
 
 
+@cli.command(help="invoke saltutil.sync_all runner")
+@click.pass_context
+def refresh(ctx):
+    config = Config(**ctx.obj)
+    with patch("salt.runners.fileserver.__opts__", config.opts, create=True):
+        salt.runners.fileserver.update()
+    with patch("salt.runners.saltutil.__opts__", config.opts, create=True):
+        salt.runners.saltutil.sync_all()
+
+
 def _output(minion_dict: MinionDict, config: Config) -> None:
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:

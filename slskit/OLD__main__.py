@@ -61,10 +61,10 @@ subparsers = parser.add_subparsers(title="commands")
 # )
 # template_parser.set_defaults(func=slskit.commands.template)
 
-refresh_parser = subparsers.add_parser(
-    "refresh", help="invoke saltutil.sync_all runner"
-)
-refresh_parser.set_defaults(func=slskit.commands.refresh)
+# refresh_parser = subparsers.add_parser(
+#     "refresh", help="invoke saltutil.sync_all runner"
+# )
+# refresh_parser.set_defaults(func=slskit.commands.refresh)
 
 snapshot_parser = subparsers.add_parser(
     "snapshot", help="create and check highstate snapshots"

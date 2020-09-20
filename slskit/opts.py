@@ -52,7 +52,7 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 @dataclass
 class Config:
     config_path: Optional[str]
-    minion_id: List[str]
+    minion_id: Optional[List[str]] = None
     # args: argparse.Namespace
 
     @cached_property
