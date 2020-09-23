@@ -1,3 +1,5 @@
+from typing import List
+
 import salt.output
 import salt.pillar
 
@@ -5,7 +7,7 @@ from .opts import Config
 from .types import AnyDict, MinionDict, Result
 
 
-def items(config: Config) -> MinionDict:
+def items(minion_ids: List[str], config: Config) -> MinionDict:
     return MinionDict(
         {
             minion_id: compile_pillar(
@@ -13,7 +15,7 @@ def items(config: Config) -> MinionDict:
                 grains=config.grains_for(minion_id),
                 minion_id=minion_id,
             )
-            for minion_id in config.minion_ids
+            for minion_id in minion_ids
         }
     )
 

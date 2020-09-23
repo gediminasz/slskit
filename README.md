@@ -6,28 +6,23 @@
 ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
 
 ```
-usage: slskit [-h] [-V] [-c CONFIG]
-              [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}]
-              {highstate,sls,pillars,template,refresh,snapshot} ...
+Usage: slskit [OPTIONS] COMMAND [ARGS]...
 
-slskit - tools for checking Salt state validity
+Options:
+  --version                       Show the version and exit.
+  -c, --config TEXT               path to slskit configuration file (default:
+                                  slskit.yaml or slskit.yml)
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -V, --version         show program's version number and exit
-  -c CONFIG, --config CONFIG
-                        path to slskit configuration file (default:
-                        slskit.yaml or slskit.yml)
-  -l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}, --log-level {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET,QUIET,PROFILE,TRACE,GARBAGE}
+  -l, --log-level [CRITICAL|FATAL|ERROR|WARN|WARNING|INFO|DEBUG|NOTSET|QUIET|PROFILE|TRACE|GARBAGE]
+  --help                          Show this message and exit.
 
-commands:
-  {highstate,sls,pillars,template,refresh,snapshot}
-    highstate           render highstate for specified minions
-    sls                 render a given sls for specified minions
-    pillars             render pillar items for specified minions
-    template            render a file template for specified minions
-    refresh             invoke saltutil.sync_all runner
-    snapshot            create and check highstate snapshots
+Commands:
+  highstate  render highstate for specified minions
+  pillars    render pillar items for specified minions
+  refresh    invoke saltutil.sync_all runner
+  sls        render a given sls for specified minions
+  snapshot   create and check highstate snapshots
+  template   render a file template for specified minions
 ```
 
 ---

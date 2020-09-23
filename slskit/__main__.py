@@ -1,97 +1,176 @@
+import difflib
 import json
-from argparse import ArgumentParser
+import logging
+import sys
 from pathlib import Path
+from typing import List, Optional, cast
+from unittest.mock import patch
 
-import slskit.commands
+import click
+import salt.output
+import salt.runners.saltutil
+import salt.utils.yaml
+
 import slskit.lib.logging
+import slskit.pillar
+import slskit.state
+import slskit.template
 from slskit import PACKAGE_NAME, VERSION
 from slskit.opts import DEFAULT_CONFIG_PATHS, DEFAULT_SNAPSHOT_PATH, Config
+from slskit.types import AnyDict, MinionDict
 
-parser = ArgumentParser(
-    prog=PACKAGE_NAME,
-    description=f"{PACKAGE_NAME} - tools for checking Salt state validity",
-)
-parser.add_argument("-V", "--version", action="version", version=VERSION)
-parser.add_argument(
+
+@click.group()
+@click.version_option(version=VERSION)
+@click.option(
     "-c",
     "--config",
+    "config_path",
     help=(
         f"path to {PACKAGE_NAME} configuration file "
         f"(default: {' or '.join(DEFAULT_CONFIG_PATHS)})"
     ),
 )
-parser.add_argument(
-    "-l", "--log-level", default="WARNING", choices=slskit.lib.logging.LEVEL_CHOICES
+@click.option(
+    "-l",
+    "--log-level",
+    default="WARNING",
+    type=click.Choice(slskit.lib.logging.LEVEL_CHOICES),
 )
-parser.set_defaults(func=lambda _: parser.print_usage())
-subparsers = parser.add_subparsers(title="commands")
+@click.pass_context
+def cli(ctx: click.Context, config_path: str, log_level: str) -> None:
+    ctx.ensure_object(dict)
+    ctx.obj["config"] = Config(config_path)
 
-highstate_parser = subparsers.add_parser(
-    "highstate", help="render highstate for specified minions"
-)
-highstate_parser.add_argument("minion_id", nargs="*")
-highstate_parser.set_defaults(func=slskit.commands.highstate)
+    log_level = getattr(logging, log_level)
+    slskit.lib.logging.basic_config(level=log_level)
 
-sls_parser = subparsers.add_parser(
-    "sls", help="render a given sls for specified minions"
-)
-sls_parser.add_argument("sls")
-sls_parser.add_argument("minion_id", nargs="*")
-sls_parser.set_defaults(func=slskit.commands.sls)
 
-pillars_parser = subparsers.add_parser(
-    "pillars", help="render pillar items for specified minions"
-)
-pillars_parser.add_argument("minion_id", nargs="*")
-pillars_parser.set_defaults(func=slskit.commands.pillars)
+@cli.command(help="render highstate for specified minions")
+@click.argument("minion_id", nargs=-1)
+@click.pass_context
+def highstate(ctx: click.Context, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.state.show_highstate(minion_ids, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
 
-template_parser = subparsers.add_parser(
-    "template", help="render a file template for specified minions"
-)
-template_parser.add_argument("path")
-template_parser.add_argument("minion_id", nargs="*")
-template_parser.add_argument(
+
+@cli.command(help="render a given sls for specified minions")
+@click.argument("sls")
+@click.argument("minion_id", nargs=-1)
+@click.pass_context
+def sls(ctx: click.Context, sls: str, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.state.show_sls(minion_ids, sls, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
+
+
+@cli.command(help="render pillar items for specified minions")
+@click.argument("minion_id", nargs=-1)
+@click.pass_context
+def pillars(ctx: click.Context, minion_id: List[str]) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.pillar.items(minion_ids, ctx.obj["config"])
+    _output(minion_dict, ctx.obj["config"])
+
+
+@cli.command(help="render a file template for specified minions")
+@click.argument("path")
+@click.argument("minion_id", nargs=-1)
+@click.option(
     "--renderer", default="jinja", help="renderer to be used (default: jinja)",
 )
-template_parser.add_argument(
+@click.option(
     "--context",
-    default={},
+    default="{}",
     type=json.loads,
     help="JSON object containing extra variables to be passed into the renderer",
 )
-template_parser.set_defaults(func=slskit.commands.template)
+@click.pass_context
+def template(
+    ctx: click.Context, path: str, minion_id: List[str], renderer: str, context: AnyDict
+) -> None:
+    minion_ids = minion_id or ctx.obj["config"].roster.keys()
+    minion_dict = slskit.template.render(
+        minion_ids, ctx.obj["config"], path, renderer, context
+    )
+    _output(minion_dict, ctx.obj["config"])
 
-refresh_parser = subparsers.add_parser(
-    "refresh", help="invoke saltutil.sync_all runner"
-)
-refresh_parser.set_defaults(func=slskit.commands.refresh)
 
-snapshot_parser = subparsers.add_parser(
-    "snapshot", help="create and check highstate snapshots"
-)
-snapshot_parser.add_argument(
+@cli.command(help="invoke saltutil.sync_all runner")
+@click.pass_context
+def refresh(ctx: click.Context) -> None:
+    with patch("salt.runners.fileserver.__opts__", ctx.obj["config"].opts, create=True):
+        salt.runners.fileserver.update()
+    with patch("salt.runners.saltutil.__opts__", ctx.obj["config"].opts, create=True):
+        salt.runners.saltutil.sync_all()
+
+
+@cli.group(help="create and check highstate snapshots")
+@click.option(
     "-p",
     "--path",
+    "snapshot_path",
     default=DEFAULT_SNAPSHOT_PATH,
     type=Path,
     help=f"path to snapshot file (default: {DEFAULT_SNAPSHOT_PATH})",
-    dest="snapshot_path",
 )
-snapshot_subparsers = snapshot_parser.add_subparsers(title="subcommands")
-snapshot_create_parser = snapshot_subparsers.add_parser(
-    "create", help="create highstate snapshot"
-)
-snapshot_create_parser.set_defaults(
-    func=slskit.commands.create_snapshot, minion_id=None
-)
-snapshot_check_parser = snapshot_subparsers.add_parser(
-    "check", help="check highstate snapshot"
-)
-snapshot_check_parser.set_defaults(func=slskit.commands.check_snapshot, minion_id=None)
+@click.pass_context
+def snapshot(ctx: click.Context, snapshot_path: Path) -> None:
+    ctx.obj["snapshot_path"] = snapshot_path
 
-args = parser.parse_args()
-config = Config(args)
 
-slskit.lib.logging.basic_config(level=config.log_level)
+@snapshot.command(help="create highstate snapshot")
+@click.pass_context
+def create(ctx: click.Context) -> None:
+    dump = _dump_highstate(ctx.obj["config"])
+    if not dump:
+        sys.exit("Failed to render snapshot")
 
-args.func(config)
+    ctx.obj["snapshot_path"].write_text(dump)
+    print(f"Snapshot saved as `{ctx.obj['snapshot_path']}`")
+
+
+@snapshot.command(help="check highstate snapshot")
+@click.pass_context
+def check(ctx: click.Context) -> None:
+    if not ctx.obj["snapshot_path"].exists():
+        sys.exit(f"Snapshot file `{ctx.obj['snapshot_path']}` not found")
+    snapshot = ctx.obj["snapshot_path"].read_text()
+
+    dump = _dump_highstate(ctx.obj["config"])
+    if not dump:
+        sys.exit("Failed to render snapshot")
+
+    if snapshot != dump:
+        _display_diff(snapshot, dump)
+        sys.exit(
+            "There are some changes not present in the snapshot. "
+            "Run `slskit snapshot create` to update the snapshot."
+        )
+
+
+def _output(minion_dict: MinionDict, config: Config) -> None:
+    salt.output.display_output(minion_dict.output, opts=config.opts)
+    if not minion_dict.all_valid:
+        sys.exit(1)
+
+
+def _dump_highstate(config: Config) -> Optional[str]:
+    minion_ids = config.roster.keys()
+    minion_dict = slskit.state.show_highstate(minion_ids, config)
+    if not minion_dict.all_valid:
+        return None
+
+    dump = salt.utils.yaml.safe_dump(minion_dict.output, default_flow_style=False)
+    return cast(str, dump)
+
+
+def _display_diff(a: str, b: str) -> None:
+    diff = difflib.unified_diff(
+        a.splitlines(keepends=True), b.splitlines(keepends=True)
+    )
+    sys.stdout.writelines(diff)
+
+
+cli()  # pylint:disable=no-value-for-parameter

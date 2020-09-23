@@ -10,13 +10,13 @@ from .opts import Config
 from .types import AnyDict, MinionDict, Result
 
 
-def show_highstate(config: Config) -> MinionDict:
+def show_highstate(minion_ids: List[str], config: Config) -> MinionDict:
     return MinionDict(
         {
             minion_id: compile_highstate(
                 {**config.opts, "id": minion_id, "grains": config.grains_for(minion_id)}
             )
-            for minion_id in config.minion_ids
+            for minion_id in minion_ids
         }
     )
 
@@ -44,8 +44,8 @@ def compile_highstate(opts: AnyDict) -> Result:
     return Result(False, errors) if errors else Result(True, result)
 
 
-def show_sls(config: Config) -> MinionDict:
-    names = salt.utils.args.split_input(config.args.sls)
+def show_sls(minion_ids: List[str], sls: str, config: Config) -> MinionDict:
+    names = salt.utils.args.split_input(sls)
     return MinionDict(
         {
             minion_id: compile_sls(
@@ -56,7 +56,7 @@ def show_sls(config: Config) -> MinionDict:
                     "grains": config.grains_for(minion_id),
                 },
             )
-            for minion_id in config.minion_ids
+            for minion_id in minion_ids
         }
     )
 

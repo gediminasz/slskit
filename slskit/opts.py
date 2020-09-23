@@ -1,9 +1,6 @@
-import argparse
-import logging
 import os
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any, List, Optional, cast
+from typing import Any, Optional, cast
 
 import jsonschema
 import salt.config
@@ -51,7 +48,7 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 
 @dataclass
 class Config:
-    args: argparse.Namespace
+    config_path: str
 
     @cached_property
     def opts(self) -> AnyDict:
@@ -71,11 +68,6 @@ class Config:
         return cast(AnyDict, opts)
 
     @cached_property
-    def minion_ids(self) -> List[str]:
-        ids = self.args.minion_id or self.roster.keys()
-        return cast(List[str], ids)
-
-    @cached_property
     def roster(self) -> AnyDict:
         result = self._get_setting(f"{PACKAGE_NAME}.roster", {})
         return cast(AnyDict, result)
@@ -83,16 +75,12 @@ class Config:
     @cached_property
     @post_processing(validate)
     def settings(self) -> AnyDict:
-        if self.args.config is not None:
-            return load_yaml(self.args.config)
+        if self.config_path is not None:
+            return load_yaml(self.config_path)
         for path in DEFAULT_CONFIG_PATHS:
             if os.path.exists(path):
                 return load_yaml(path)
         return {}
-
-    @cached_property
-    def snapshot_path(self) -> Path:
-        return cast(Path, self.args.snapshot_path)
 
     def grains_for(self, minion_id: str) -> AnyDict:
         grains = {"id": minion_id}
@@ -103,11 +91,6 @@ class Config:
             grains, self._get_setting(f"{PACKAGE_NAME}.roster.{minion_id}.grains", {})
         )
         return grains
-
-    @cached_property
-    def log_level(self) -> int:
-        level = getattr(logging, self.args.log_level)
-        return cast(int, level)
 
     def _get_setting(self, path: str, default: Any, separator: str = ".") -> Any:
         try:
