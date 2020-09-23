@@ -3,3 +3,5 @@
 CHILD
 
 My name is {{ pillar["name"] }}
+
+Value from context: {{ foo }}

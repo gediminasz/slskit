@@ -15,7 +15,7 @@ def execute(command):
         "poetry run slskit --log-level INFO highstate",
         "poetry run slskit sls detached",
         "poetry run slskit pillars",
-        "poetry run slskit template tests/project/salt/template/child.txt tester",
+        "poetry run slskit template tests/project/salt/template/child.txt tester --context '{\"foo\": 1234}'",
     ),
 )
 def test_command_output_snapshot(command, snapshot):
