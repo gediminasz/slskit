@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a warning message when specified minion ids are not found in roster.
+
 ## 2020.9.0
 
 - Changed `refresh` command to run `fileserver.update` before `saltutil.sync_all`.

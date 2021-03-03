@@ -11,6 +11,7 @@ import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
 
+import slskit.lib.cli
 import slskit.lib.logging
 import slskit.pillar
 import slskit.state
@@ -41,23 +42,21 @@ from slskit.types import AnyDict, MinionDict
 def cli(ctx: click.Context, config_path: str, log_level: str) -> None:
     ctx.ensure_object(dict)
     ctx.obj["config"] = Config(config_path)
-
     log_level = getattr(logging, log_level)
     slskit.lib.logging.basic_config(level=log_level)
 
 
 @cli.command(help="render highstate for specified minions")
-@click.argument("minion_id", nargs=-1)
+@slskit.lib.cli.minion_id_argument()
 @click.pass_context
 def highstate(ctx: click.Context, minion_id: List[str]) -> None:
-    minion_ids = minion_id or ctx.obj["config"].roster.keys()
-    minion_dict = slskit.state.show_highstate(minion_ids, ctx.obj["config"])
+    minion_dict = slskit.state.show_highstate(minion_id, ctx.obj["config"])
     _output(minion_dict, ctx.obj["config"])
 
 
 @cli.command(help="render a given sls for specified minions")
 @click.argument("sls")
-@click.argument("minion_id", nargs=-1)
+@slskit.lib.cli.minion_id_argument()
 @click.pass_context
 def sls(ctx: click.Context, sls: str, minion_id: List[str]) -> None:
     minion_ids = minion_id or ctx.obj["config"].roster.keys()
@@ -66,7 +65,7 @@ def sls(ctx: click.Context, sls: str, minion_id: List[str]) -> None:
 
 
 @cli.command(help="render pillar items for specified minions")
-@click.argument("minion_id", nargs=-1)
+@slskit.lib.cli.minion_id_argument()
 @click.pass_context
 def pillars(ctx: click.Context, minion_id: List[str]) -> None:
     minion_ids = minion_id or ctx.obj["config"].roster.keys()
@@ -76,7 +75,7 @@ def pillars(ctx: click.Context, minion_id: List[str]) -> None:
 
 @cli.command(help="render a file template for specified minions")
 @click.argument("path")
-@click.argument("minion_id", nargs=-1)
+@slskit.lib.cli.minion_id_argument()
 @click.option(
     "--renderer", default="jinja", help="renderer to be used (default: jinja)",
 )
