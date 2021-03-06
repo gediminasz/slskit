@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Any, Dict
 
 AnyDict = Dict[str, Any]
-Decorator = Callable[Callable, Callable]
 
 
 @dataclass(frozen=True)

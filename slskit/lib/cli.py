@@ -1,16 +1,15 @@
 import logging
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable, TypeVar
 
 import click
 
-from slskit.types import Decorator
-
 log = logging.getLogger("slskit")
 
+F = TypeVar("F", bound=Callable[..., Any])
 
-def minion_id_argument() -> click.Argument:
-    def callback(ctx: click.Context, _: Any, value: Iterable[str]) -> Decorator:
-        print(ctx, _, value)
+
+def minion_id_argument() -> Callable[[F], F]:
+    def callback(ctx: click.Context, _: Any, value: Iterable[str]) -> Iterable[str]:
         value = value or ctx.obj["config"].roster.keys()
         unknown_ids = set(value) - set(ctx.obj["config"].roster.keys())
         if unknown_ids:
