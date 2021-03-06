@@ -77,7 +77,9 @@ def pillars(ctx: click.Context, minion_id: List[str]) -> None:
 @click.argument("path")
 @slskit.lib.cli.minion_id_argument()
 @click.option(
-    "--renderer", default="jinja", help="renderer to be used (default: jinja)",
+    "--renderer",
+    default="jinja",
+    help="renderer to be used (default: jinja)",
 )
 @click.option(
     "--context",
