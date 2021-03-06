@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2021.3.0
 
 - Added Python 3.8 and 3.9 support.
   - Currently supported versions are 3.7, 3.8 and 3.9.
