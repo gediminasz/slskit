@@ -2,8 +2,8 @@
 
 ## Unreleased
 
-- Added Python 3.8 support.
-  - Currently supported versions are 3.7 and 3.8.
+- Added Python 3.8 and 3.9 support.
+  - Currently supported versions are 3.7, 3.8 and 3.9.
 - Added Salt 3002 support.
   - Currently supported versions are 3001 and 3002.
 - Added a warning message when specified minion ids are not found in roster.
