@@ -13,9 +13,9 @@ classifiers = ["Topic :: Software Development :: Quality Assurance"]
 python = "3.7.* || 3.8.*"
 pyyaml = "^5.1"
 jsonschema = "^3.2.0"
-funcy = "^1.14"
+funcy = "^1.15"
 salt = "^3001"
-colorlog = "^4.1.0"
+colorlog = "^4.7.2"
 click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
