@@ -11,18 +11,18 @@ classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
 python = "3.7.* || 3.8.*"
-jsonschema = "^3.2.0"
-funcy = "^1.15"
-salt = "^3001"
-colorlog = "^4.7.2"
 click = "^7.1.2"
+colorlog = "^4.7.2"
+funcy = "^1.15"
+jsonschema = "^3.2.0"
+salt = "^3001"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.0"
+black = "^19.10b0"
 GitPython = "^3.0.5"
 mypy = "^0.761"
-black = "^19.10b0"
 prospector = "^1.2.0"
+pytest = "^5.0"
 pytest-snapshot = "^0.4.1"
 
 [tool.poetry.scripts]
