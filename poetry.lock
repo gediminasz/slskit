@@ -626,18 +626,18 @@ astroid = ">=1.4"
 
 [[package]]
 name = "salt"
-version = "3001.6"
+version = "3002.5"
 description = "Portable, distributed, remote execution and configuration management system"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-distro = "*"
+distro = ">=1.5"
 Jinja2 = "*"
 MarkupSafe = "*"
 msgpack = ">=0.5,<0.5.5 || >0.5.5"
-pycryptodomex = ">=3.9.7"
+pycryptodomex = ">=3.9.8"
 PyYAML = "*"
 pyzmq = ">=17.0.0"
 requests = ">=1.0.0"
@@ -703,14 +703,13 @@ python-versions = "*"
 
 [[package]]
 name = "urllib3"
-version = "1.26.3"
+version = "1.22"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+python-versions = "*"
 
 [package.extras]
-brotli = ["brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
@@ -736,8 +735,8 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.7.* || 3.8.*"
-content-hash = "bd61659cbd571270f09df7026eeb84816ea44b0ddc74b03bcf3f295245e7fa9e"
+python-versions = ">=3.7.0"
+content-hash = "cd93ea5fb55e410513794748681faa71a089a9c04bd7c28556908c9839438bce"
 
 [metadata.files]
 appdirs = [
@@ -1197,7 +1196,7 @@ requirements-detector = [
     {file = "requirements-detector-0.7.tar.gz", hash = "sha256:0d1e13e61ed243f9c3c86e6cbb19980bcb3a0e0619cde2ec1f3af70fdbee6f7b"},
 ]
 salt = [
-    {file = "salt-3001.6.tar.gz", hash = "sha256:13297c03cd16118451a540a9017c86e7b15a990cde5de77cad5ac5fa0a5a660c"},
+    {file = "salt-3002.5.tar.gz", hash = "sha256:c8ab404335104351066ec1bcc42278aa77e24aaacc308603939d75aba05519af"},
 ]
 setoptconf = [
     {file = "setoptconf-0.2.0.tar.gz", hash = "sha256:5b0b5d8e0077713f5d5152d4f63be6f048d9a1bb66be15d089a11c898c3cf49c"},
@@ -1256,8 +1255,8 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
 ]
 urllib3 = [
-    {file = "urllib3-1.26.3-py2.py3-none-any.whl", hash = "sha256:1b465e494e3e0d8939b50680403e3aedaa2bc434b7d5af64dfd3c958d7f5ae80"},
-    {file = "urllib3-1.26.3.tar.gz", hash = "sha256:de3eedaad74a2683334e282005cd8d7f22f4d55fa690a2a1020a416cb0a47e73"},
+    {file = "urllib3-1.22-py2.py3-none-any.whl", hash = "sha256:06330f386d6e4b195fbfc736b297f58c5a892e4440e54d294d7004e3a9bbea1b"},
+    {file = "urllib3-1.22.tar.gz", hash = "sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f"},
 ]
 wrapt = [
     {file = "wrapt-1.12.1.tar.gz", hash = "sha256:b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7"},
