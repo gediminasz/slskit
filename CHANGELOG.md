@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Python 3.8 support.
 - Added a warning message when specified minion ids are not found in roster.
 
 ## 2020.9.0
