@@ -25,6 +25,10 @@ Commands:
   template   render a file template for specified minions
 ```
 
+Supported Python versions: 3.7 and up.
+
+Supported Salt versions: 3001 and up.
+
 ---
 
 ## Workaround for libcrypto.dylib failing to load on macOS
