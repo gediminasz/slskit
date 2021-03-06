@@ -11,7 +11,6 @@ classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
 python = "3.7.* || 3.8.*"
-pyyaml = "^5.1"
 jsonschema = "^3.2.0"
 funcy = "^1.15"
 salt = "^3001"
