@@ -174,4 +174,4 @@ def _display_diff(a: str, b: str) -> None:
     sys.stdout.writelines(diff)
 
 
-cli()  # pylint:disable=no-value-for-parameter
+cli()

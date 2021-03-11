@@ -28,7 +28,7 @@ def compile_highstate(opts: AnyDict) -> Result:
     top_errors = highstate.verify_tops(top)
 
     matches = highstate.top_matches(top)
-    if not highstate._check_pillar():  # pylint:disable=protected-access
+    if not highstate._check_pillar():
         log_errors(
             f"Failed to render pillar for {opts['id']}:",
             highstate.opts["pillar"]["_errors"],

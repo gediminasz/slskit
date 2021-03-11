@@ -1,2 +1,2 @@
-def read_secret(path, key=None):
+def read_secret(_path, _key=None):
     return "SECRET"

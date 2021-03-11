@@ -5,10 +5,10 @@ import click
 
 log = logging.getLogger("slskit")
 
-F = TypeVar("F", bound=Callable[..., Any])
+Function = TypeVar("Function", bound=Callable[..., Any])
 
 
-def minion_id_argument() -> Callable[[F], F]:
+def minion_id_argument() -> Callable[[Function], Function]:
     def callback(ctx: click.Context, _: Any, value: Iterable[str]) -> Iterable[str]:
         value = value or ctx.obj["config"].roster.keys()
         unknown_ids = set(value) - set(ctx.obj["config"].roster.keys())

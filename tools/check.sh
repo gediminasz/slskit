@@ -3,6 +3,7 @@
 set -ex
 
 black --check .
+pylint slskit tests
 mypy --strict --allow-untyped-decorators
 
 slskit refresh
