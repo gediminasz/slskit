@@ -10,7 +10,7 @@ keywords = ["salt", "saltstack", "sls"]
 classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
-python = ">=3.7.0"
+python = "^3.7"
 click = "^7.1.2"
 colorlog = "^4.7.2"
 funcy = "^1.15"
