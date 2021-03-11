@@ -21,6 +21,7 @@ salt = ">=3001.0"
 black = "^20.8b1"
 GitPython = "^3.1.14"
 mypy = "^0.812"
+pylint = "^2.7.2"
 pytest = "^6.2.2"
 pytest-snapshot = "^0.5.0"
 
