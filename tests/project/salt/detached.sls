@@ -4,4 +4,4 @@ test.detached.basic:
 
 test.detached.pillar_access:
   test.show_notification:
-    - text: "My name is {{ pillar.name }}"
+    - text: "My name is {{ pillar.minion_name }}"

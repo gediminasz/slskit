@@ -2,6 +2,6 @@
 
 CHILD
 
-My name is {{ pillar["name"] }}
+My name is {{ pillar.minion_name }}
 
 Value from context: {{ foo }}

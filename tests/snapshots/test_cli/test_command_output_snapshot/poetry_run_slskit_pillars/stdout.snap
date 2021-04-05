@@ -1,15 +1,15 @@
 test-gitfs:
-  name: test-gitfs
+  minion_name: test-gitfs
   vault:
     secret: SECRET
 test-users:
-  name: test-users
+  minion_name: test-users
   users:
     auser:
       fullname: A User
   vault:
     secret: SECRET
 tester:
-  name: tester
+  minion_name: tester
   vault:
     secret: SECRET
