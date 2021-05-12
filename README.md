@@ -21,7 +21,6 @@ Commands:
   pillars    render pillar items for specified minions
   refresh    invoke saltutil.sync_all runner
   sls        render a given sls for specified minions
-  snapshot   create and check highstate snapshots
   template   render a file template for specified minions
 ```
 

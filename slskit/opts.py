@@ -12,7 +12,6 @@ from . import PACKAGE_NAME
 from .types import AnyDict
 
 DEFAULT_CONFIG_PATHS = (f"{PACKAGE_NAME}.yaml", f"{PACKAGE_NAME}.yml")
-DEFAULT_SNAPSHOT_PATH = "highstate.snap"
 
 SCHEMA: AnyDict = {
     "type": "object",

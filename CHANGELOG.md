@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Removed `snapshot create` and `snapshot check` commands. You can reproduce these commands like so:
+  - `slskit highstate > highstate.snap`
+  - `slskit highstate | diff highstate.snap -`
+
 ## 2021.3.0
 
 - Added Python 3.8 and 3.9 support.

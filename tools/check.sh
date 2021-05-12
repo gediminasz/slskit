@@ -7,6 +7,6 @@ pylint slskit tests
 mypy --strict --allow-untyped-decorators
 
 slskit refresh
-slskit snapshot check
+slskit highstate | diff highstate.snap -
 
 pytest
