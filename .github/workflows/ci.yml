@@ -20,4 +20,4 @@ jobs:
           poetry install
           poetry run pip install 'salt==${{ matrix.salt-version }}'
           poetry run salt --versions
-          poetry run ./tools/check.sh
+          make check
