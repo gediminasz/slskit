@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Salt 3003 support.
 - Removed `snapshot create` and `snapshot check` commands. You can reproduce these commands like so:
   - `slskit highstate > highstate.snap`
   - `slskit highstate | diff highstate.snap -`
