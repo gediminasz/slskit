@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2021.5.0
 
 - Added Salt 3003 support.
 - Removed `snapshot create` and `snapshot check` commands. You can reproduce these commands like so:
