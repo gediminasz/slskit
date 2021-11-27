@@ -109,7 +109,6 @@ slskit:
         <<: *fedora
 ```
 
-
 ## How to reduce output verbosity
 
 Use Salt's [`output` configuration option](https://docs.saltstack.com/en/latest/ref/configuration/master.html#output), e.g.:
@@ -123,3 +122,10 @@ salt:
 slskit:
   ...
 ```
+
+---
+
+
+## External links
+
+- https://saltproject.io/salt-platform-support/
