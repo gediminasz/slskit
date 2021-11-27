@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Python 3.10 support
+
 ## 2021.5.0
 
 - Added Salt 3003 support.
