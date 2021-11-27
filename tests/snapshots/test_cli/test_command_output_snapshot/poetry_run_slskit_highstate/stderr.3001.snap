@@ -1,0 +1,4 @@
+/home/gz/dev/personal/slskit/.venv/lib/python3.9/site-packages/salt/utils/jinja.py:716: DeprecationWarning: 'contextfunction' is renamed to 'pass_context', the old name will be removed in Jinja 3.1.
+  def show_full_context(ctx):
+/home/gz/dev/personal/slskit/.venv/lib/python3.9/site-packages/salt/utils/jinja.py:944: DeprecationWarning: 'jinja2.Markup' is deprecated and will be removed in Jinja 3.1. Import 'markupsafe.Markup' instead.
+  return Markup(json_txt)

@@ -1,6 +1,9 @@
 import subprocess
 
 import pytest
+import salt.version
+
+SALT_VERSION = salt.version.__version_info__[0]
 
 
 @pytest.mark.parametrize(
@@ -19,5 +22,10 @@ import pytest
 )
 def test_command_output_snapshot(command, snapshot):
     process = subprocess.run(command, shell=True, check=True, capture_output=True)
+
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-    snapshot.assert_match(process.stderr.decode(), "stderr.snap")
+
+    if SALT_VERSION == 3001:
+        snapshot.assert_match(process.stderr.decode(), "stderr.3001.snap")
+    else:
+        snapshot.assert_match(process.stderr.decode(), "stderr.snap")
