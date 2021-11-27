@@ -20,4 +20,3 @@ import pytest
 def test_command_output_snapshot(command, snapshot):
     process = subprocess.run(command, shell=True, check=True, capture_output=True)
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-    snapshot.assert_match(process.stderr.decode(), "stderr.snap")
