@@ -9,6 +9,7 @@ jobs:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
         salt-version: ['3001.*', '3002.*', '3003.*']
+      fail-fast: false
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
