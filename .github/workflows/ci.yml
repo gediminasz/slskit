@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
-        salt-version: ['3001.*', '3002.*', '3003.*']
+        python-version: ["3.7", "3.8", "3.9"]
+        salt-version: ["3001.*", "3002.*", "3003.*", "3004.*"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v1
@@ -19,6 +19,6 @@ jobs:
         run: |
           pip install poetry
           poetry install
-          poetry run pip install 'salt==${{ matrix.salt-version }}'
+          poetry run pip install --upgrade 'salt==${{ matrix.salt-version }}'
           poetry run salt --versions
           make check
