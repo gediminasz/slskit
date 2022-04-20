@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Python 3.10 support
+- Added Salt 3004 support.
 
 ## 2021.5.0
 
