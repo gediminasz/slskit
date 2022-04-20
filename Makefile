@@ -10,3 +10,10 @@ check:
 
 snapshot:
 	poetry run slskit highstate > highstate.snap
+
+update:
+	poetry add "salt>=3001.0"
+	poetry add click@latest colorlog@latest funcy@latest jsonschema@latest
+	poetry add --dev black@latest GitPython@latest mypy@latest pylint@latest pytest@latest pytest-snapshot@latest types-PyYAML@latest
+	rm -v poetry.lock
+	poetry install

@@ -3,7 +3,7 @@ from typing import Any, Iterable
 
 import colorlog
 
-LEVEL_CHOICES = logging._nameToLevel.keys()
+LEVEL_CHOICES = tuple(logging._nameToLevel.keys())
 
 
 def basic_config(**kwargs: Any) -> None:
