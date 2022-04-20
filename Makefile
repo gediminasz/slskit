@@ -13,6 +13,7 @@ snapshot:
 
 update:
 	poetry add "salt>=3001.0"
+	poetry add "jinja2<3.1"  # TODO remove when this fix is released https://github.com/saltstack/salt/issues/61848
 	poetry add click@latest colorlog@latest funcy@latest jsonschema@latest
 	poetry add --dev black@latest GitPython@latest mypy@latest pylint@latest pytest@latest pytest-snapshot@latest types-PyYAML@latest
 	rm -v poetry.lock
