@@ -1,9 +1,7 @@
-import difflib
 import json
 import logging
 import sys
-from pathlib import Path
-from typing import List, Optional, cast
+from typing import List
 from unittest.mock import patch
 
 import click
