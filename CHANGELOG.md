@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2022.4.0
 
 - Added Salt 3004 support.
 
