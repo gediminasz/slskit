@@ -11,8 +11,8 @@ jobs:
         salt-version: ["3004.*", "3005.*"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout
+      - uses: actions/setup-python
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run checks
