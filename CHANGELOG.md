@@ -2,7 +2,8 @@
 
 ## Unreleased
 
-- Remove Salt 3001, 3002 and 3003 support
+- Removed Salt 3001, 3002 and 3003 support
+- Removed Python 3.7 support
 
 ## 2022.4.0
 
