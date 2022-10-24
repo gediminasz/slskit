@@ -129,3 +129,4 @@ slskit:
 ## External links
 
 - https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-version-support-lifecycle.html
+- https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-python-version-support.html
