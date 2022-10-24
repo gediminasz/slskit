@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added Salt 3005 support
+- Added Python 3.10 support
 - Removed Salt 3001, 3002 and 3003 support
 - Removed Python 3.7 support
 
