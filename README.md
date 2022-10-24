@@ -25,7 +25,7 @@ Commands:
 ```
 
 - Supported Python versions: 3.7, 3.8, 3.9
-- Supported Salt versions: 3001, 3002, 3003, 3004
+- Supported Salt versions: 3004
 
 ---
 
@@ -128,4 +128,4 @@ slskit:
 
 ## External links
 
-- https://saltproject.io/salt-platform-support/
+- https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-version-support-lifecycle.html

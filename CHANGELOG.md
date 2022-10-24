@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Remove Salt 3001, 3002 and 3003 support
+
 ## 2022.4.0
 
 - Added Salt 3004 support.
