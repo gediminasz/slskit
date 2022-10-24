@@ -14,7 +14,7 @@ snapshot:
 update:
 	poetry add "salt>=3004.0"
 	poetry add click@latest colorlog@latest funcy@latest jsonschema@latest
-	poetry add --dev black@latest GitPython@latest mypy@latest pylint@latest pytest@latest pytest-snapshot@latest types-PyYAML@latest
+	poetry add --group=dev black@latest GitPython@latest mypy@latest pylint@latest pytest@latest pytest-snapshot@latest types-PyYAML@latest
 	poetry lock
 
 publish:
