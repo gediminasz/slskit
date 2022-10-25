@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2022.10.0
 
 - Added Salt 3005 support
 - Added Python 3.10 support
