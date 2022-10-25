@@ -1,0 +1,13 @@
+tester:
+- 'Rendering SLS ''base:errors.undefined_variable'' failed: Jinja variable ''undefined_variable''
+  is undefined; line 3
+
+
+  ---
+
+  # should generate "variable is undefined" error
+
+
+  {{ undefined_variable }}    <======================
+
+  ---'

@@ -16,15 +16,35 @@ import pytest
             "poetry run slskit template tests/project/salt/template/child.txt "
             "tester --context '{\"foo\": 1234}'"
         ),
-        "poetry run slskit sls errors.missing_colon tester",
     ),
 )
-def test_command_output_snapshot(command, snapshot):
+def test_successful_command_output_snapshot(command, snapshot):
+    process = subprocess.run(
+        command,
+        shell=True,
+        check=True,
+        capture_output=True,
+        env=dict(os.environ, PYTHONWARNINGS="ignore"),
+    )
+    assert process.returncode == 0
+    snapshot.assert_match(process.stdout.decode(), "stdout.snap")
+    # snapshot.assert_match(process.stderr.decode(), "stderr.snap")
+
+
+@pytest.mark.parametrize(
+    "command",
+    (
+        "poetry run slskit sls errors.missing_colon tester",
+        "poetry run slskit sls errors.undefined_variable tester",
+    ),
+)
+def test_failed_command_output_snapshot(command, snapshot):
     process = subprocess.run(
         command,
         shell=True,
         capture_output=True,
         env=dict(os.environ, PYTHONWARNINGS="ignore"),
     )
+    assert process.returncode == 1
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-    snapshot.assert_match(process.stderr.decode(), "stderr.snap")
+    # snapshot.assert_match(process.stderr.decode(), "stderr.snap")
