@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 import pytest
@@ -15,8 +16,15 @@ import pytest
             "poetry run slskit template tests/project/salt/template/child.txt "
             "tester --context '{\"foo\": 1234}'"
         ),
+        "poetry run slskit sls errors.missing_colon tester",
     ),
 )
 def test_command_output_snapshot(command, snapshot):
-    process = subprocess.run(command, shell=True, check=True, capture_output=True)
+    process = subprocess.run(
+        command,
+        shell=True,
+        capture_output=True,
+        env=dict(os.environ, PYTHONWARNINGS="ignore"),
+    )
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
+    snapshot.assert_match(process.stderr.decode(), "stderr.snap")

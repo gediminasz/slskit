@@ -1,0 +1,3 @@
+tester:
+- SLS errors.missing_colon does not render to a dictionary
+- 'Error when rendering state with contents: vim pkg.installed'
