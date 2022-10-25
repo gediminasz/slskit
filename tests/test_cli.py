@@ -19,16 +19,21 @@ import pytest
     ),
 )
 def test_successful_command_output_snapshot(command, snapshot):
+    process = subprocess.run(command, shell=True, check=True, capture_output=True)
+    assert process.returncode == 0
+    snapshot.assert_match(process.stdout.decode(), "stdout.snap")
+
+
+def test_stderr_output_snapshot(snapshot):
     process = subprocess.run(
-        command,
+        "poetry run slskit --log-level INFO highstate",
         shell=True,
         check=True,
         capture_output=True,
         env=dict(os.environ, PYTHONWARNINGS="ignore"),
     )
     assert process.returncode == 0
-    snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-    # snapshot.assert_match(process.stderr.decode(), "stderr.snap")
+    snapshot.assert_match(process.stderr.decode(), "stderr.snap")
 
 
 @pytest.mark.parametrize(
@@ -39,12 +44,6 @@ def test_successful_command_output_snapshot(command, snapshot):
     ),
 )
 def test_failed_command_output_snapshot(command, snapshot):
-    process = subprocess.run(
-        command,
-        shell=True,
-        capture_output=True,
-        env=dict(os.environ, PYTHONWARNINGS="ignore"),
-    )
+    process = subprocess.run(command, shell=True, capture_output=True)
     assert process.returncode == 1
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-    # snapshot.assert_match(process.stderr.decode(), "stderr.snap")
