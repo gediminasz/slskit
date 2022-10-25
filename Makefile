@@ -19,4 +19,5 @@ update:
 	poetry lock
 
 publish:
+	rm -rfv ./dist
 	poetry publish -v --build
