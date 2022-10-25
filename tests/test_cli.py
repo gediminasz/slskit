@@ -2,6 +2,13 @@ import os
 import subprocess
 
 import pytest
+import salt.version
+
+SALT_VERSION = salt.version.__version_info__[0]
+
+skip_3004 = pytest.mark.skipif(
+    SALT_VERSION == 3004, reason="requires Salt 3005 or higher"
+)
 
 
 @pytest.mark.parametrize(
@@ -40,7 +47,10 @@ def test_stderr_output_snapshot(snapshot):
     "command",
     (
         "poetry run slskit sls errors.missing_colon tester",
-        "poetry run slskit sls errors.undefined_variable tester",
+        pytest.param(
+            "poetry run slskit sls errors.undefined_variable tester",
+            marks=[skip_3004],
+        ),
     ),
 )
 def test_failed_command_output_snapshot(command, snapshot):
