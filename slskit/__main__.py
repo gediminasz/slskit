@@ -5,6 +5,7 @@ from typing import List
 from unittest.mock import patch
 
 import click
+import colorlog
 import salt.output
 import salt.runners.saltutil
 import salt.utils.yaml
@@ -41,7 +42,7 @@ def cli(ctx: click.Context, config_path: str, log_level: str) -> None:
     ctx.ensure_object(dict)
     ctx.obj["config"] = Config(config_path)
     log_level = getattr(logging, log_level)
-    slskit.lib.logging.basic_config(level=log_level)
+    colorlog.basicConfig(level=log_level, force=True)
 
 
 @cli.command(help="render highstate for specified minions")

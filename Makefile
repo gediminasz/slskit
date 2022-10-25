@@ -1,8 +1,11 @@
-check:
+check: lint test
+
+lint:
 	poetry run black --check .
 	poetry run pylint slskit tests
 	poetry run mypy --strict --allow-untyped-decorators
 
+test:
 	poetry run slskit refresh
 	poetry run slskit highstate | diff highstate.snap -
 
