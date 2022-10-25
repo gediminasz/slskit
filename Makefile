@@ -9,6 +9,7 @@ check:
 	poetry run pytest
 
 snapshot:
+	poetry run pytest --snapshot-update
 	poetry run slskit highstate > highstate.snap
 
 update:
