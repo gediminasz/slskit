@@ -1,12 +1,13 @@
 import os
 from dataclasses import dataclass
+from functools import cached_property
 from typing import Any, Optional, cast
 
 import jsonschema
 import salt.config
 import salt.utils
 import yaml
-from funcy import cached_property, get_in, post_processing
+from funcy import get_in, post_processing
 
 from . import PACKAGE_NAME
 from .types import AnyDict
