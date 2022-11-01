@@ -39,7 +39,7 @@ from slskit.types import AnyDict, MinionDict
 )
 @click.option(
     "--salt-output",
-    help="Alternative Salt outputter, e.g. highstate, json, yaml, etc.",
+    help="Alternative Salt outputter, e.g. nested, json, yaml, etc.",
 )
 @click.pass_context
 def cli(ctx: click.Context, config_path: str, log_level: str, salt_output: str) -> None:
