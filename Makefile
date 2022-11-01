@@ -8,7 +8,6 @@ lint:
 test:
 	poetry run slskit refresh
 	poetry run slskit highstate | diff highstate.snap -
-
 	poetry run pytest
 
 snapshot:
