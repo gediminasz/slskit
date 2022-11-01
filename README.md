@@ -8,7 +8,7 @@ Options:
   -c, --config TEXT               path to slskit configuration file (default:
                                   slskit.yaml or slskit.yml)
   -l, --log-level [CRITICAL|FATAL|ERROR|WARN|WARNING|INFO|DEBUG|NOTSET|VERBOSE|QUIET|PROFILE|TRACE|GARBAGE]
-  --salt-output TEXT              Alternative Salt outputter, e.g. highstate,
+  --salt-output TEXT              Alternative Salt outputter, e.g. nested,
                                   json, yaml, etc.
   --help                          Show this message and exit.
 
