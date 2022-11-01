@@ -49,6 +49,7 @@ def validate(instance: AnyDict, schema: Optional[AnyDict] = None) -> AnyDict:
 @dataclass
 class Config:
     config_path: str
+    dynamic_overrides: AnyDict
 
     @cached_property
     def opts(self) -> AnyDict:
@@ -64,6 +65,7 @@ class Config:
             overrides["__fs_update"] = True
 
         overrides.update(self.settings.get("salt", {}))
+        overrides.update(self.dynamic_overrides)
         opts = salt.config.apply_minion_config(overrides)
         return cast(AnyDict, opts)
 

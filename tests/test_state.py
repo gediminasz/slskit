@@ -7,7 +7,7 @@ from slskit.state import compile_highstate
 
 @pytest.fixture
 def config():
-    return Config(config_path="slskit.yaml")
+    return Config(config_path="slskit.yaml", dynamic_overrides={})
 
 
 def test_compile_highstate_is_equivalent_to_original_implementation(config):

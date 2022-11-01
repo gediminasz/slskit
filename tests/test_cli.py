@@ -20,7 +20,7 @@ skip_3004 = pytest.mark.skipif(
         "poetry run slskit sls detached",
         "poetry run slskit pillars",
         (
-            "poetry run slskit template tests/project/salt/template/child.txt "
+            "poetry run slskit --salt-output nested template tests/project/salt/template/child.txt "
             "tester --context '{\"foo\": 1234}'"
         ),
     ),

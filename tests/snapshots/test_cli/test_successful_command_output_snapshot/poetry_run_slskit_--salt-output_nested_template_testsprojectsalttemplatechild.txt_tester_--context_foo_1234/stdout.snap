@@ -1,0 +1,8 @@
+tester:
+    BASE
+    
+    CHILD
+    
+    My name is tester
+    
+    Value from context: 1234

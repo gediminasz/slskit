@@ -37,10 +37,19 @@ from slskit.types import AnyDict, MinionDict
     default="WARNING",
     type=click.Choice(slskit.lib.logging.LEVEL_CHOICES),
 )
+@click.option(
+    "--salt-output",
+    help="Alternative Salt outputter, e.g. highstate, json, yaml, etc.",
+)
 @click.pass_context
-def cli(ctx: click.Context, config_path: str, log_level: str) -> None:
+def cli(ctx: click.Context, config_path: str, log_level: str, salt_output: str) -> None:
+    dynamic_overrides = {}
+    if salt_output:
+        dynamic_overrides["output"] = salt_output
+
     ctx.ensure_object(dict)
-    ctx.obj["config"] = Config(config_path)
+    ctx.obj["config"] = Config(config_path, dynamic_overrides)
+
     log_level = getattr(logging, log_level)
     colorlog.basicConfig(level=log_level, force=True)
 

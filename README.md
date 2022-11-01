@@ -7,8 +7,9 @@ Options:
   --version                       Show the version and exit.
   -c, --config TEXT               path to slskit configuration file (default:
                                   slskit.yaml or slskit.yml)
-
-  -l, --log-level [CRITICAL|FATAL|ERROR|WARN|WARNING|INFO|DEBUG|NOTSET|QUIET|PROFILE|TRACE|GARBAGE]
+  -l, --log-level [CRITICAL|FATAL|ERROR|WARN|WARNING|INFO|DEBUG|NOTSET|VERBOSE|QUIET|PROFILE|TRACE|GARBAGE]
+  --salt-output TEXT              Alternative Salt outputter, e.g. highstate,
+                                  json, yaml, etc.
   --help                          Show this message and exit.
 
 Commands:
