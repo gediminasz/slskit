@@ -21,4 +21,4 @@ jobs:
           poetry install
           poetry run pip install --upgrade 'salt==${{ matrix.salt-version }}'
           poetry run salt --versions
-          make check
+          make all

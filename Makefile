@@ -1,4 +1,4 @@
-check: lint test
+all: lint test
 
 lint:
 	poetry run black --check .
