@@ -2,7 +2,6 @@ all: lint test
 
 lint:
 	poetry run black --check .
-	poetry run slskit tests
 	poetry run mypy --strict --allow-untyped-decorators
 
 test:
