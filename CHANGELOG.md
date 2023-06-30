@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added `--salt-output` parameter.
+- Added Salt 3006 support.
 
 ## 2022.10.0
 
