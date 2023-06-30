@@ -54,6 +54,6 @@ def test_stderr_output_snapshot(snapshot):
     ),
 )
 def test_failed_command_output_snapshot(command, snapshot):
-    process = subprocess.run(command, shell=True, capture_output=True)
+    process = subprocess.run(command, shell=True, check=False, capture_output=True)
     assert process.returncode == 1
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
