@@ -20,7 +20,7 @@ jobs:
           pip install --upgrade pip poetry
           pip --version
           poetry --version
+          poetry add 'salt==${{ matrix.salt-version }}'
           poetry install
-          poetry run pip install --upgrade 'salt==${{ matrix.salt-version }}'
           poetry run salt --versions
           make all
