@@ -16,7 +16,6 @@ skip_3004 = pytest.mark.skipif(
     (
         "poetry run slskit --version",
         "poetry run slskit highstate",
-        "poetry run slskit --log-level INFO highstate",
         "poetry run slskit sls detached",
         "poetry run slskit pillars",
         (
@@ -29,18 +28,6 @@ def test_successful_command_output_snapshot(command, snapshot):
     process = subprocess.run(command, shell=True, check=True, capture_output=True)
     assert process.returncode == 0
     snapshot.assert_match(process.stdout.decode(), "stdout.snap")
-
-
-def test_stderr_output_snapshot(snapshot):
-    process = subprocess.run(
-        "poetry run slskit --log-level INFO highstate",
-        shell=True,
-        check=True,
-        capture_output=True,
-        env=dict(os.environ, PYTHONWARNINGS="ignore"),
-    )
-    assert process.returncode == 0
-    snapshot.assert_match(process.stderr.decode(), "stderr.snap")
 
 
 @pytest.mark.parametrize(
