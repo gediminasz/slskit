@@ -20,7 +20,7 @@ Commands:
   template   render a file template for specified minions
 ```
 
-- Supported Python versions: 3.8, 3.9, 3.10
+- Supported Python versions: 3.8, 3.9, 3.10, 3.11
 - Supported Salt versions: 3005, 3006
 
 ---
