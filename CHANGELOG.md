@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2023.7.0
 
 - Added `--salt-output` parameter.
 - Added Salt 3006 support.

@@ -1,6 +1,6 @@
 import runpy
 
-__version__ = VERSION = "2022.10.0"
+__version__ = VERSION = "2023.7.0"
 
 PACKAGE_NAME = "slskit"
 
