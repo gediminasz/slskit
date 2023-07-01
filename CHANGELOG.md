@@ -4,6 +4,7 @@
 
 - Added `--salt-output` parameter.
 - Added Salt 3006 support.
+- Removed Salt 3004 support.
 
 ## 2022.10.0
 

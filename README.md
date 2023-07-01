@@ -21,7 +21,7 @@ Commands:
 ```
 
 - Supported Python versions: 3.8, 3.9, 3.10
-- Supported Salt versions: 3004, 3005, 3006
+- Supported Salt versions: 3005, 3006
 
 ---
 
