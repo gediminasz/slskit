@@ -18,12 +18,12 @@ jsonschema = "^4.21.1"
 salt = ">=3005.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.2.0"
-gitpython = "^3.1.41"
-mypy = "^1.8.0"
-pytest = "^8.0.0"
+black = "^24.4.0"
+gitpython = "^3.1.43"
+mypy = "^1.9.0"
+pytest = "^8.1.1"
 pytest-snapshot = "^0.9.0"
-types-pyyaml = "^6.0.12.12"
+types-pyyaml = "^6.0.12.20240311"
 
 [tool.poetry.scripts]
 slskit = 'slskit:run_module'
