@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Removed Salt 3005 support.
+
 ## 2023.7.0
 
 - Added `--salt-output` parameter.

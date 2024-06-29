@@ -15,7 +15,7 @@ click = "^8.1.7"
 colorlog = "^6.8.2"
 funcy = "^2.0"
 jsonschema = "^4.22.0"
-salt = ">=3005.0"
+salt = ">=3006.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
