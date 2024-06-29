@@ -1,5 +1,8 @@
 all: lint test
 
+install:
+	poetry install
+
 lint:
 	poetry run black --check .
 	poetry run mypy --strict --allow-untyped-decorators
