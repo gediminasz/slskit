@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Python 3.12 support.
 - Removed Salt 3005 support.
 
 ## 2023.7.0
