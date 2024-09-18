@@ -20,8 +20,14 @@ Commands:
   template   render a file template for specified minions
 ```
 
-- Supported Python versions: 3.8, 3.9, 3.10, 3.11
-- Supported Salt versions: 3005, 3006
+- Supported Python versions: 3.8, 3.9, 3.10, 3.11, 3.12
+- Supported Salt versions: 3006, 3007
+
+Known issues:
+
+* Salt 3006 & Python 3.12 is broken
+* Python 3.12.6 and up is broken, see https://github.com/saltstack/salt/issues/66898
+* YAML output is broken, see https://github.com/saltstack/salt/issues/66594
 
 ---
 
@@ -120,7 +126,6 @@ slskit:
 ```
 
 ---
-
 
 ## External links
 
