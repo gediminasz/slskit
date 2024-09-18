@@ -4,7 +4,7 @@ import subprocess
 import pytest
 import salt.version
 
-SALT_VERSION = salt.version.__version_info__[0]
+SALT_VERSION = salt.version.__saltstack_version__.major
 
 
 @pytest.mark.parametrize(
@@ -23,7 +23,7 @@ SALT_VERSION = salt.version.__version_info__[0]
 def test_successful_command_output_snapshot(command, snapshot):
     process = subprocess.run(command, shell=True, check=True, capture_output=True)
     assert process.returncode == 0
-    snapshot.assert_match(process.stdout.decode(), "stdout.snap")
+    snapshot.assert_match(process.stdout.decode(), f"stdout.{SALT_VERSION}.snap")
 
 
 @pytest.mark.parametrize(
