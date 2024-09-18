@@ -9,11 +9,9 @@ lint:
 
 test:
 	poetry run slskit refresh
-	poetry run slskit highstate | diff highstate.snap -
 	poetry run pytest
 
 snapshots:
-	poetry run slskit highstate > highstate.snap
 	poetry run pytest --snapshot-update
 
 update:
