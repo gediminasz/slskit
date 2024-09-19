@@ -31,7 +31,15 @@ Known issues:
 
 ---
 
-## Workaround for libcrypto.dylib failing to load on macOS
+## Workaround for OpenSSL issues on macOS
+
+If `slskit` is failing with an error like this: `OSError: Cannot locate OpenSSL libcrypto`, try setting the following environment variable:
+
+```sh
+export HOMEBREW_PREFIX=/usr/local
+```
+
+Below is an old hackaround:
 
 If `slskit` fails with `zsh: abort` or `Abort trap: 6`, inspect the error by running the command with `PYTHONDEVMODE=1`. If the issue is with `_load_libcrypto` call in `rsax931.py`, edit `salt/utils/rsax931.py` line 38:
 
