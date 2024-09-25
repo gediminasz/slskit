@@ -1,0 +1,45 @@
+test-gitfs:
+  test.detached.basic:
+    test:
+    - text: This sls is not mentioned in the top file and so it is not part of highstate.
+    - show_notification
+    - order: 10000
+    __sls__: detached
+    __env__: base
+  test.detached.pillar_access:
+    test:
+    - text: My name is test-gitfs
+    - show_notification
+    - order: 10001
+    __sls__: detached
+    __env__: base
+test-users:
+  test.detached.basic:
+    test:
+    - text: This sls is not mentioned in the top file and so it is not part of highstate.
+    - show_notification
+    - order: 10000
+    __sls__: detached
+    __env__: base
+  test.detached.pillar_access:
+    test:
+    - text: My name is test-users
+    - show_notification
+    - order: 10001
+    __sls__: detached
+    __env__: base
+tester:
+  test.detached.basic:
+    test:
+    - text: This sls is not mentioned in the top file and so it is not part of highstate.
+    - show_notification
+    - order: 10000
+    __sls__: detached
+    __env__: base
+  test.detached.pillar_access:
+    test:
+    - text: My name is tester
+    - show_notification
+    - order: 10001
+    __sls__: detached
+    __env__: base

@@ -4,14 +4,14 @@ salt:
     - gitfs
   file_roots:
     base:
-      - tests/project/salt
-      - tests/project/mock
+      - ${PWD}/tests/project/salt
+      - ${PWD}/tests/project/mock
   gitfs_remotes:
     - https://github.com/saltstack-formulas/ufw-formula.git
     - https://github.com/saltstack-formulas/users-formula.git
   pillar_roots:
     base:
-      - tests/project/pillar
+      - ${PWD}/tests/project/pillar
   output: yaml
 
 slskit:

@@ -7,8 +7,11 @@ from unittest.mock import patch
 import click
 import colorlog
 import salt.output
+import salt.runners.fileserver
 import salt.runners.saltutil
 import salt.utils.yaml
+from salt.state import HashableOrderedDict
+from salt.utils.yamldumper import SafeOrderedDumper, represent_ordereddict
 
 import slskit.lib.cli
 import slskit.lib.logging
@@ -116,6 +119,10 @@ def refresh(ctx: click.Context) -> None:
 
 
 def _output(minion_dict: MinionDict, config: Config) -> None:
+    # workaround for broken yaml output, see https://github.com/saltstack/salt/issues/66594
+    if config.opts.get("output") == "yaml":
+        SafeOrderedDumper.add_representer(HashableOrderedDict, represent_ordereddict)
+
     salt.output.display_output(minion_dict.output, opts=config.opts)
     if not minion_dict.all_valid:
         sys.exit(1)

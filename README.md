@@ -20,12 +20,26 @@ Commands:
   template   render a file template for specified minions
 ```
 
-- Supported Python versions: 3.8, 3.9, 3.10, 3.11
-- Supported Salt versions: 3005, 3006
+- Supported Python versions: 3.8, 3.9, 3.10, 3.11, 3.12.5
+- Supported Salt versions: 3006, 3007
+
+Known issues:
+
+* Salt 3006 on Python 3.12 is broken
+* Python 3.12.6 and up is broken, see https://github.com/saltstack/salt/issues/66898
+* YAML output is broken, see https://github.com/saltstack/salt/issues/66594
 
 ---
 
-## Workaround for libcrypto.dylib failing to load on macOS
+## Workaround for OpenSSL issues on macOS
+
+If `slskit` is failing with an error like this: `OSError: Cannot locate OpenSSL libcrypto`, try setting the following environment variable:
+
+```sh
+export HOMEBREW_PREFIX=/usr/local
+```
+
+Below is an old hackaround:
 
 If `slskit` fails with `zsh: abort` or `Abort trap: 6`, inspect the error by running the command with `PYTHONDEVMODE=1`. If the issue is with `_load_libcrypto` call in `rsax931.py`, edit `salt/utils/rsax931.py` line 38:
 
@@ -120,7 +134,6 @@ slskit:
 ```
 
 ---
-
 
 ## External links
 

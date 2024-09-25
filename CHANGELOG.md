@@ -2,7 +2,9 @@
 
 ## Unreleased
 
+- Added `os.environ` [interpolation](https://docs.python.org/3/library/string.html#template-strings) for `slskit.yaml` config files, e.g. `${PWD}` can be used to reference files relative to working directory.
 - Added Python 3.12 support.
+- Added Salt 3007 support.
 - Removed Salt 3005 support.
 
 ## 2023.7.0

@@ -6,6 +6,9 @@ test-gitfs:
     - order: 10000
     __sls__: ufw.package.install
     __env__: base
+    __sls_included_from__:
+    - ufw.package
+    - ufw
   ufw-default-file-file-managed:
     file:
     - name: /etc/default/ufw
@@ -27,6 +30,9 @@ test-gitfs:
     - order: 10001
     __sls__: ufw.config.file
     __env__: base
+    __sls_included_from__:
+    - ufw.config
+    - ufw
   ufw-sysctl-file-file-managed:
     file:
     - name: /etc/ufw/sysctl.conf
@@ -48,6 +54,9 @@ test-gitfs:
     - order: 10002
     __sls__: ufw.config.file
     __env__: base
+    __sls_included_from__:
+    - ufw.config
+    - ufw
   /etc/ufw/applications.d:
     file:
     - user: root
@@ -59,6 +68,9 @@ test-gitfs:
     - order: 10003
     __sls__: ufw.config.file
     __env__: base
+    __sls_included_from__:
+    - ufw.config
+    - ufw
   ufw-service-dead-service-dead:
     service:
     - name: ufw
@@ -69,6 +81,9 @@ test-gitfs:
     - order: 10004
     __sls__: ufw.service.running
     __env__: base
+    __sls_included_from__:
+    - ufw.service
+    - ufw
 test-users:
   users_auser_user_prereq:
     file:

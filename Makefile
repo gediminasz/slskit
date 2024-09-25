@@ -9,12 +9,10 @@ lint:
 
 test:
 	poetry run slskit refresh
-	poetry run slskit highstate | diff highstate.snap -
 	poetry run pytest
 
-snapshot:
+snapshots:
 	poetry run pytest --snapshot-update
-	poetry run slskit highstate > highstate.snap
 
 update:
 	poetry add "salt>=3006.0"

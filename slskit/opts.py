@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from functools import cached_property
 from typing import Any, Optional, cast
+from string import Template
 
 import jsonschema
 import salt.config
@@ -103,5 +104,7 @@ class Config:
 
 def load_yaml(path: str) -> AnyDict:
     with open(path) as f:
-        result = yaml.safe_load(f)
+        content = f.read()
+        content = Template(content).substitute(os.environ)
+        result = yaml.safe_load(content)
         return cast(AnyDict, result)

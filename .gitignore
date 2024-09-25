@@ -10,4 +10,5 @@ __pycache__
 /pip-wheel-metadata
 /slskit.egg-info
 dist
+pyrightconfig.json
 tags
