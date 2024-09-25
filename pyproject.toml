@@ -11,10 +11,10 @@ classifiers = ["Topic :: Software Development :: Quality Assurance"]
 
 [tool.poetry.dependencies]
 python =">=3.8, <3.13"
-click = "^8.1.7"
-colorlog = "^6.8.2"
-funcy = "^2.0"
-jsonschema = "^4.22.0"
+click = "*"
+colorlog = "*"
+funcy = "*"
+jsonschema = "*"
 salt = ">=3006.0"
 
 [tool.poetry.group.dev.dependencies]
