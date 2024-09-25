@@ -4,6 +4,7 @@ install:
 	poetry install
 
 lint:
+	poetry check --lock
 	poetry run black --check .
 	poetry run mypy --strict --allow-untyped-decorators
 
