@@ -15,11 +15,6 @@ test:
 snapshots:
 	poetry run pytest --snapshot-update
 
-update:
-	poetry add "salt>=3006.0"
-	poetry add click@latest colorlog@latest funcy@latest jsonschema@latest
-	poetry lock
-
 publish:
 	rm -rfv ./dist
 	poetry publish -v --build
