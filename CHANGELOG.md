@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2024.9.0
 
 - Added `os.environ` [interpolation](https://docs.python.org/3/library/string.html#template-strings) for `slskit.yaml` config files, e.g. `${PWD}` can be used to reference files relative to working directory.
 - Added Python 3.12 support.
