@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Dropped support for all Python versions except 3.10 according to official Salt distribution: https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-python-version-support.html
+- Supported Python versions: 3.10
+- Supported Salt versions: 3006, 3007
+
 ## 2024.9.0
 
 - Added `os.environ` [interpolation](https://docs.python.org/3/library/string.html#template-strings) for `slskit.yaml` config files, e.g. `${PWD}` can be used to reference files relative to working directory.
