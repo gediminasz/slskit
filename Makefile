@@ -18,3 +18,6 @@ snapshots:
 publish:
 	rm -rfv ./dist
 	poetry publish -v --build
+
+lock:
+	poetry lock --regenerate
