@@ -2,9 +2,9 @@
 
 ## Unreleased
 
-- Dropped support for all Python versions except 3.10 according to official Salt distribution: https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-python-version-support.html
-- Supported Python versions: 3.10
-- Supported Salt versions: 3006, 3007
+- Removed Python 3.8 support.
+- Currently supported Python versions: 3.9.2, 3.10, 3.11, 3.12.5
+- Currently supported Salt versions: 3006, 3007
 
 ## 2024.9.0
 
