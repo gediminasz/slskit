@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2025.3.0
 
 - Removed Python 3.8 support.
 - Currently supported Python versions: 3.9.2, 3.10, 3.11, 3.12.5

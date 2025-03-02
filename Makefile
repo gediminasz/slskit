@@ -1,3 +1,5 @@
+export HOMEBREW_PREFIX=/usr/local
+
 all: lint test
 
 install:
