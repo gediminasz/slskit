@@ -26,7 +26,7 @@ Commands:
 Known issues:
 
 * Salt 3006 on Python 3.12 is broken
-* Python Python 3.9.0 and 3.9.1 are not supported by cryptography, see https://github.com/pyca/cryptography/pull/12045
+* Python 3.9.0 and 3.9.1 are not supported by cryptography, see https://github.com/pyca/cryptography/pull/12045
 * Python 3.12.6 and up is broken, see https://github.com/saltstack/salt/issues/66898
 * YAML output is broken, see https://github.com/saltstack/salt/issues/66594
 
