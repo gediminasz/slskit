@@ -8,10 +8,10 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12.5"]
-        salt-version: ["3006.*", "3007.*"]
+        salt-version: ["3006.9", "3007.1"]
         exclude:
           - python-version: "3.12.5"
-            salt-version: "3006.*"
+            salt-version: "3006.9"
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
