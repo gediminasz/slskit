@@ -1,5 +1,12 @@
 # slskit
 
+> [!WARNING]
+>
+> This package has been deprecated as Salt no longer provides full support for pip-based installation:
+>
+> > Users installing Salt via pip, git, or other methods will be running Salt in a way that Salt is not developed or tested against. [🔗](https://docs.saltproject.io/salt/install-guide/en/latest/topics/salt-python-version-support.html)
+
+
 ```
 Usage: slskit [OPTIONS] COMMAND [ARGS]...
 
